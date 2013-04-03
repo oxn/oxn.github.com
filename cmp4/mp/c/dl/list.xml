@@ -1,0 +1,18 @@
+<list>
+  <m list_src="http://xox.hp2.jp/dl/youku.php" label="优酷代理" color="#009900, #FF0000"/> 
+  <m list_src="http://xox.hp2.jp/dl/cctvhf.php" label="CCTV回放" color="#009900, #FF0000"/> 
+  <m list_src="http://xox.hp2.jp/dl/fhdl.php" label="凤凰代理" color="#009900, #FF0000"/> 
+  <m list_src="http://xox.hp2.jp/dl/joy.php" label="joy一网打尽" color="#009900, #FF0000"/> 
+  <m list_src="http://xox.hp2.jp/dl/pptv1.php" label="PPTV官方电影" color="#009900, #FF0000"/> 
+  <m list_src="http://xox.hp2.jp/dl/tianyi.php" label="天翼代理" color="#009900, #FF0000"/>
+   <m list_src="http://xox.hp2.jp/dl/xlyy.php" label="新浪音乐代理" color="#009900, #FF0000"/>
+   <m list_src="http://xox.hp2.jp/dl/56xiu.php" label="56直播代理" color="#009900, #FF0000"/>
+   <m list_src="http://xox.hp2.jp/dl/ku6movie.php" label="ku6电影代理" color="#009900, #FF0000"/>
+   <m list_src="http://xox.hp2.jp/dl/ctv.php" label="CTV代理" color="#009900, #FF0000"/>
+   <m list_src="http://xox.hp2.jp/dl/levt.php" label="乐视代理" color="#009900, #FF0000"/>
+   <m list_src="http://xox.hp2.jp/dl/qqmtv.php" label="qqmtv代理" color="#009900, #FF0000"/>
+   <m list_src="http://xox.hp2.jp/dl/tudou.php" label="土豆代理" color="#009900, #FF0000"/>
+   <m list_src="http://xox.hp2.jp/dl/cntv.php" label="cntv代理" color="#009900, #FF0000"/>
+   <m list_src="http://xox.hp2.jp/dl/sinas.php" label="sina代理" color="#009900, #FF0000"/>
+   <m list_src="http://xox.hp2.jp/dl/yinyue.php" label="音乐台代理" color="#009900, #FF0000"/>
+</list>

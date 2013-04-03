@@ -1,0 +1,5 @@
+﻿<list>
+<m list_src="" label="请在地址栏后面加上参数和地址进行播放" color="#00ff00, #ff0000"/>
+<m list_src="" label="如果是列表在后面加上?list=列表地址" color="#00ff00, #ff0000"/>
+<m list_src="" label="如果是单文件在后面加上?src=列表地址" color="#00ff00, #ff0000"/>
+</list>

@@ -1,0 +1,38 @@
+﻿<cmp 
+	name = "兲語天空 CYCY.SF.NET"
+	link = "http://hi.baidu.com/52587/" 
+	link_target = "_blank"
+	description = "%3Cb%3E%3Cfont%20color%3D'%23ff0000'%3E单击播放、暂停，双击全屏 兲語QQ9020028%3C%2Ffont%3E%3C%2Fb%3E"
+	logo = "{src:tblogo.png,xywh:[10R,10R,0,0]}"
+     logo_alpha = "0.8" 
+
+	video_image= "bjlogo.png"
+
+	skins = ""
+	plugins = "tudou.swf,cy.swf,proxy.swf,youku.swf,encrypt.swf,{src:time03.swf,xywh:[67R,0,100,28]}"
+	backgrounds = ""
+	lists = ""
+
+     click_play = ""
+
+	myp3 = "http://z.qifuni.com/uploads/userup/"
+	qqmtv = "http://xox.hp2.jp/dl/qqmtv.php?vid="	
+	ykzj = "http://xox.hp2.jp/dl/youku.php?zj="
+	yktv = "http://xox.hp2.jp/dl/youku.php?tvid="
+     tid = "http://v2.tudou.com/v2/cdn?id="
+	
+	src_handler = "" 
+	lrc_handler = ""
+
+	skin_id = "1"
+
+	play_id = ""
+	auto_play = ""
+	list_delete = "1"
+	
+	sound_sample = "true"
+	mixer_displace = "true"
+	mixer_filter = "true"
+	
+	counter = "http://img.users.51.la/5757255.asp"
+/>

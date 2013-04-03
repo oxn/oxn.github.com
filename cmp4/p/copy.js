@@ -1,0 +1,4 @@
+﻿document.writeln("<div class=\"left\">&copy 2012 <a href=\"http://cycy.sourceforge.net/\" rel=\"home\"  target=\"_blank\">兲語天空</a> | 模板版权归 <a href=\"http://tuifei.sinaapp.com/\" target=\"_blank\">颓废</a> | <strong><span style=\"color: #ff00ff;\">Special thanks to</span><em><span style=\"color: #ff0000;\"><a title=\"想拥有这样的空间，那就申请吧。\" href=\"http://code.google.com/\" target=\"_blank\"><span style=\"color: #ff0000;\">code.google.com</span></a></span></em> <span style=\"color: #ff00ff;\">Free Host</span></strong> | ");var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F45ff5bfc0fd5b2e28e0bc92f5e57afe6' type='text/javascript'%3E%3C/script%3E"));
+document.writeln("</script></div>");
+document.writeln("");

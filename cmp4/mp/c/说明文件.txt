@@ -1,0 +1,57 @@
+﻿次本版为https中调用使用的版本
+
+<-该死的分割线->
+https://cmps.googlecode.com/svn/trunk/c/y.swf 这个是集成默认皮肤的
+https://cmps.googlecode.com/svn/trunk/c/cmp.swf 这个是集成默认皮肤的
+<-该死的分割线->
+
+<-该死的分割线->
+https://cmps.googlecode.com/svn/trunk/c/c.swf 这个事不集成默认皮肤的
+https://cmps.googlecode.com/svn/trunk/c/cmpn.swf 这个事不集成默认皮肤的
+<-该死的分割线->
+
+
+
+更多共享的主程序请关注http://hi.baidu.com/52587 兲語永远共享最好的
+
+QQ:9020028
+
+以下为配置文件
+<cmp 
+	name = "更多问题请关注CMP论坛"
+	link = "http://hi.baidu.com/52587/" 
+	description = "%3Cb%3E%3Cfont%20color%3D'%23ff0000'%3E单击播放、暂停，双击全屏 春雨QQ9020028%3C%2Ffont%3E%3C%2Fb%3E"
+	logo = "{src:https://cmps.googlecode.com/svn/trunk/c/tblogo.png,xywh:[10R,10R,0,0]}"
+     logo_alpha = "0.8"
+
+	video_image= "https://cmps.googlecode.com/svn/trunk/c/bjlogo.png"
+
+	announce_content = "%3CFONT%20size%3D'12'%3E①【%3Cb%3E%3Cfont%20color%3D'%23ff0000'%3E想拥有您自己的播放器吗？%3C%2Ffont%3E%3C%2Fb%3E】丨②【%3Cb%3E%3Cfont%20color%3D'%23ff0000'%3E本生成器可完全自定义%3C%2Ffont%3E%3C%2Fb%3E】丨③【%3Cb%3E%3Cfont%20color%3D'%23ff0000'%3E想拥有自己的播放器已经不是梦%3C%2Ffont%3E%3C%2Fb%3E】丨④【%3Cb%3E%3Cfont%20color%3D'%23ff0000'%3E如果觉得本站好，别忘了收藏哦%3C%2Ffont%3E%3C%2Fb%3E】丨⑤【%3Cb%3E%3Cfont%20color%3D'%23ff0000'%3E如果有问题请去我空间留言%3C%2Ffont%3E%3C%2Fb%3E】"
+	announce_xywh = "0,0,100P,20"
+	announce_speed = "2"	
+	encrypt_lists = ""
+
+	skins = "https://cmps.googlecode.com/svn/trunk/c/pf.swf"
+	plugins = "https://cmps.googlecode.com/svn/trunk/c/ads.swf,https://cmps.googlecode.com/svn/trunk/c/cy.swf,https://cmps.googlecode.com/svn/trunk/c/announce.swf,https://cmps.googlecode.com/svn/trunk/c/proxy.swf,https://cmps.googlecode.com/svn/trunk/c/youku.swf,https://cmps.googlecode.com/svn/trunk/c/encrypt.swf,{src:https://cmps.googlecode.com/svn/trunk/c/time03.swf,xywh:[67R,0,100,28]}"
+	backgrounds = ""
+	lists = ""
+
+     click_play = "1"
+	ads = "{src:https://cmps.googlecode.com/svn/trunk/c/bjlogo.png,link:http://hi.baidu.com/52587,link_target:_blank,width:390,height:430,duration:1,onstate:playing,target:video}"        
+
+	
+	src_handler = "" 
+	lrc_handler = ""
+
+	skin_id = "1"
+
+	play_id = ""
+	auto_play = "1"
+	list_delete = "1"
+	
+	sound_sample = "true"
+	mixer_displace = "true"
+	mixer_filter = "true"
+	
+	counter = "http://img.users.51.la/5727299.asp"
+/>

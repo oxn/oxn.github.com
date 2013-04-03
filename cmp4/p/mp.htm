@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><SCRIPT src="http.js?v=201202151318" type=text/javascript></SCRIPT><meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="bfcss/styles.css?v=20120130" type="text/css" rel="stylesheet" />
+<link rel="shortcut icon" href="favicon.ico" />
+<title>兲語天空 - CYCY.SF.NET</title></head><body>
+<div class="wrap">
+    <div class="menu">
+    	<ul><SCRIPT src="daohang.js?v=201202151318" type=text/javascript></SCRIPT></ul>
+    </div>
+
+<style type="text/css">
+html, body { height:100%; margin:0; padding:0; text-align:center; }
+</style>
+<div id="banner" align="center">
+
+
+<form Name="InputForm">
+<p align="center">
+<script language="JavaScript">
+var FirstForm;
+function StartSearch()
+{
+document.forms[FirstForm+document.InputForm.SearchSelect.
+selectedIndex].elements[0].value=document.InputForm.SearchWords.value;
+document.forms[FirstForm+document.InputForm.SearchSelect.
+selectedIndex].submit();
+}
+</script>
+<table style="border: 1px solid #BBBBBB;background-color:#FFFFFF;width:889px;text-align:center" align="center" border="0" cellpadding="0" cellspacing="0"><tr><td nowrap style="padding-bottom:6px;padding-top:6px">
+在这里输入要播放的地址
+<input id="input" name="SearchWords" type="text" value="输入要播放的文件或列表地址" size="113" style="WIDTH: 550" onblur="if (value ==''){value='输入文件地址或列表地址'}" onfocus="if (this.value == 'QQ9020028') this.value = '';" /> 
+<select Name="SearchSelect" size="1" style="background-color: #ffffff; color: #639ace"> 
+<option value="文件">文件</option>
+<option value="列表">列表</option>
+</select>
+<input class=but type="button" value="点击播放" onClick="StartSearch()"> 
+<script language="JavaScript"> 
+FirstForm=document.forms.length
+</script>
+</form>
+
+<form method="get" action="https://oxn.googlecode.com/svn/trunk/p/mp.html" ><!--新窗口 target="_blank"--!>
+<input type="hidden" name="src" value>
+</form>
+
+<form method="get" action="https://oxn.googlecode.com/svn/trunk/p/mp.html" ><!--新窗口 target="_blank"--!>
+<input type="hidden" name="lists" value>
+</form></td></tr></table>
+
+<div id='slideshow' ><div id='player' style='padding: 0px; width: 889px; height: 500px;text-align:center' ></div>     
+<script type="text/javascript" src="cmps.js?v=201202151318"></script> 
+<script type="text/javascript">
+var iframe=document.createElement("<iframe src='blank.html'>");
+var cmpo;
+function QueryString(){
+var name,value,i;
+var str=location.href;
+var num=str.indexOf("?")
+str=str.substr(num+1);
+var arrtmp=str.split("&");
+for(i=0;i < arrtmp.length;i++){
+num=arrtmp[i].indexOf("=");
+	if(num>0){
+		name=arrtmp[i].substring(0,num);
+		value=arrtmp[i].substr(num+1);
+		this[name]=value;
+	}
+}
+}
+
+function cmp_loaded(key) {
+	//cmp loaded
+	cmpo = CMP.get("cmp");
+	if (cmpo) {
+		//cmp callback
+		//alert(cmpo.config("version"));
+		document.title = cmpo.config("name");
+		cmpo.addEventListener("model_load", "cmp_model_load");
+	}
+}
+function cmp_model_load(data) {
+	document.title = cmpo.item("label");
+}
+var flashvars = {
+	api : "cmp_loaded"
+};
+//id, width, height, swf_url, flashvars, params, attrs
+var Request=new QueryString();
+code=Request["lists"];
+if (code===undefined) {code=""}
+var Request1=new QueryString();
+code1=Request1["src"];
+if (code1===undefined) {code1=""}
+var htm = CMP.create("cmp", "100%", "100%", "cmp.swf?stream=true&lists="+code+"&src="+code1+"&qq9020028.swf", flashvars);
+document.getElementById("player").innerHTML = htm;
+</script>
+				</div><div class="clear"></div></div>
+<div class="footer"><SCRIPT src="copy.js?v=201202151318" type=text/javascript></SCRIPT></div>
+</body>
+</html>

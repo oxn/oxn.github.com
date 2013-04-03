@@ -1,0 +1,61 @@
+/* CSS Document */
+
+body{font:normal 12px/20px Arial, Verdana, Lucida, Helvetica, simsun, sans-serif;color:#666;background:#fff url() repeat-x;CURSOR:url('mouse.ani')}
+*{padding:0px;margin:0px;}
+ul,li{list-style:none;}
+td, input, textarea, select, button {color:#333;font:12px Tahoma,Arial, sans-serif;line-height:16px;}
+input, textarea, select, button{vertical-align:middle;}
+img{border:0px;}
+em,i,b{font-style:normal;font-weight:normal;}
+a{font-size:12px;color:#666;text-decoration:none;}
+a:hover{color:#333;text-decoration:none;}
+.clear{clear:both;}
+.clearfix:after{content:".";visibility:hidden;display:block;clear:both;height:0;}
+.clearfix{display:inline-block;}
+* html .clearfix{height:1%;}
+.clearfix{display:block;}
+.wrap{ margin:0 auto; width:894px;}
+.head{width:100%; height:29px;margin-top:7px; line-height:29px;}
+.head a{margin-left:10px;}
+
+.header{ font: 9pt Tahoma, Verdana; color: #FFFFFF; font-weight: bold; background-color: #8CBDEF }
+a.logo{ display:block; margin:3px 0; clear:both; float:left;}
+.menu{ clear:both; padding-left:50px; height:34px; background:url(img/menu.gif) no-repeat;}
+.menu li { display: inline;  float: left; height: 34px;  margin: 0 0 0 3px; overflow: hidden;}
+.menu li a { color: #FFFFFF; float: left; height: 34px; overflow: hidden; padding: 0 0 0 5px;}
+.menu li a b {cursor: pointer;display: block;float: left;height: 35px;line-height: 35px;overflow: hidden;padding: 0 15px 0 8px;}
+.menu li a:hover, .menu li a.current { background: url(img/menuOna.gif) no-repeat scroll left top transparent; color: #555;line-height: 35px;text-decoration: none;}
+.menu li a:hover b, .menu li a.current b {background:url(img/menuOnb.gif) no-repeat scroll right  transparent; cursor: pointer;}
+.menu li a.current b{ font-weight:bold;}
+..mytool{ width:100%;}
+.mytool h4{ margin-bottom:5px; height:28px; width:890px; background:url(img/plug-Title.jpg) no-repeat; line-height:28px; font-size:14px;}
+.mytool img{ float:left; margin-right:8px;}
+.tooltop{	border: 1px solid #D4E9F7;margin-bottom:10px;text-align:left;}
+.toolstop{	border: 1px solid #D4E9F7;	margin-bottom:5px;}
+.toolsfont{padding:8px;font-size:15px;}
+.toolstop1{background-color:#ECF5FB;padding-left:5px;}
+.toolstop2{color:#0269AC; font-size:14px; height:30px; padding:0px 0 0 5px; line-height: 30px; font-weight:bolder; text-align:center;}
+.toolsIn{line-height:22px;	color:#333;	display:block;}
+.toolsTitle{color:#336699;	margin-left:28px}
+.toolstxt{ border:1px solid #c5e2f2; width:888px; height:300px; overflow:visible;}
+.toolsradio{width:16px;height:16px;}
+.toolst{margin-left:27px;}
+.toolst1{margin-left:22px;	margin-top:2px;}
+.mycontent{ margin-top:5px; width:100%; height:300px; padding-top:30px;  border-top:1px solid #e3e3e3; text-align:center;}
+.tableborder{table-layout: fixed;word-wrap:break-word;padding:1px; background: #CDE2F8; border: 1px solid #8CBDEF}
+.but {width: 80px;border: 1px solid #C5E2F2;background: #CDE4F2 url('img/button.png') repeat-x 50% top;height: 20px;margin-left: 5px;cursor: pointer;margin-bottom: 5px;}
+.box{ width:100%;height:500px;border: 1px solid #8CBDEF }
+.box th { font-weight:bold; border: 1px solid #8CBDEF; padding: 0px 5px; text-align:left; white-space:nowrap; }
+.box th.head { background: #F3F3F3; color: #000; padding:5px 5px; font-size:14px; background:#ccc; }
+.box th.head span { font-size:12px; color:#666; }
+.box thead th { background: #F3F3F3; color: #333; }
+.box tfoot th { background: #F2F9FD; color: #333; }
+.box td { border:thin solid #8CBDEF;  padding: 4px; }
+.box em { font-weight: 700; width: 50px; float: left; text-align: right; padding-right: 10px; }
+.box td.max em { width: 80px; }
+.box th { background-color: #ECF5FB; }
+.box th i { color: #bbb; }
+.box td i { color: #bbb; }
+.footer{ margin-top:5px; width:100%; height:40px; padding-top:15px; background:#f4f4f4; border-top:1px solid #e3e3e3; text-align:center;}
+.footer a{ margin-right:5px; text-decoration:underline; color:#515151;}
+.footer a:hover{ text-decoration:none;}

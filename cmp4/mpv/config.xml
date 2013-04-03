@@ -1,0 +1,44 @@
+﻿<cmp 
+	name = "兲語天空 CYCY.SF.NET"
+	link = "http://hi.baidu.com/52587/" 
+	link_target = "_blank"
+	description = "%3Cb%3E%3Cfont%20color%3D'%23ff0000'%3E单击播放、暂停，双击全屏 兲語QQ9020028%3C%2Ffont%3E%3C%2Fb%3E"
+	logo = "{src:img/tblogo.png,xywh:[10R,10R,0,0]}"
+     logo_alpha = "0.8"
+
+	video_image= "img/bjlogo.png"
+
+	announce_content = "%3CFONT%20size%3D'12'%3E①【%3Cb%3E%3Cfont%20color%3D'%23ff0000'%3E想拥有您自己的播放器吗？%3C%2Ffont%3E%3C%2Fb%3E】丨②【%3Cb%3E%3Cfont%20color%3D'%23ff0000'%3E本生成器可完全自定义%3C%2Ffont%3E%3C%2Fb%3E】丨③【%3Cb%3E%3Cfont%20color%3D'%23ff0000'%3E想拥有自己的播放器已经不是梦%3C%2Ffont%3E%3C%2Fb%3E】丨④【%3Cb%3E%3Cfont%20color%3D'%23ff0000'%3E如果觉得本站好，别忘了收藏哦%3C%2Ffont%3E%3C%2Fb%3E】丨⑤【%3Cb%3E%3Cfont%20color%3D'%23ff0000'%3E如果有问题请去我空间留言%3C%2Ffont%3E%3C%2Fb%3E】"
+	announce_xywh = "0,0,100P,20"
+	announce_speed = "2"	
+	encrypt_lists = ""
+
+	skins = "pf/mpv.swf,pf/tx.swf"
+	plugins = "cj/tudou.swf,cj/cy.swf,cj/announce.swf,cj/proxy.swf,cj/youku.swf,{src:cj/time03.swf,xywh:[67R,0,100,28]}"
+	backgrounds = ""
+	lists = ""
+
+     click_play = ""
+
+	myp3 = "http://z.qifuni.com/uploads/userup/"
+	qqmtv = "http://xox.hp2.jp/dl/qqmtv.php?vid="	
+	ykzj = "http://xox.hp2.jp/dl/youku.php?zj="
+	yktv = "http://xox.hp2.jp/dl/youku.php?tvid="	
+     tid = "http://v2.tudou.com/v2/cdn?id="	
+	src_handler = "" 
+	lrc_handler = ""
+
+	skin_id = "1"
+
+	play_id = ""
+	auto_play = "1"
+	list_delete = "1"
+	
+	sound_sample = "true"
+	mixer_displace = "true"
+	mixer_filter = "true"
+	
+	dbank = "http://xox.hp2.jp/dl/dbank.php/"
+
+	counter = "http://img.users.51.la/5757255.asp"
+/>

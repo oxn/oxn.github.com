@@ -1,0 +1,56 @@
+﻿<html>
+<head>
+<title>兲語天空</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+html, body { height:100%; margin:0; padding:0; overflow:hidden; text-align:center; background:#181818; }
+</style>
+</head>
+<body>
+<div style="margin:0 auto;padding:0;width:100%;height:100%;">
+<div id="player" style="width:100%;height:100%;"></div>
+<script type="text/javascript" src="https://oxn.googlecode.com/svn/trunk/bf/cmp.js"></script> 
+<script type="text/javascript">
+var cmpo;
+function QueryString(){
+var name,value,i;
+var str=location.href;
+var num=str.indexOf("?")
+str=str.substr(num+1);
+var arrtmp=str.split("&");
+for(i=0;i < arrtmp.length;i++){
+num=arrtmp[i].indexOf("=");
+	if(num>0){
+		name=arrtmp[i].substring(0,num);
+		value=arrtmp[i].substr(num+1);
+		this[name]=value;
+	}
+}
+}
+
+function cmp_loaded(key) {
+	//cmp loaded
+	cmpo = CMP.get("cmp");
+	if (cmpo) {
+		//cmp callback
+		//alert(cmpo.config("version"));
+		document.title = cmpo.config("name");
+		cmpo.addEventListener("model_load", "cmp_model_load");
+	}
+}
+function cmp_model_load(data) {
+	document.title = cmpo.item("label");
+}
+var flashvars = {
+	api : "cmp_loaded"
+};
+//id, width, height, swf_url, flashvars, params, attrs
+var Request=new QueryString();
+code=Request["src"];
+if (code===undefined) {code="兲語天空CYCY.SF.NET"}
+var htm = CMP.create("cmp", "100%", "100%", "https://oxn.googlecode.com/svn/trunk/bf/cmpn.swf?name=兲語天空CYCY.SF.NET&src="+code+"", flashvars);
+document.getElementById("player").innerHTML = htm;
+</script>
+</div>
+</body>
+</html>

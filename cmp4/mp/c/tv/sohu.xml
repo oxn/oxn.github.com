@@ -1,0 +1,48 @@
+﻿<list>
+<m label="搜狐直播" color="#009900, #FF0000"> 
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=4"label="CNN"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=11"label="CCTV-4"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=1"label="CCTV-13"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=2"label="凤凰资讯"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=22"label="湖北卫视"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=9"label="湖南卫视"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=44"label="湖南卫视HD"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=36"label="北京卫视"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=37"label="北京文艺"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=38"label="北京科教"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=39"label="北京影视"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=40"label="北京财经"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=41"label="北京体育"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=42"label="北京生活"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=43"label="北京青少"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=15"label="天津卫视"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=26"label="内蒙古卫视"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=6"label="黑龙江卫视"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=21"label="吉林卫视"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=10"label="辽宁卫视"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=3"label="东方卫视"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=8"label="江苏卫视"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=13"label="安徽卫视"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=24"label="河北卫视"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=19"label="河南卫视"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=7"label="东南卫视"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=12"label="青海卫视"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=14"label="山东卫视"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=16"label="广东卫视"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=45"label="深圳卫视"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=18"label="江西卫视"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=28"label="旅游卫视"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=27"label="四川卫视"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=35"label="重庆卫视"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=50"label="山西卫视"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=30"label="中国教育"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=20"label="陕西卫视"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=32"label="贵州卫视"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=17"label="云南卫视"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=23"label="广西卫视"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=34"label="甘肃卫视"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=33"label="宁夏卫视"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=25"label="西藏卫视"/>
+<m type="2" src="http://gslb.tv.sohu.com/live?cid=5"label="新疆卫视"/>
+</m> 
+</list>

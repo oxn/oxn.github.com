@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<SCRIPT src="http.js?v=201202151318" type=text/javascript></SCRIPT>
+<link href="bfcss/styles.css?v=20120130" type="text/css" rel="stylesheet" />
+<link rel="shortcut icon" href="favicon.ico" />
+<title>兲語天空 - CYCY.SF.NET</title></head><body>
+
+<SCRIPT src="scq.js?v=201202151318" type=text/javascript></SCRIPT>
+<div class="wrap">
+    <div class="menu">
+    	<ul><SCRIPT src="daohang.js?v=201202151318" type=text/javascript></SCRIPT></ul>
+    </div>
+<style type="text/css">
+
+html, body { height:100%; margin:0; padding:0; text-align:center; }
+
+</style>
+
+<div id="banner" align="life"><div class="tooltop"><div class="tooltop"  style="margin:10px 20px 10px 20px;">
+
+请在根目录上传【crossdomain.xml】跨域策略文件<b>如果功能不能满足你，你可以去：【<a href="cmppro" target="_blank">CMP调用系统全功能版</a>】</b>
+
+	<table border="0" cellspacing="0" cellpadding="3"> <tbody><tr>
+
+<div class=mbox><td>→选择调用文件类型：<SELECT id=cmp_url_type onchick="checkUrl(this);" onchange=checkUrl(this);> <OPTION   value=1 selected >【文件地址】</OPTION> <OPTION value=2>【列表地址】</OPTION></SELECT> &nbsp;&nbsp;</td><td>【优酷代理:&nbsp;</td>
+
+	<td><input type="checkbox" value="1" id="cmp_youku" onclick="update();" /></td>
+
+	<td>】&nbsp;&nbsp;&nbsp;【土豆代理:</td>
+
+	<td><input type="checkbox" value="1" id="cmp_tudou" onclick="update();" /></td>
+
+	<td>】&nbsp;&nbsp;&nbsp;【奇异代理:</td>
+
+	<td><input type="checkbox" value="1" id="cmp_qiyi" onclick="update();" /></td>
+
+	<td>】&nbsp;&nbsp;&nbsp;【手动播放:</td>
+
+	<td><input type="checkbox" value="1" id="cmp_auto_play" onclick="update();" /></td>
+
+	<td>】&nbsp;&nbsp;&nbsp;【循环播放:</td>
+
+	<td><input type="checkbox" value="1" id="cmp_play_mode" onclick="update();" /></td>
+
+	<td>】</td>
+
+</div>
+
+ </table> </tbody></tr>
+
+<div class=mbox>
+
+<b>↓填写视频或列表地址（必填）：</b><br>
+<SCRIPT src="cmpsm1.js?v=201202151318" type=text/javascript></SCRIPT>
+<SCRIPT src="cmpsm2.js?v=201202151318" type=text/javascript></SCRIPT>
+
+<div style="MARGIN: 5px 0px">
+
+<INPUT id=musicUrl  style="WIDTH: 99%" rows=3 onfocus="this.select();"  onchange="checkUrl(this);" /><!- onkeyup=checkUrl(this); onclick="checkUrl(this);" 不知道什么参数>
+
+<div id="musicErr"><br/></div>
+
+</div>
+
+<div class="mbox"><b>↓视频名字：</b>（选填）可以是视频的名字。也可以后面加上某某(YY号，网站，空间，你的名字)推荐，当你输入列表时这个名字就是你列表中添加的第一个名字,<b>填写列表时此处也可不填</b>。
+
+</div>
+
+     <div style="margin:5px 0px;">
+
+      <input type="text" id="musiclabel" value="" onfocus="this.select();" onchange="update();" style="width:99%;" />
+
+    </div>
+
+<div class=mbox><B>↓自定义主文件（必填）：</B>例https://cmps.googlecode.com/svn/trunk/mp/c/y.swf或https://dl.dropbox.com/u/51232200/cmp/y.swf
+
+<div style="MARGIN: 5px 0px"><INPUT id="musiccmps"  value="https://cmps.googlecode.com/svn/trunk/mp/c/y.swf" onkeyup="checkUrl(this);" style="WIDTH: 99%" rows="3" onfocus="this.select();" onclick="checkUrl(this);" onchange="checkUrl(this);" />
+
+</div> 
+
+<div id="musicErr2"><br/></div>
+
+</div>
+
+
+
+
+
+<div class=mbox><B>↓非自定义配置文件不要修改（选填）：</B>例如http://sfsf.tk/c/config.xml
+
+<div style="MARGIN: 5px 0px"><INPUT id=musicConfig style="WIDTH: 99%" rows="3" onfocus="this.select();" onchange="update();" >
+
+</div> 
+
+</div> 
+
+<div class=mbox><B>↓皮肤地址（选填）：</B>如果config配置了皮肤，那这里就无需填写了,优酷新浪视频需要相关插件支持 
+
+<div style="MARGIN: 5px 0px"><INPUT id=musicSkins style="WIDTH: 99%" rows="3"  onfocus="this.select();" onchange="update();">
+
+</div>
+
+</div> 
+
+ 
+
+  <div class="mbox"><b>【复制下面代码：】</b>  
+
+  	    <div style="margin:5px 0px;"><b>【↓YY播放器调用地址：4.5版flash形式】</b>（YY使用方法：点击公告-编辑-文字-粘贴地址-保存,就可以了）
+
+          <div align="left">
+
+          <textarea rows="5" id="yycode" style="WIDTH: 99%" onfocus="this.select();" wrap="virtual" onclick="return copy_yy();"></textarea> 
+
+    </div>
+
+    </div>  
+
+    <div style="margin:5px 0px;"><b>【↓YY播放器调用地址：4.4以下版本image形式】</b>（YY使用方法：点击公告-编辑-文字-粘贴地址-保存,就可以了
+
+          <div align="left">
+
+          <textarea rows="5" id="yycode2" style="WIDTH: 99%" onfocus="this.select();" wrap="virtual" onclick="return copy_yy2();"></textarea> 
+
+    </div>
+
+    </div> 
+
+  <div class="mbox"><b>【↓FLASH地址引用代码：】</b> 
+
+      <div align="left"> 
+
+          <textarea rows="5" id="flashcode" style="WIDTH: 99%" onfocus="this.select();" wrap="virtual" onclick="return copy_flash();"></textarea> 
+
+      </div>
+
+      </div> 
+
+<div class="mbox"><b>【↓HTML复制下面网页引用代码：】</b> 
+
+          <div align="left">
+
+          <textarea rows="8" id="htmlcode" style="WIDTH: 99%" onfocus="this.select();" wrap="virtual" onclick="return copy_html();"></textarea> 
+
+ </div>
+
+  </div>
+
+  <div style="margin:5px 0px;">
+
+      <table border="0" cellspacing="0" cellpadding="3">
+
+      	<tbody>
+
+        <tr>
+
+          <td><input name="checkbox" type="checkbox" id="checkPreview" onclick="showPreview();" checked="checked"/></td><!- 带 checked="checked" 后自动点选>
+
+          <td>效果预览 点击后可在下面看到插入YY后的效果,如果黑屏请升级播放器 <b>【<a href="flash" target="_blank">点我升级flashplayer播放器</a>】</b></td>
+
+        </tr>
+
+      </table>
+
+      </tbody>
+
+    </div>
+
+  <center><div class="mbox" style="border:none;">
+
+    <div id="preview" style="margin:10px auto;">
+
+</div>
+
+</div>
+
+</div></div></div></div>
+
+</center>
+
+
+
+<div class="footer"><SCRIPT src="copy.js?v=201202151318" type=text/javascript></SCRIPT> </div>
+</body>
+</html>

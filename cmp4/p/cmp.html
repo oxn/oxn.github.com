@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<SCRIPT src="http.js?v=201202151318" type=text/javascript></SCRIPT>
+<link href="bfcss/styles.css?v=20120130" type="text/css" rel="stylesheet" />
+<link rel="shortcut icon" href="favicon.ico" />
+<title>兲語天空 - CYCY.SF.NET</title></head><body>
+
+
+<div class="wrap">
+    <div class="menu">
+    	<ul><SCRIPT src="daohang.js?v=201202151318" type=text/javascript></SCRIPT></ul>
+    </div>
+<style type="text/css">
+
+html, body { height:100%; margin:0; padding:0; text-align:center; }
+
+</style>
+
+<div id="banner" align="life"><div class="tooltop"><div class="tooltop"  style="margin:10px 20px 10px 20px;">
+
+<div class="mbox">↓视频地址：</b>(必填，支持的格式为flv，在flv后面加上?start={start_bytes}可支持快进）<br>
+<SCRIPT src="cmpsm1.js?v=201202151318" type=text/javascript></SCRIPT>
+</div>
+    <div style="margin:5px 0px;">
+      <input type="text" id="musicUrl" value="如您填的是列表那么此处请填&" onfocus="this.select();" onchange="checkUrl(this);"  style=" width:99%;"/> <!- onkeyup=checkUrl(this); onclick="checkUrl(this);" 不知道什么参数>
+
+    </div>
+    <div class="red" id="musicErr"><br></div>
+  <div class="mbox"><b>↓选择皮肤：请点击下拉按钮选择一个皮肤</b>    
+    <a href="skin" target="_blank"><B>&#9829点击YY播放器皮肤预览&#9829</B></a>-陆续更新
+
+
+
+<table border="0" cellspacing="0" cellpadding="3"><tbody>
+      <tr>
+        <td><div  style="margin:5px 0px;">
+<select id="skinSelect" onchange="checkSkin(this);">
+        <option value="">点击选择皮肤</option></td>
+        <td><b>播放器→</b></td>
+	<td>&nbsp;</td>
+        <td><INPUT id="av01" type="radio" name="sex" checked onfocus="this.select();" onchange="checkUrl(this);" onkeyup="checkUrl(this);" onclick="checkUrl(this);" /></td>
+        <td><b> &#9756 有广告版</b></td>
+        <td>&nbsp;</td>
+        <td><INPUT id="av56" type="radio" name="sex" onfocus="this.select();" onchange="checkUrl(this);" onkeyup="checkUrl(this);" onclick="checkUrl(this);" /></td>
+        <td><b> &#9756 无广告版</b></td>
+	<td>&nbsp;</td>
+        <td><b>←支持56视频播放器生成</b></td>
+          </td>
+      </tr>
+    </table></tbody>
+      </select>
+    </div>
+<div class="red" id="skinErr"><br></div>
+<div class="mbox"><b>↓视频名字：</b>(必填，)可以是视频的名字。也可以后面加上某某(YY号，网站，空间，你的名字)推荐，当你输入列表时这个名字就是你列表中添加的第一个名字
+     <div style="margin:5px 0px;">
+      <input type="text" id="musiclabel" value="视频名字" onfocus="this.select();" onchange="update();" style=" width:99%;" />
+    </div></div>
+  <div class="mbox"><b>↓右键播放器显示内容：</b>(必填，例如：某某的播放器或某某网站。)
+    <div style="margin:5px 0px;">
+      <input type="text" id="musicname" value="" onfocus="this.select();" onchange="update();" style=" width:99%;" />
+    </div>
+  </div>
+    <div class="mbox">
+<b>↓列表地址：</b>(选填，支持xml和txt),多个时用【,】分开，encrypt_lists。&nbsp;&nbsp;<a href="http://hi.baidu.com/52587/blog/item/f2856dfa2225fdc2b58f3140.html" target="_blank"><B>&#9829教你如何使用列表&#9829</a>-&nbsp;&nbsp;<a href="uub" target="_blank">&#9829论坛转帖工具&#9829</a></b><br>
+<SCRIPT src="cmpsm2.js?v=201202151318" type=text/javascript></SCRIPT>
+      <div style="margin:5px 0px;">
+      <input type="text" id="musiclists" value="" onfocus="this.select();" onchange="update();" style=" width:99%;" />
+    </div>
+<div class="mbox">
+<b>↓rtmp地址：</b>(选填，必须为rtmp时填写，此处填写后↓视频地址：框内填写src参数)56直播：【rtmp://play.xiu.v-56.com/vshow】
+      <div style="margin:5px 0px;">
+      <input type="text" id="rtmpdz" value="" onfocus="this.select();" onchange="update();" style=" width:99%;" />
+    </div>
+</div>
+
+
+
+     <div class="mbox">
+<b>↓logo图片地址：</b>(选填，jpg或png)居右下角显示格式: {src:图片地址,xywh:[10R,10R,0,0]}  左上角格式：{src:图片地址,xywh:[10,10,0,0]} 
+       <div style="margin:5px 0px;">
+      <input type="text" id="musiclogo" value="" onfocus="this.select();" onchange="update();" style=" width:99%;" />
+    </div>
+  </div>
+     <div class="mbox">
+<div class="mbox">
+<b>↓背景图片地址：</b>(选填，支持格式jpg、gif、png。）如：<b>http://sfsf.tk/img/bjlogo.png</b>
+       <div style="margin:5px 0px;">
+         <input name="text" type="text" id="musicvideo_image" style=" width:99%;" onfocus="this.select();" onchange="update();" value="" />
+    </div>
+  </div>
+         <div class="mbox">
+<b>↓公告内容地址：</b>(选填选择无广告播放器时此处填内容无效，滚动显示公告内容。）内容支持简单的html标记，如：&lt;font color='#ff0000'&gt;红颜色&lt;/font&gt;，&lt;b&gt;加粗&lt;/b&gt;，那么加粗红颜色就是&lt;b&gt;&lt;font color='#ff0000'&gt;加粗红颜色&lt;/font&gt;&lt;/b&gt;。颜色在这里选<a href="/ysxz" target="_blank"><b>&#9829颜色选择器&#9829</a></b>
+       <div style="margin:5px 0px;">
+         <input name="text" type="text" id="musicannounce_content" style=" width:99%;" onfocus="this.select();" onchange="update();" value="" />
+</div></div>
+   <div class="mbox">
+<b>↓描述内容地址：</b>(选填，选择列表时屏幕下方文本内容。）内容支持简单的html标记，如：&lt;font color='#ff0000'&gt;红颜色&lt;/font&gt;，&lt;b&gt;加粗&lt;/b&gt;，那么加粗红颜色就是&lt;b&gt;&lt;font color='#ff0000'&gt;加粗红颜色&lt;/font&gt;&lt;/b&gt;。颜色在这里选<a href="/ysxz" target="_blank"><b>&#9829颜色选择器&#9829</a></b>
+       <div style="margin:5px 0px;">
+         <input name="text" type="text" id="musicdescription" style=" width:99%;" onfocus="this.select();" onchange="update();" value="" />
+       </div>
+</div>
+     <div class="mbox"><b>↓歌词地址：</b>(选填，支持lrc和kmc)
+    <div style="margin:5px 0px;">
+      <input type="text" id="musicLrc" value="" onfocus="this.select();" onchange="update();" style=" width:99%;" />
+    </div>
+  </div>
+  <div class="mbox"><b>↓播放设置：</b>背景色不要带#号。格式为六位数字或字母。
+    <table border="0" cellspacing="0" cellpadding="3"><tbody>
+      <tr>
+        <td>自动播放:</td>
+        <td><input type="checkbox" checked value="1" id="cmp_auto_play" onclick="update();" /></td>
+        <td> </td>
+        <td>循环播放:</td>
+        <td><input type="checkbox" value="1" id="cmp_play_mode" onclick="update();" /></td>
+        <td> </td>
+        <td>背景颜色:</td>
+        <td><input type="text" size="7" maxlength="7" id="cmp_bgcolor" onchange="update();"/></td><!-此处加入为默认填的值value="#000000"/>
+        <td> </td>
+        <td>宽度:</td>
+        <td><input type="text" size="4" id="cmp_width" onchange="update();" /></td>
+        <td> </td>
+        <td>高度:</td>
+        <td><input type="text" size="4" id="cmp_height" onchange="update();" /></td>
+        <td> </td>
+        <td><b>类型:</b></td>
+        <td><select id="cmp_type" onchange="update();">
+            <option value="">自动识别</option>
+            <option value="1">MP3音频</option>
+            <option value="2">FLV视频</option>
+            <option value="3">WMP类型</option>
+            <option value="4">动画图片</option>
+            <option value="youku">优酷代理</option>
+            <option value="tudou">土豆代理</option>
+            <option value="qiyi">奇异代理</option>
+          </select></td><td><b>←优酷必选</b></td>
+      </tr>
+    </table></tbody>
+  </div>
+  <div class="mbox"><b>【复制下面代码：】</b>  
+  	    <div style="margin:5px 0px;"><b>【↓YY播放器调用地址：4.5版flash形式】</b>（YY使用方法：点击公告-编辑-文字-粘贴地址-保存,就可以了）
+          <div align="left">
+          <textarea rows="5" id="yycode" style="WIDTH: 99%" onfocus="this.select();" wrap="virtual" onclick="return copy_yy();"></textarea> 
+    </div>
+    </div>  
+    <div style="margin:5px 0px;"><b>【↓YY播放器调用地址：4.4以下版本image形式】</b>（YY使用方法：点击公告-编辑-文字-粘贴地址-保存,就可以了
+          <div align="left">
+          <textarea rows="5" id="yycode2" style="WIDTH: 99%" onfocus="this.select();" wrap="virtual" onclick="return copy_yy2();"></textarea> 
+    </div>
+    </div> 
+  <div class="mbox"><b>【↓FLASH地址引用代码：】</b> 
+      <div align="left"> 
+          <textarea rows="5" id="flashcode" style="WIDTH: 99%" onfocus="this.select();" wrap="virtual" onclick="return copy_flash();"></textarea> 
+      </div>
+      </div> 
+<div class="mbox"><b>【↓HTML复制下面网页引用代码：】</b> 
+          <div align="left">
+          <textarea rows="8" id="htmlcode" style="WIDTH: 99%" onfocus="this.select();" wrap="virtual" onclick="return copy_html();"></textarea> 
+ </div>
+  </div>
+  <div style="margin:5px 0px;">
+      <table border="0" cellspacing="0" cellpadding="3">
+      	<tbody>
+        <tr>
+          <td><input name="checkbox" type="checkbox" id="checkPreview" onclick="showPreview();" checked="checked"/></td><!- 带 checked="checked" 后自动点选>
+          <td>效果预览 点击后可在下面看到插入YY后的效果,如果黑屏请升级播放器 <b>【<a href="flash/" target="_blank">点我升级flashplayer播放器</a>】</b></td>
+        </tr>
+      </table>
+      </tbody>
+    </div>
+  <center><div class="mbox" style="border:none;">
+    <div id="preview" style="margin:10px auto;">
+ </div>
+  </div>
+ </div>
+  </div>
+<SCRIPT src="cmpwz.js?v=201202151318" type=text/javascript></SCRIPT> 
+<SCRIPT src="cmpwz2.js?v=201202151318" type=text/javascript></SCRIPT> 
+
+
+<div class="footer"><SCRIPT src="copy.js?v=201202151318" type=text/javascript></SCRIPT></div>
+</body>
+</html>

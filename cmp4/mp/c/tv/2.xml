@@ -1,0 +1,638 @@
+﻿<list>
+  <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313430397C317C323030307C474754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="湖南卫视"/>
+  <m label="佰度影院推荐">
+  <m rtmp="rtmp://219.232.160.125/livestream" src="c64024e7cd451ac19613345704f985fa" label="深圳卫视高清-高清" /> 
+  <m rtmp="rtmp://219.232.160.125/livestream" src="3c7b0e7ffa2bb75c01aa7635cb7cc12f" label="深圳卫视高清-标准" /> 
+  <m rtmp="rtmp://219.232.160.121/livestream" src="5b53152f52f2efe9b4f85bd55f3751dd" label="深圳卫视-高清" /> 
+  <m rtmp="rtmp://219.232.160.121/livestream" src="d46024701fdfe213f7e7dd8e4fb9a1d2" label="深圳卫视-标准" /> 
+  <m rtmp="rtmp://219.232.160.125/livestream" src="20ef0fed3abb88b0beeabac91e7056f5" label="深圳都市-高清" /> 
+  <m rtmp="rtmp://219.232.160.125/livestream" src="dc53abc28d10dafa5ea9088a463a5340" label="深圳都市-标准" /> 
+  <m rtmp="rtmp://219.232.160.123/livestream" src="b119789b6fd4f2cb86a59cb0addf7776" label="深圳电视剧-高清" /> 
+  <m rtmp="rtmp://219.232.160.123/livestream" src="c0c2132dcc654f5c9ab55971f081d5fa" label="深圳电视剧-标准" /> 
+  <m rtmp="rtmp://219.232.160.125/livestream" src="77e19c3214ef876a1e71b4f92bd49040" label="深圳财经-高清" /> 
+  <m rtmp="rtmp://219.232.160.125/livestream" src="bd0ec42624e97bb1406b6c04e20a40b0" label="深圳财经-标准" /> 
+  <m rtmp="rtmp://219.232.160.121/livestream" src="39291c6066742446fbb141f226a6b932" label="深圳娱乐-高清" /> 
+  <m rtmp="rtmp://219.232.160.120/livestream" src="2c3398a96dea0312429f4893f15761af" label="深圳娱乐-标准" /> 
+  <m rtmp="rtmp://219.232.160.125/livestream" src="c88152983e1f6988b81ba5fd3f2a0b43" label="深圳体育-高清" /> 
+  <m rtmp="rtmp://219.232.160.121/livestream" src="750e3de72b71feefa1664678c2208a1e" label="深圳体育-标准" /> 
+  <m rtmp="rtmp://219.232.160.121/livestream" src="00c64c8b1c0776fb5f7b69fd25e670c2" label="深圳少儿-高清" /> 
+  <m rtmp="rtmp://219.232.160.121/livestream" src="98109e00e70a37faf1c3d58a70a58662" label="深圳少儿-标准" /> 
+  <m rtmp="rtmp://219.232.160.122/livestream" src="ca1721e961a3251686db703008379d93" label="深圳公共-高清" /> 
+  <m rtmp="rtmp://219.232.160.122/livestream" src="f32c31db27e429dee3b5f55b40f5b663" label="深圳公共-标准" /> 
+  <m rtmp="rtmp://219.232.160.122/livestream" src="d4dd66dada59eade1bf6146369196f04" label="宜和购物-高清" /> 
+  <m rtmp="rtmp://219.232.160.122/livestream" src="98478888e1ffce210c542e92eb254d61" label="宜和购物-标准" /> 
+  <m rtmp="rtmp://219.232.160.122/livestream" src="29236636460b82032853fc991b9b6935" label="气象频道-高清" /> 
+  <m rtmp="rtmp://219.232.160.122/livestream" src="3a7cf633eeaf9b7bc524775a77efeafa" label="气象频道-标准" /> 
+  <m rtmp="rtmp://219.232.160.120/livestream" src="2ae90f52c9d90a319d6dcaadeb49844a" label="江苏卫视-高清" /> 
+  <m rtmp="rtmp://219.232.160.120/livestream" src="a1202d229e925f1016d41ee60dff7a6d" label="江苏卫视-标准" /> 
+  <m rtmp="rtmp://219.232.160.123/livestream" src="ed1b5ebee58bab31fb5e4e73440af492" label="湖南卫视-高清" /> 
+  <m rtmp="rtmp://219.232.160.123/livestream" src="4e10631b935123c07642358b2ad4ba5c" label="湖南卫视-标准" /> 
+  <m rtmp="rtmp://219.232.160.123/livestream" src="a5e643e596898ffd2b18dc4138f9cf2b" label="东方卫视-高清" /> 
+  <m rtmp="rtmp://219.232.160.123/livestream" src="36745026b2e59eb595bea8a309bf7753" label="东方卫视-标准" /> 
+  <m rtmp="rtmp://219.232.160.122/livestream" src="167b464162827dfc763b603cc34ad751" label="财富天下-高清" /> 
+  <m rtmp="rtmp://219.232.160.122/livestream" src="60f2761b50b17a81e4a95c88eff793bb" label="财富天下-标准" /> 
+  <m rtmp="rtmp://219.232.160.121/livestream" src="3e6fde267767ca49d8d0d45a4816a95b" label="广东卫视-高清" /> 
+  <m rtmp="rtmp://219.232.160.121/livestream" src="e6b65f216a24d0a17f993ee27396b47a" label="广东卫视-标准" /> 
+  <m rtmp="rtmp://219.232.160.124/livestream" src="7b35138178df29cbecc83421bc8c549d" label="广东体育-高清" /> 
+  <m rtmp="rtmp://219.232.160.124/livestream" src="318b5e96e2945a7181df9f1545478620" label="广东体育-标准" /> 
+  <m rtmp="rtmp://219.232.160.122/livestream" src="48a26bba89a367c8a636749b4fc300ad" label="南方卫视-高清" /> 
+  <m rtmp="rtmp://219.232.160.122/livestream" src="076adbd60ce61eff6b48683288d451ca" label="南方卫视-标准" /> 
+  <m rtmp="rtmp://219.232.160.124/livestream" src="b29a1dc4b4a5a58b89b626292527b244" label="南方经济-高清" /> 
+  <m rtmp="rtmp://219.232.160.124/livestream" src="5c1e1d248467535459bd86da428ac0dd" label="南方经济-标准" /> 
+  <m rtmp="rtmp://219.232.160.122/livestream" src="1c18e345a65adcddc19d5a79ca1e1ac1" label="南方影视-高清" /> 
+  <m rtmp="rtmp://219.232.160.122/livestream" src="d7ecf3232fd087c085141a2e6b978ce9" label="南方影视-标准" /> 
+  <m rtmp="rtmp://219.232.160.125/livestream" src="ab41805ee2440bf3748c8e3f1ec6be18" label="南方少儿-高清" /> 
+  <m rtmp="rtmp://219.232.160.125/livestream" src="f1bba4f47fe8578ae5902246300790b3" label="南方少儿-标准" /> 
+  <m rtmp="rtmp://219.232.160.125/livestream" src="9ace5a999f44fd340c0d32c97c9c502e" label="重庆卫视-高清" /> 
+  <m rtmp="rtmp://219.232.160.125/livestream" src="bd86ad811f1d77da0d1a8597ccdb51c5" label="重庆卫视-标准" /> 
+  <m rtmp="rtmp://219.232.160.120/livestream" src="c2f182999d5c66b9602bfab52c862567" label="吉林卫视-高清" /> 
+  <m rtmp="rtmp://219.232.160.120/livestream" src="d1aa4fba0a224d32c594cb3e6320b834" label="吉林卫视-标准" /> 
+  <m rtmp="rtmp://219.232.160.121/livestream" src="0e60e1dd7fb4237dce7adbaf41c44d64" label="东南卫视-高清" /> 
+  <m rtmp="rtmp://219.232.160.121/livestream" src="3b7c0fa3a385b7c790e92f34f0fb1abc" label="东南卫视-标准" /> 
+  <m rtmp="rtmp://219.232.160.122/livestream" src="79f11bbdc29595b03cde2c26c8e64f1d" label="浙江卫视-高清" /> 
+  <m rtmp="rtmp://219.232.160.122/livestream" src="1b1e3ddcec63866949d63cc7342df283" label="浙江卫视-标准" /> 
+  <m rtmp="rtmp://219.232.160.121/livestream" src="0547ce2bf066625d9bf1775a01b11c77" label="广西卫视-高清" /> 
+  <m rtmp="rtmp://219.232.160.121/livestream" src="d02bb5156a4cad08753af40176684f15" label="广西卫视-标准" /> 
+  <m rtmp="rtmp://219.232.160.121/livestream" src="6f3c16428bf06033aeb7e944000ee639" label="安徽卫视-高清" /> 
+  <m rtmp="rtmp://219.232.160.121/livestream" src="19eccd26be7f974fbbad97aa86aaebfb" label="安徽卫视-标准" /> 
+  <m rtmp="rtmp://219.232.160.121/livestream" src="b0dcabbb6a0e468a300825ae52271085" label="黑龙江卫视-高清" /> 
+  <m rtmp="rtmp://219.232.160.121/livestream" src="54445648da3e2c6baa828afb7bfef032" label="黑龙江卫视-标准" /> 
+  <m rtmp="rtmp://219.232.160.122/livestream" src="d59fa94440cc2669b1bdb5ec7d5fc78b" label="河南卫视-高清" /> 
+  <m rtmp="rtmp://219.232.160.122/livestream" src="39a18160b7c75e2e1504a22dddb9b45a" label="河南卫视-标准" /> 
+  <m rtmp="rtmp://219.232.160.121/livestream" src="0b4d575e42911ddc5eb5fbff054c64ca" label="山东卫视-高清" /> 
+  <m rtmp="rtmp://219.232.160.121/livestream" src="a65bda496f47dedb0dccac2a39db33b7" label="山东卫视-标准" /> 
+  <m rtmp="rtmp://219.232.160.120/livestream" src="3100bff89b4dbdc0a80187b8925b462f" label="宁夏卫视-高清" /> 
+  <m rtmp="rtmp://219.232.160.120/livestream" src="f10db3c24c211ede3c92daf585016cf1" label="宁夏卫视-标准" /> 
+  </m>
+  <m label="CCTV">
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/226/400.flv/live" label="CCTV-2" />
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303034387C313337307C317C313030307C474754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00" label="CCTV-5" />
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313430377C317C323030307C474754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="CCTV-6"/>
+<m type="2" src="http://cnty01tve001cdn.smgbb.tv/channels/231/400.flv/live" label="CCTV-7" />
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/233/400.flv/live" label="CCTV-9" />
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/234/400.flv/live" label="CCTV-10" />
+  </m>
+  <m label="国内卫视">
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313430397C317C323030307C474754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="湖南卫视"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313439397C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="四川卫视"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313430367C317C323030307C474754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="北京卫视"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313431307C317C323030307C474754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="江苏靓装"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313438327C317C323030307CE4B89CE696B9E58DABE8A786E9AB98E7A081E6B5817C687474707C666C765B2F63686E5D5B74735D317C687474703A2F2F3132312E31352E31322E37323A31383038302F445830303030303030385F313032325B2F74735DVSDNSOOONERCOM00"  label="东方卫视"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313530397C317C323030307CE58D97E696B9E58DABE8A7867C687474705B2F63686E5D5B74735D317C687474703A2F2F3132312E31352E31322E37323A31383038302F445830303030303030385F313032325B2F74735DVSDNSOOONERCOM00"  label="南方卫视"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313233347C317C343030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="浙江卫视"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313031327C317C313030307CE6B19FE88B8FE58DABE8A7867C687474705B2F63686E5D5B74735D317C687474703A2F2F3132312E31352E31322E37323A31383038302F445830303030303030385F313032325B2F74735DVSDNSOOONERCOM00"  label="江苏卫视"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313531317C317C323030307CE6B7B1E59CB3E58DABE8A7867C687474705B2F63686E5D5B74735D317C687474703A2F2F3132312E31352E31322E37323A31383038302F445830303030303030385F313032325B2F74735DVSDNSOOONERCOM00"    label="深圳卫视"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313132337C317C313030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="山西卫视"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313530307C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="厦门卫视"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313031367C317C313030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="吉林卫视"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313439377C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"    label="东南卫视"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313439317C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="河南卫视"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313532387C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"    label="湖北卫视"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313531337C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="陕西卫视"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313532367C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"    label="广西卫视"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313431327C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"    label="重庆卫视"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313439347C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="河北卫视"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313431347C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"    label="贵州卫视"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313439327C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"    label="安徽卫视"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313533317C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"    label="云南卫视"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313531347C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"    label="江西卫视"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313231317C317C313030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="贵阳综合"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C3439367C317C313030307CB74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"    label="兵团卫视"/>
+    <m type="" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313233367C317C313030307C474754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00" label="BabyTV"/>
+    <m type="" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313232367C317C313030307C474754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00" label="甘肃卫视"/>
+    <m type="" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313232357C317C313030307C474754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00" lrc="lrc/default.txt">青海卫视</m>
+    <m type="" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C3532307C317C313030307C474754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00" lrc="lrc/default.txt">山东卫视</m>
+    <m type="" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C3530367C317C313030307C474754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00" lrc="lrc/default.txt">中国教育</m>
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/256/400.flv/live" label="旅游卫视" />
+  </m>
+ <m label="港台电视">
+<m type="2" src="http://cnty01tve001cdn.smgbb.tv/channels/503/400.flv/live" label="凤凰卫视" />
+<m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303030387C313137327C317C313030307C474754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="凤凰资讯"/>
+<m type="3" src="mms://222.77.190.24:9090/xkws" lrc="" label="星空卫视"/>
+<m type="3" src="mms://222.77.190.24:9090/hyws" lrc="" label="华娱卫视"/>
+<m type="3" src="mms://222.77.190.24:9090/dfws" lrc="" label="东风卫视"/>
+<m type="3" src="mms://222.77.190.24:9090/ChannelV" lrc="" label="Channel[V]"/>
+<m type="2" src="http://snctc01cdn.smgbb.tv/channels/503/400.flv/live" label="凤凰资讯" />
+<m type="3" src="mms://222.77.190.24:9090/ygws" lrc="" label="阳光卫视"/>
+<m type="3" src="mms://us.2009e.com.cn/atv-200" lrc="" label="亚视本港"/>
+</m>
+  <m label="新闻资讯">
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C3439357C317C313030307CB74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"   label="电视指南"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313531307C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"   label="财富天下"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313531387C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"   label="法律服务"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313232307C317C313030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="理财频道"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313132357C317C313030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="第一财经"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313532357C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="长沙新闻"/>
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/219/400.flv/live" label="购物频道" />
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/215/400.flv/live" label="纪实频道" />
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/220/400.flv/live" label="外语频道" />
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/210/400.flv/live" label="新闻综合" />
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/284/400.flv/live" label="法治天地" />
+  </m>
+  <m label="体育竞技">
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303034387C313337307C317C313030307C474754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="CCTV-5" />
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313438367C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="欧洲足球"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313531377C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"   label="天元围棋"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313530387C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="武术世界"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313530327C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"    label="先锋乒羽"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313532377C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="游戏风云"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313532397C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="重庆杂技"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303030387C313137347C317C313030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="新传体育"/>
+    <m type="2" src="mms://220.191.131.138:1807/wxty" label="上海五星体育" />
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/294/400.flv/live" label="极速汽车" />
+  </m>
+  <m label="娱乐影视">
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313430377C317C323030307C474754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="中央6套"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313438347C317C323030307CECE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="央视精品"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313438397C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"    label="怀旧剧场"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313431317C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="风云剧场"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313530357C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"      label="魅力音乐"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313530377C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"    label="摄影频道"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313530347C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"      label="重庆汽摩"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313232387C317C313030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"    label="百姓健康"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313531327C317C323030307C474754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"      label="DV生活"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313439307C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"    label="读书频道"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313530367C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"    label="梨园频道"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313132347C317C313030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"    label="上海娱乐"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313431337C317C323030307C474754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"    label="金鹰卡通"/>
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/279/400.flv/live" label="娱乐前线" />
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/217/400.flv/live" label="娱乐频道" />
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/211/400.flv/live" label="生活时尚" />
+  </m>
+  <m label="地方电视">
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313438387C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="湖南经视"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313531357C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"    label="南方综艺"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313531367C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"    label="南方少儿"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313335317C317C313030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="南京卫视" />
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313439367C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="同步辅导"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313531397C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="老年福"/>
+<m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313439357C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="英语辅导"/>
+<m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313234327C317C313030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="江苏公共"/>
+<m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313234337C317C313030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="江苏城市"/>
+<m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313234337C317C313030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="江苏国际*"/>
+<m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313233337C317C313030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="成都综合"/>
+<m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C3734377C317C313030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"    label="深圳都市*"/>
+<m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313138357C317C313030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="广东珠江"/>
+<m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313532347C317C323030307CE7474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"   label="湖南都市"/>
+<m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313532307C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"   label="金鹰纪实"/>
+<m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313431337C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"   label="金鹰卡通"/>
+<m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313036327C317C313030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="山东齐鲁*"/>
+<m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313230347C317C313030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="重庆国际"/>
+<m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313233397C317C313030307CE7474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="普洱综合"/>
+<m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313532317C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"   label="女性频道"/>
+
+<m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313532337C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"    label="政法频道"/>
+
+<m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313139397C317C313030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"  label="无锡综合"/>
+
+<m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313532327C317C323030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"   label="湖南教育"/>
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/218/400.flv/live" label="艺术人文" />
+    <m type="2" src="http://live.online.zrtg.com/channels/101/512.flv/live" label="浙江卫视" />
+    <m type="2" src="http://live.online.zrtg.com/channels/102/512.flv/live" label="钱江频道" />
+    <m type="2" src="http://live.online.zrtg.com/channels/103/512.flv/live" label="浙江经视" />
+    <m type="2" src="http://live.online.zrtg.com/channels/104/512.flv/live" label="浙江科教" />
+    <m type="2" src="http://live.online.zrtg.com/channels/105/512.flv/live" label="浙江影视" />
+    <m type="2" src="http://live.online.zrtg.com/channels/106/512.flv/live" label="浙江民生" />
+    <m type="2" src="http://live.online.zrtg.com/channels/107/512.flv/live" label="浙江公共" />
+    <m type="2" src="http://live.online.zrtg.com/channels/108/512.flv/live" label="浙江少儿" />
+    <m type="2" src="http://live.online.zrtg.com/channels/109/512.flv/live" label="留学世界" />
+    <m type="2" src="http://live.online.zrtg.com/channels/110/512.flv/live" label="浙江国际" />
+  </m>
+  <m label="云南直播">
+<m type="2" src="http://61.159.229.245/channels/621/400.flv/live&.flv"  label="云南卫视" />
+<m type="2" src="http://61.159.229.246/channels/622/400.flv/live?1279150580000&.flv"  label="云南卫视2" />
+<m type="2" src="http://61.159.229.245/channels/623/400.flv/live&.flv"  label="云南卫视3" />
+<m type="2" src="http://61.159.229.246/channels/624/400.flv/live?1279151307000&.flv"  label="云南卫视5" />
+<m type="2" src="http://61.159.229.246/channels/626/400.flv/live?1279151338000&.flv"  label="云南卫视6" />
+<m type="2" label="扬州新闻 " src="http://218.91.45.98/channels/40/400.flv/live&.flv" />
+<m type="2" label="扬州城市 " src="http://218.91.45.98/channels/41/400.flv/live&.flv" />
+<m type="2" label="扬州生活 " src="http://218.91.45.98/channels/42/400.flv/live&.flv" />
+  </m>
+  <m label="卡通频道">
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/223/400.flv/live" label="哈哈少儿" />
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/224/400.flv/live" label="炫动卡通" />
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C3530307C317C313030307CC74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"    label="南方少儿"/>
+    <m type="2" src="http://biz.vsdn.tv380.com/playlive.php?5B63686E5D445830303030303035307C313031317C317C313030307CE74754567C687474705B2F63686E5D5B74735D307C687474705B2F74735DVSDNSOOONERCOM00"    label="金鹰卡通"/>
+  </m>
+  <m label="东方直播">
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/226/400.flv/live" label="CCTV-2" />
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/231/400.flv/live" label="CCTV-7" />
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/233/400.flv/live" label="CCTV-9" />
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/234/400.flv/live" label="CCTV-10" />
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/503/400.flv/live" label="凤凰卫视" />
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/255/400.flv/live" label="广西卫视" />
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/256/400.flv/live" label="旅游卫视" />
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/216/400.flv/live" label="东方卫视" />
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/218/400.flv/live" label="艺术人文" />
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/214/400.flv/live" label="上海五星体育" />
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/224/400.flv/live" label="炫动卡通" />
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/223/400.flv/live" label="哈哈少儿" />
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/294/400.flv/live" label="极速汽车" />
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/279/400.flv/live" label="娱乐前线" />
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/212/400.flv/live" label="第一财经" />
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/215/400.flv/live" label="纪实频道" />
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/220/400.flv/live" label="外语频道" />
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/217/400.flv/live" label="娱乐频道" />
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/211/400.flv/live" label="生活时尚" />
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/210/400.flv/live" label="新闻综合" />
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/219/400.flv/live" label="购物频道" />
+    <m type="2" src="http://snctc01cdn.smgbb.tv/channels/284/400.flv/live" label="法治天地" />
+</m>
+<m label="歐洲地區-Europe"   opened="0">
+<m label="比利時-BEL" opened="0">
+<m type="3" src="mms://193.227.114.71/gunk" label="gunk" /> 
+<m type="3" src="http://www.avs.be/documenten/video/maandag.asx" label="maandag" />
+<m type="3" src="http://www.avs.be/documenten/video/vrijdag.asx" label="AVS 5" />  
+<m type="3" src="http://www.avs.be/documenten/video/donderdag.asx" label="AVS 4" />
+<m type="3" src="http://www.avs.be/documenten/video/woensdag.asx" label="AVS 3" /> 
+<m type="3" src="http://www.avs.be/documenten/video/dinsdag.asx" label="AVS 2" />
+<m type="3" src="http://www.avs.be/documenten/video/maandag.asx" label="AVS 1" /> 
+</m>
+<m label="捷克共和國-CZE" opened="0">
+<m type="wmp" src="http://netshow.atlas.cz/meteotv"  label="Republic Meteo TV"/>
+<m type="wmp" src="mms://stream.hdtv1.cz/Film1cz-live"  label="Republic Film 1 HDTV"/>
+</m>
+<m label="丹麥-DEN" opened="0">
+<m type="wmp" src="mms://stream.nordjyske.dk/24nordjyske" label="24NORDJYSKE"/>
+<m type="wmp" src="http://www.dr.dk/tjenester/podcast/update.asx" label="DR Update "/>
+</m>
+<m label="芬蘭-FIN" opened="0">
+<m type="wmp" src="http://www.tv7.fi/asx/tv7_live.asx"  label="TV 7"/>
+</m>
+<m label="法國-FRA" opened="0">
+<m type="wmp" src="mms://quik4.impek.tv/brtv" label="Boardriders TV"/>
+<m type="wmp" src="mms://livewm.orange.fr/live-multicanaux" label="Orange Sport"/>
+<m type="wmp" src="mms://88.191.48.125/flux_sportendirect" label="Sport en Direct"/>
+<m type="wmp" src="mms://62.215.162.161:3333" label="France "/>
+<m type="wmp" src="mms://channel125.com/bywn" label="Wrestling Channel"/>
+<m type="wmp" src="http://player.eurosport.fr/playlist.aspx" label="Eurosport News"/>
+<m type="wmp" src="mms://livewm.orange.fr/live-multicanaux" label="Orange Sport"/>
+<m type="wmp" src="http://stream.tvsf.fr/index.asx" label="TVSF"/>
+<m type="wmp" src="http://media.stream-music.net/bigroberto" label="TV5 Monde"/>
+<m type="wmp" src="mms://91.121.38.105/tlm" label="TLM Game TV"/>
+<m type="wmp" src="http://79.98.19.221/live" label="TeleEssone"/>
+<m type="wmp" src="http://www.tele102.net/index.asx" label="Tele 102"/>
+<m type="wmp" src="http://www.impek.com/go/sseven/wm" label="Seven"/>
+<m type="wmp" src="mms://stream1.france24.yacast.net/f24_livefr" label="French"/>
+<m type="wmp" src="http://www.impek.com/go/shiphop/wm" label="Hop TV"/>
+<m type="wmp" src="http://213.246.42.27:8080" label="Correze TV"/>
+<m type="wmp" src="http://rr93.diffusepro.com/index.asx" label="Clap TV"/>
+<m type="wmp" src="http://www.tv-radio.com/station/cap_24/cap_24-360k.asx" label="Calais TV"/>
+<m type="wmp" src="mms://vipmms9.yacast.net/bfm_bfmtv" label="BFM TV"/>
+</m>
+<m label="德國-GER" opened="0">
+<m type="wmp" src="http://wstreaming.zdf.de/encoder/livestream5_h.asx" label="ZDF InfoKanal"/>
+<m type="wmp" src="http://www.wdr.de/wdrlive/media/wdrfs-gross.asx" label="WDR Fernsehen"/>
+<m type="wmp" src="http://cms.streamfarm.net/tv1/cms/_vm300/_vv_1175705238596/60441/asx.asx" label="TV Oberfranken"/>
+<m type="wmp" src="mms://streams.mz-web.de/tvhalle" label="TV Halle"/>
+<m type="wmp" src="mms://wm.broadcast.tneg.de/AstroTV" label="AstroTV"/>
+<m type="wmp" src="http://www.tv1.de/tv1/cms/_vm300/_vv_1153661625164/60737/asx.asx" label="TVA Ostbayern"/>
+<m type="wmp" src="http://tv1.de/tv1/cms/_vm300/_vv_1153861315869/60996/asx.asx" label="Tele Regional Passau"/>
+<m type="wmp" src="mms://85.214.87.175/rabatz-tv" label="Zero IV"/>
+<m type="wmp" src="http://www.ondajerez.tv/adsl.asx" label="OTV"/>
+<m type="wmp" src="http://wstreaming.zdf.de/encoder/phoenix_h.asx" label="Phoenix TV"/>
+<m type="wmp" src="http://www.tv1.de/tv1/cms/_vm300/_vv_1210262287325/60534/asx.asx" label="Oberpfalz TV"/>
+<m type="wmp" src="http://217.118.170.203/ntvlive" label="N-TV.de"/>
+<m type="wmp" src="mms://stream01.massive-mag.tv/massivemag_mq" label="Massive Mag TV"/>
+<m type="wmp" src="http://www.webtv-bb.de/stkwtv/KWTV.asx" label="KW TV"/>
+<m type="wmp" src="http://www.mediaserver2.stimme-der-hoffnung.de/hce" label="Hopechannel TV"/>
+<m type="wmp" src="mms://85.214.87.175/heilen-tv" label="Heilen TV"/>
+<m type="wmp" src="http://www.bahntv-online.de/btvo/nocontentasx/llnw_btvo_live_170kb.asx" label="Bahn TV"/>
+<m type="wmp" src="mms://wm.broadcast.tneg.de/AstroTV" label="Astro TV"/>
+<m type="wmp" src="http://wstreaming.zdf.de/encoder/3sat_vh.asx" label="3Sat"/>
+<m type="wmp" src="http://www.speedup-tv.com/act_stream.aspx?sender_id=1" label="Speed up TV"/>
+<m type="wmp" src="http://www.speedup-tv.com/act_stream.aspx?sender_id=4" label="Moto sport TV "/>
+<m type="wmp" src="http://www.speedup-tv.com/act_stream.aspx?sender_id=11" label="Ballroom TV "/>
+<m type="wmp" src="http://www.bahntv-online.de/btvo/nocontentasx/llnw_btvo_live_high.asx" label="Bundesligen TV"/>
+<m type="wmp" src="http://tv.audi.com/fla/../act_stream.aspx?tar=en&cid=5&q=0&ClSys=win" label="Audi TV"/>
+</m>
+<m label="希臘-GRE" opened="0">
+<m type="wmp" src="mms://62.38.4.236/tvmagic" label="sports"/>
+<m type="wmp" src="http://wpso.com/livecast.asx" label="WZRA-48 TV"/>
+<m type="wmp" src="mms://216.66.84.2/584932" label="West TV "/>
+<m type="wmp" src="http://video.star-online.gr/video1.wmv" label="Star Online"/>
+<m type="wmp" src="http://206.222.31.146/stargh3" label="Star TV"/>
+<m type="wmp" src="mms://broadcast.hol.gr/tvmagic" label="Sport TV"/>
+<m type="wmp" src="http://plustv.greekstream.net/plustv" label="Plus TV"/>
+<m type="wmp" src="mms://84.254.38.223:35900" label="Holidays in Greece"/>
+<m type="wmp" src="http://www.hirtv.net/adas.asx" label="HIR TV"/>
+<m type="wmp" src="http://listen.onestreaming.com/asx/elladatv.asx" label="Ellada TV"/>
+<m type="wmp" src="mms://eu02.egihosting.com/938657?MSWMExt=.asf" label="4E TV"/>
+<m type="wmp" src="mms://a209.l5823824208.c58238.e.lm.akamaistream.net/D/209/58238/v0001/reflector:24208" label="Channel"/>
+</m>
+<m label="匈牙利-HUN" opened="0">
+<m type="wmp" src="mms://adas.pixeltv.hu/tv8 " label="TV8"/>
+<m type="wmp" src="mms://stream02.gtk.hu/zeg_tv" label="Zenti TV"/>
+<m type="wmp" src="mms://213.163.4.195:8080" label="Varosi TV"/>
+<m type="wmp" src="http://live1.szupernet.tv/zold90" label="Szupernet Zold"/>
+<m type="wmp" src="http://live1.szupernet.tv/piros90" label="Szupernet Piros"/>
+<m type="wmp" src="http://wwitv.com/stream/b3931.asx" label="Golf Channel"/>
+<m type="wmp" src="http://live2.szupernet.tv/feher90" label="Szupernet Feher"/>
+<m type="wmp" src="mms://streamer.hirtv.net/hirtv.asf" label="Hungary Hir TV"/>
+<m type="wmp" src="mms://stream01.gtk.hu/s5" label="Full Arts TV"/>
+<m type="wmp" src="mms://www.fixtv.hu/fixdsl" label="Fix TV"/>
+<m type="wmp" src="mms://193.6.36.2:10000" label="ETV"/>
+<m type="wmp" src="http://80.249.168.221/dunatv" label="Duna TV"/>
+<m type="wmp" src="http://80.249.168.222/autonomia" label="Duna II Autonomia"/>
+<m type="wmp" src="http://193.110.59.95:8080" label="Digi TV"/>
+<m type="wmp" src="http://live1.szupernet.tv/zold90" label="Szupernet Zold"/>
+<m type="wmp" src="http://live1.szupernet.tv/piros90" label="Szupernet Piros"/>
+<m type="wmp" src="http://live2.szupernet.tv/feher90" label="Szupernet Feher"/>
+<m type="wmp" src="mms://streammaster.carnation.hu/mtvonline1" label="M1 TV"/>
+<m type="wmp" src="mms://streamer.hirtv.net/hirtv.asf" label="Hungary Hir TV"/>
+<m type="wmp" src="mms://stream01.gtk.hu/s5" label="Full Arts TV"/>
+<m type="wmp" src="mms://www.fixtv.hu/fixdsl" label="Fix TV"/>
+<m type="wmp" src="http://193.110.59.95:8080" label="Digi TV"/>
+<m type="wmp" src="mms://85.90.176.28:8123" label="Civil TV"/>
+<m type="wmp" src="mms://217.27.219.157:1234" label="City TV"/>
+<m type="wmp" src="mms://on.line.hu/ATVlive" label="Hungary ATV"/>
+</m>
+<m label="意大利-ITA" opened="0">
+<m type="wmp" src="mms://mms.cdn-tiscali.com/sportitalia" label="Sport Italia"/>
+<m type="wmp" src="http://www.speedup-tv.com/act_stream.aspx?sender_id=11" label="Idea TV"/>
+<m type="wmp" src="mms://81.174.67.45/ibizaontv" label="伊比薩音樂台"/>
+<m type="wmp" src="mms://194.116.83.15/70s" label="70s ROCK"/>
+<m type="wmp" src="mms://194.116.83.15/90s" label="90 S ROCK"/>
+<m type="wmp" src="mms://151.1.245.65/canale7" label="Canale 7"/>
+<m type="wmp" src="http://media.meteo.it/TGItaBL.asx" label="Metro TV"/>
+<m type="wmp" src="http://www.omegatv.net/live.asx" label="Omega TV"/>
+<m type="wmp" src="mms://93.63.206.8:8080/" label="Rei TV"/>
+<m type="wmp" src="mms://live.mediaserver.kataweb.it/retea" label="All Music"/>
+</m>
+<m label="荷蘭-NED" opened="0">
+<m type="wmp" src="mms://194.187.44.69/tvl" label="TV Limburg"/>
+<m type="wmp" src="mms://media.rtvoost.nl/TVOost" label="TV Oost"/>
+<m type="wmp" src="mms://stream.rtvnh.nl/TVNH" label="RTV N-H"/>
+<m type="wmp" src="mms://www.rtvchannel.tv:8080" label="RTV"/>
+<m type="wmp" src="mms://regio22.streamonline.nl/regio22" label="Regio 22"/>
+<m type="wmp" src="mms://graafschaptv.streamonline.nl/graafschaptv" label="Graafschap TV"/>
+<m type="wmp" src="http://livemedia2.omroep.nl/ncrv_geloven-bb" label="Geloven "/>
+</m>   
+<m label="俄羅斯-RUS" opened="0">
+<m type="wmp" src="mms://cam001-ext.cpms.ru:2001/" label="Moscow Cam"/>
+<m type="wmp" src="mms://a1439.l3192233438.c31922.g.lm.akamaistream.net/D/1439/31922/v0001/reflector:33438 " label="Eurosport_Russia"/>
+<m type="wmp" src="mms://live.eu.kulturatv.kiev.ua/Kultura" label="Kultura TV"/>
+<m type="wmp" src="mms://212.1.238.70/ts_tv" label="TV Tvoi Stroi"/>
+<m type="wmp" src="mms://217.115.183.210/Ugra" label="Ugra "/>
+<m type="wmp" src="http://cluster.quantumart.ru/broadcast/default.aspx?media=rutv" label="rutv"/>
+<m type="wmp" src="mms://media2.uvcm.eu/tv" label="uvcm"/>
+<m type="wmp" src="mms://live.cnl.tv/cnl-sib" label="CNL Siberia"/>
+<m type="wmp" src="mms://media.stv.lv/stvsport" label="STV sport Russia"/>
+<m type="wmp" src="mms://streaming.livetv.co.th/LiveTVB-VARIETYONE" label="Variety One"/>
+<m type="wmp" src="http://live.rfn.ru/vesti_24" label="Vesti TV"/>
+<m type="wmp" src="mms://213.232.226.11/MIRTV_300" label="Mir TV"/>
+</m> 
+<m label="斯洛伐克-SVK" opened="0">
+<m type="wmp" src="mms://93.103.4.16/playtv" label="Play TV"/>
+<m type="wmp" src="http://81.89.49.210/musicbox" label="Music Box"/>
+<m type="wmp" src="mms://wmedia.siol.net/paprika/live" label="Paprika"/>
+</m> 
+<m label="西班牙-ESP" opened="0">
+<m type="wmp" src="mms://mediaserver01.upv.es/TelePoli" label="UPV TV"/>
+<m type="wmp" src="mms://win.1.c3.audiovideoweb.com/1c3winlive6808" label="TV Mas"/>
+<m type="wmp" src="mms://88.87.218.43/teletaxitv" label="Tele Taxi"/>
+<m type="wmp" src="mms://wm.gobiernodecanarias.org/tvctdt" label="TV Canaria "/>
+<m type="wmp" src="http://st7.unored.com/iglsamaria" label="Samaria TV "/>
+<m type="wmp" src="mms://win91va.audiovideoweb.com/va91winlive2091" label="M95"/>
+<m type="wmp" src="http://streaming.wdreams.com/localiatv " label="Localia TV"/>
+<m type="wmp" src="mms://www.intereconomia.com/INTERECONOMIA-TV" label="Intereconomia "/>
+<m type="wmp" src="mms://rcri2.com/fuegotv" label="Fuego TV"/>
+<m type="wmp" src="http://www.crtvg.es/asfroot/television.asx " label="CRTV"/>
+<m type="wmp" src="http://wagner.serveisweb.com/CE027" label="Cetelmon"/>
+<m type="wmp" src="mms://193.146.5.220/Cervantes_tv" label="Cervantes TV"/>
+<m type="wmp" src="http://www.canalgv.com/canalgv/resources/asx_enlaces_externos/rtvv_tvvi.asx" label="Canal GV"/>
+<m type="wmp" src="mms://wm.mad.interhost.com/OjosSolidariosTv" label="Ojos Solidarios"/>
+</m>
+<m label="瑞典-SWE" opened="0">
+<m type="wmp" src="mms://wm-live.crossnet.net/dknettv" label="DKNet"/>
+</m>
+<m label="土耳其-TUR" opened="0">
+<m type="wmp" src="http://212.156.63.226/TRTTURK" label="TRT Turk"/>
+<m type="wmp" src="mms://212.156.63.226/tv6" label="TRT 6"/>
+<m type="wmp" src="mms://212.156.63.102/TV4" label="TRT 4"/>
+<m type="wmp" src="mms://212.156.63.102/TV2" label="TRT 2"/>
+<m type="wmp" src="mms://212.156.63.102/TV1" label="TRT 1"/>
+<m type="wmp" src="mms://canli.samanyolu.tv/stv" label="STV Canli Yayin"/>
+<m type="wmp" src="mms://yayin.canlitv.com/kanal48" label="Kanal Marmaris"/>
+<m type="wmp" src="mms://88.225.223.212" label="Kanal VIP"/>
+<m type="wmp" src="mms://94.75.240.130/emrah" label="Kanal Z"/>
+<m type="wmp" src="mms://94.75.240.130/hilaltv " label="Hilal TV"/>
+<m type="wmp" src="mms://85.17.137.32/Gelisim " label="Gelisim TV"/>
+<m type="wmp" src="mms://84.16.227.87/CayTv" label="Cay TV"/>
+<m type="wmp" src="mms://213.243.33.124/kanald " label="kanald"/>
+<m type="wmp" src="mms://144.122.56.15/odtutv" label="NTV"/>
+<m type="wmp" src="http://www.freeetv.com/images/reydddd/waaatch_trt_3.asx" label="TRT3"/>
+</m>
+<m label="英國-GBR" opened="0">
+<m type="wmp" src="mms://venus.sharp-stream.com/ucbtv" label="ucbtv"/>
+<m type="wmp" src="mms://193.251.158.86/VoxAfrica" label="VoxAfrica"/>
+<m type="wmp" src="rtsp://live.alkarmatv.com:1200/alkarma_live" label="alkarma_live"/>
+<m type="wmp" src="rtsp://streaming.i2i-technology.com/wlc_11000" label="wildlife channel"/>
+<m type="wmp" src="rtsp://85.214.87.175/toon-tv " label="tv"/>
+<m type="wmp" src="mms://www.bloomberg.com/streams/video/LiveUK_nb.asx" label="Bloomberg TV "/>
+<m type="wmp" src="mms://www.islamchannel.tv/videos/BBMetaFile.asx " label="Islam Channel"/>
+<m type="wmp" src="mms://stream00.prostream.co.uk/moovee" label="Moovee"/>
+<m type="wmp" src="mms://85.21.138.210/mclips4 " label="mclips4 TV "/>
+<m type="wmp" src="mms://videoserver.tilde.ee/lifetv3" label="lifetv33 TV"/>
+<m type="wmp" src="ms://c13010-ls.w.core.cdn.streamfarm.net/dwworldlive-live/13010dwtveu350" label="DW TV"/>
+<m type="wmp" src="mms://a1052.v63136.c6313.g.vm.akamaistream.net/7/1052/6313/v0001/vs.download.akamai.com/6313/fall_2001/fashion_show_300.asx" label="fashion show "/>
+<m type="wmp" src="rtsp://live1.wm.skynews.servecast.net/skynews_wmlz_live300k" label="Sky TV "/>
+<m type="wmp" src="mms://server3.i2ic.com/iv?channel=16" label="Holiday TV"/>
+<m type="wmp" src="http://streaming.visionip.tv/GenesisTV" label="Genesis TV "/>
+<m type="wmp" src="http://news.bbc.co.uk/media/avdb/cbbc/newsround/video/132000/bb/132700_16x9_bb.asx" label="CBBC Newsround"/>
+<m type="wmp" src="mms://wmslive.media.hinet.net/Weblive_Bloomberg_600" label="Bloomberg TV UK"/>
+<m type="wmp" src="http://live1.wm.setantauk.servecast.net/setanta_wmlz_setantanews" label="Setanta Sports News"/>
+<m type="wmp" src="mms://rmv8.bbc.net.uk/news/olmedia/n5ctrl/tvseq/od/bbc1/bb/wm/video/question_bb.wmv" label="BBC Question Time"/>
+<m type="wmp" src="mms://live1.wm.skynews.servecast.net/skynews_wmlz_live300k" label="Sky News"/>
+</m>
+<m label="烏克蘭-UKR" opened="0">
+<m type="wmp" src="http://live2.eu.utr.kiev.ua/UTR-EU " label="UTR-EU"/>
+<m type="wmp" src="MMS://89.187.1.165/UBC?WMCONTENTBITRATE=300000" label="UBC"/>
+<m type="wmp" src="http://media.wnet.ua/lists/rada.asx" label="Rada"/>
+<m type="wmp" src="http://media.wnet.ua/lists/24.asx" label="24TV"/>
+</m>
+<m label="波蘭-POL" opened="0">
+<m type="wmp" src="mms://streamlive.interia.pl/interiatv400" label="Iteria TV"/>
+<m type="wmp" src="mms://217.113.224.22/TVToya" label="TVToya"/>
+<m type="wmp" src="mms://stream.star.net.pl:8080" label="TTK"/>
+<m type="wmp" src="mms://stream.mni.pl/ITV" label="ITV"/>
+<m type="wmp" src="mms://195.94.205.211/Trwam" label="Telewizja Trwam  Poland"/>
+</m>
+</m>
+<m label="北美地區-North America" opened="0">
+<m label="加拿大-CAN" opened="0">
+<m type="3" src="http://www.cbc.ca/mrl3/8752/newsatsix/ottawa.wmv" label="CBC Sport" /> 
+<m type="3" src="http://207.253.121.82/TVAStream?MSWMExt=.asf" label="TVA" />
+<m type="3" src="mms://208.124.241.22:8090" label="Toronto TV Ch. 5" />  
+<m type="3" src="mms://208.124.241.22:8085" label="Toronto TV Ch. 3" />
+<m type="3" src="mms://208.124.241.22:8095" label="Toronto TV Ch. 2" /> 
+<m type="3" src="http://www.cbc.ca/mrl3/8752/newsatsix/winnipeg.wmv" label="Winnipeg" />
+<m type="3" src="http://www.cbc.ca/mrl3/8752/newsatsix/windsor.wmv" label="CBC Windsor" /> 
+<m type="3" src="http://www.cbc.ca/mrl3/8752/newsatsix/toronto.wmv" label="CBC Vancouver" />
+<m type="3" src="http://www.cbc.ca/mrl3/8752/newsatsix/regina.wmv" label="CBC Regina" />  
+<m type="3" src="http://www.cbc.ca/mrl3/8752/newsatsix/ottawa.wmv" label="CBC Ottawa" />
+<m type="3" src="http://www.cbc.ca/mrl3/8752/newsatsix/northbeat.wmv" label="CBC Northbeat" /> 
+<m type="3" src="http://www.cbc.ca/mrl3/8752/compass/compass.wmv" label="Compass" />
+<m type="3" src="http://www.cbc.ca/mrl3/8752/newsatsix/montreal.wmv" label="Montreal" />  
+<m type="3" src="http://www.cbc.ca/mrl3/8752/newsatsix/igalaaq.wmv" label="Igalaag" />
+<m type="3" src="http://www.cbc.ca/mrl3/8752/newsatsix/halifax.wmv" label="Halifax" /> 
+<m type="3" src="http://207.253.121.82/TVAStream?MSWMExt=.asf" label="TVA" />
+</m>
+<m label="美國-USA" opened="0">
+<m type="2" src="f24_livefr" rtmp="rtmp://stream2.france24.yacast.net:80/france24_live/fr" label="France 24 French "/>
+<m type="wmp" src="mms://live1.wm.skynews.servecast.net/skynews_wmlz_live300k" label="KY NEWS TV"/>
+<m type="wmp" src="mms://169.130.151.126/whbr"  label="美國WHBR電視台"/>
+<m type="wmp" src="mms://web2.ci.palm-coast.fl.us/tv199LiveStream " label="美國PCMA電視台 "/>
+<m type="wmp" src="mms://streams.tvknob.com/tvloops/CH3/ch3.wsx " label="美國songwroter音樂 "/>
+<m type="wmp" src="mms://85.214.87.175/history-movies" label="美國老電影台"/>
+<m type="wmp" src="mms://68.142.101.123/mcm_safe_tv_300_003" label="美國SAFE電視台"/>
+<m type="wmp" src="mms://yayin.canlitv.com/expochannel" label="美國expochannel電視台"/>
+<m type="wmp" src="rtsp://sports125.com/sports125" label="美國SPORTS125電視台 "/>
+<m type="wmp" src=" mms://a1475.l1293737474.c12937.g.lm.akamaistream.net/D/1475/12937/v0001/reflector:37474 "  label="美國WHIO電視台"/>
+<m type="wmp" src=" mms://207.7.154.95/sanfrancisco_enco" label="美國舊金山電視台2"/>
+<m type="wmp" src=" mms://207.7.154.95/sanfrancisco_encoder2" label="美國舊金山電視台"/>
+<m type="wmp" src=" mms://media-wm.cac.washington.edu/ResearchTV Live (LAN)" label="美國動物星球"/>
+<m type="wmp" src=" mms://www.channel125.com/channe" label="Channel 125"/>
+<m type="wmp" src=" http://www.secretsoftheoutdoors.com/lgfrog.wmv"  label="Secrets of the Outdoors"/>
+<m type="wmp" src=" http://miamitvchannel.com/miamitvmodels/miamitvmodelsweb.asx" label="Miami TV Female Models "/>
+<m type="wmp" src=" http://miamitvchannel.com/miamitvmusic/miamitvmusic.asx" label="TV Music"/>
+<m type="wmp" src=" http://miamitvchannel.com/miamitvhealth/miamitvhealth.asx" label="Miami TV Life / Health "/>
+<m type="wmp" src=" http://miamitvchannel.com/miamitvfood/miamitvfood.asx" label="Miami TV Hotels / Food"/>
+<m type="wmp" src=" http://miamitvchannel.com/miamitv.asx"  label="Miami TV"/>
+<m type="wmp" src=" http://miamitvchannel.com/miamitvmen/miamitvcmen.asx" label="Miami TV Male Models"/>
+<m type="wmp" src=" http://miamitvchannel.com/miamitvautoshow/miamitvautoshow.asx" label="Miami TV Autoshow "/>
+<m type="wmp" src=" http://endavo.total-stream.net/Endavo3abn" label="3ABN"/>
+<m type="wmp" src=" mms://wm.video.ufl.edu/ATTV "  label="ATTV"/>
+<m type="wmp" src=" http://www.ampmedia.org/asx/public24.asx" label="AMP 24"/>
+<m type="wmp" src=" http://video.csupomona.edu/LiveOne-245.asx" label="Cal Poly Pomona 2"/>
+<m type="wmp" src=" http://boss.streamos.com/wmedia-live/tbn/8032/300_tbn-jctv_050222.asx" label="JCTV"/>
+<m type="wmp" src=" mms://207.7.154.94/sanfrancisco_encoder2" label="SFG TV"/>
+<m type="wmp" src=" http://boss.streamos.com/wmedia-live/tbn/8031/500_tbn-tbn_050222.asx" label="TBN"/>
+<m type="wmp" src="mms://pbs.wmod.llnwd.net/a1863/e1/general/windows/nbr/nbr_160.wmv"  label="NBR"/>
+<m type="wmp" src="mms://msnbc.wmod.llnwd.net/a275/e1/video/100/vh.asf" label="NBC Mobile"/>
+</m>
+<m label="墨西哥-MEX" opened="0">
+<m type="wmp" src="mms://strm01.novotempo.org.br/tvnuevotiempo-vivo" label="Time Channel"/>
+</m>
+</m>
+<m label="亞洲地區-Aisa" opened="0">
+<m label="日本衛視-JPN" opened="0">
+<m type="wmp" src="http://news.tbs.co.jp/news_mainprogram/asf/1_nb_1.asf" label="日本TBS電視台新聞"/>
+<m type="wmp" src="mms://nhk-world.gekimedia.net/nhkw-highm" label="NHK 國際台"/>
+<m type="wmp" src="mms://wm.tvbj2.com/wmbswowo" label="WOWOW TV"/>
+<m type="wmp" src="mms://wm5.tvbj2.com/wmtokyo" label="JAPON - TOKYO TV"/>
+<m type="wmp" src="mms://wm5.tvbj2.com/wmanimax" label="Wmanimax TV "/>
+<m type="wmp" src="http://www.nhk.or.jp/nhkworld/r0/high.asx" label="NNHK WORLD TV"/>
+<m type="wmp" src="http://www.fnn-news.com/news/playlist/video/wmv/news_300.asx" label="ji News Network"/>
+<m type="wmp" src="mms://ecst.qvc.jp/LiveHigh" label="QVC"/>
+<m type="wmp" src="http://news.tbs.co.jp/news_mainprogram/asx/1_23.asx" label="TBS News23"/>
+<m type="wmp" src="http://news.tbs.co.jp/news_mainprogram/asx/1_18.asx" label="TBS evening news"/>
+<m type="wmp" src="mms://nhk-world.gekimedia.net/nhkw-highs" label="NHK World"/>
+<m type="wmp" src="mms://wm2.tvbj2.com/wmmtvjp"  label="MTV TV"/>
+<m type="wmp" src="http://news.tbs.co.jp/news_mainprogram/asx/1_nb.asx"  label="TBS Newsbird"/>
+</m>
+<m label="韓國衛視-KOR" opened="0">
+<m type="wmp" src="mms://media.scctv.net/SCCtv Broadband"  label="韓國SCC TV"/>
+<m type="wmp" src="rtsp://128.134.37.102/live500"  label="KFN國軍電視台"/>
+<m type="wmp" src="rtsp://obs-live.obs.co.kr/obs"  label="韓國OBS電視台"/>
+<m type="wmp" src="rtsp://66.232.147.94/hwbclive300"  label="韓國WBC電視台"/>
+<m type="wmp" src="rtsp://121.156.66.57/World_Live"  label="韓國阿里郎電視台"/>
+<m type="wmp" src="rtsp://118.223.168.31/dmblive1"  label="TBS交通數位台"/>
+<m type="wmp" src="rtsp://onair.ktv.go.kr/ktv"  label="韓國KTV電視頻道"/>
+<m type="wmp" src="rtsp://live.hmall.com/encoder2"  label="韓國Hmall Shop"/>
+<m type="wmp" src="http://plive.webcast.go.kr/natv"  label="韓國國會電視"/>
+<m type="wmp" src="rtsp://211.63.212.39/live"  label="韓國C3TV電視台"/>
+<m type="wmp" src="http://live.sciencetv.kr/sciencetv"  label="韓國Science"/>
+<m type="wmp" src="http://sentv.hscdn.com/sentv"  label="韓國SEN經濟"/>
+</m>
+<m label="泰國衛視-THA" opened="0">
+<m type="wmp" src="mms://broadcast.issp.co.th/11news1" label="News1"/>
+<m type="wmp" src="http://streaming.livetv.co.th/LiveTVB-POP" label="POP"/>
+<m type="wmp" src="http://streaming.livetv.co.th/LiveTVB-MOVIEPLUS" label="MOVIEPLUS"/>
+<m type="wmp" src="mms://broadcast.manager.co.th/toc" label="TAN NETWORK"/>
+<m type="wmp" src="http://broadcast.manager.co.th/11news1" label="泰國ASTV電視台"/>
+<m type="wmp" src="rtsp://61.19.248.196/mvtv_8" label="MVTV My"/>
+<m type="wmp" src="http://streaming.livetv.co.th/LiveTVB-MOVIEPLUS" label="Movie Plus"/>
+<m type="wmp" src="http://202.57.163.14/kimeng1" label="KE TV"/>
+<m type="wmp" src="rtsp://media.ru.ac.th/Faikham_TV" label="News11"/>
+</m>
+<m label="菲律賓電視台-PHI" opened="0">
+<m type="wmp" src="http://64.151.87.201/untvfromnetwork2" label="菲律賓電視台"/>
+<m type="wmp" src="http://www.goonlinetv.com/live.asx" label="DZRH - Philippines"/>
+</m>
+<m label="馬來西亞-MAS" opened="0">
+<m type="wmp" src="http://202.160.15.87/stream-02-300" label="RTB Internation"/>
+</m>
+<m label="印度衛視-IND" opened="0">
+<m type="wmp" src="mms://mms.rrsat-internet.tv/rainbow_high" label="rainbow"/>
+<m type="wmp" src="mms://a990.l4028444989.c40284.a.lm.akamaistream.net/D/990/40284/v0001/reflector:44989" label="IBN Lokmat"/>
+</m>
+<m label="約旦-JOR" opened="0">
+<m type="wmp" src="mms://stream.jrtv.jo/jrtv" label="約旦電視台"/>
+</m>
+<m label="阿拉伯-UAE" opened="0">
+<m type="wmp" src="mms://Rotanaptv01.rotana.net/rotanacinema" label="rotanacinema"/>
+<m type="wmp" src="http://Rotanaptv01.rotana.net/rotanaclip" label="rotanaclip"/>
+<m type="wmp" src="http://eu02.egihosting.com/989626%20" label="阿拉伯 sta 7"/>
+<m type="wmp" src="rtsp://stream.jrtv.jo/jrtv" label="阿拉伯Jordan TV"/>
+<m type="wmp" src="rtsp://live.alkarmatv.com:1200/alkarma_live" label="阿拉伯alkarma_live  "/>
+</m>   
+<m label="巴基斯坦-PAK" opened="0">
+<m type="wmp" src="http://stream.watchislam.com/shareislam" label="Share Islam"/>
+<m type="wmp" src="http://198.64.249.20/imamabbas" label="HAQ TV Roza-e-Abb"/>
+<m type="wmp" src="http://94.75.216.24/ih" label="HAQ TV Roza-e-Hus"/>
+</m>
+<m label="阿拉伯-UAE" opened="0">
+<m type="wmp" src="rtsp://wms.salaamtv.com/S54" label="RTM online"/>
+<m type="wmp" src="http://91.186.250.3/rotana128-2" label="Alalam News Iran"/>
+<m type="wmp" src="rtsp://simul.freebit.net/shonanbeachfm" label="Kuwait Tv 2"/>
+</m> 
+<m label="伊朗-IRI" opened="0">
+<m type="wmp" src="rtsp://live.mohabat.tv/Mohabat_Live" label="Mohabat"/>
+<m type="wmp" src="rtsp://74.208.8.22/Mohabat_Live" label="Mohabat TV"/>
+</m>
+<m label="黎巴嫩-LIB" opened="0">
+<m type="wmp" src="rtsp://live.alburhan.tv/stream_live" label="Dar Al Hayat"/> 
+<m type="wmp" src="rtsp://89.202.214.2/e5e0e37b-86ec-4ec7-bacc-b7f93f3b5283" label="Al Quds al Arabi"/>   
+</m>
+<m label="伊拉克-IRQ" opened="0">
+<m type="wmp" src="rtsp://74.208.8.22/Mohabat_Live" label="Baghdadch "/>
+<m type="wmp" src="rtsp://live.alforattv.com/alforat" label="Alforat TV  "/>
+</m>
+<m label="印尼-INA" opened="0">
+<m type="2" src="livestream" rtmp="rtmp://174.142.194.145/nabCapture" label="Watch Samaa TV Live"/>
+<m type="wmp" src="mms://tritv.net/broadcast " label="Indonesia Solar"/>
+</m>
+<m label="沙特阿拉伯-KSA" opened="0">
+<m type="wmp" src="mms://Rotanaptv01.rotana.net/rotanacinema" label="rotanacinema"/>
+<m type="wmp" src="mms://216.155.148.196/huda" label="huda"/>
+<m type="wmp" src="mms://Rotanaptv01.rotana.net/rotanaclip" label="rotanaclip"/>
+<m type="wmp" src="mms://live.alkarmatv.com:1200/alkarma_live" label="阿拉伯alkarma_live"/>
+</m>
+<m label="阿曼-OMA" opened="0">
+<m type="wmp" src="mms://82.178.28.24/MOIVideo" label="Oman TV"/>
+</m>
+<m label="利比亞-LBA" opened="0">
+<m type="wmp" src="mms://almadina.tv.ly/live" label="AL Manar"/>
+<m type="wmp" src="mms://217.198.224.70/TV24_small" label="TV 24 Lv" />
+</m>
+<m label="斯里蘭卡-SRI" opened="0">
+<m type="wmp" src="mms://tv.damlak.net/damlak_tv" label="Damlak"/>
+</m>
+<m label="阿塞拜疆-AZE" opened="0">
+<m type="wmp" src="http://www.webcasting.com/gunaz.asx" label="GunAz TV"/>
+<m type="wmp" src="mms://85.132.50.243/Lider_Online" label="Lider TV"/>
+<m type="wmp" src="mms://c13010-ls.w.core.cdn.streamfarm.net/dwworldlive-live/13010dwtveu54" label="DW TV"/>
+</m>
+<m label="亞美尼亞-ARM" opened="0">
+<m type="wmp" src="mms://204.174.105.58/wmtencoder/artn.wmv " label="Artn"/>
+<m type="wmp" src="mms://74.208.15.132/Amga" label="Amga"/>
+</m>
+<m label="柬埔寨-CAM" opened="0">
+<m type="wmp" src="http://74.208.126.110/online" label="菲律賓電視台"/>
+</m>
+<m label="越南-VIE" opened="0">
+<m type="2" src="livestream" rtmp="rtmp://222.255.144.62/live/" label="越南順化電視台" />
+</m>
+</m>
+</list>
