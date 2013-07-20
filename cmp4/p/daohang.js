@@ -1,4 +1,4 @@
-﻿document.writeln("<li><a href=\"http:\/\/cycy.sf.net\" class=\"current\"  target=\"_blank\"><b>兲語天空<\/b><\/a><\/li>");
+﻿document.writeln("<li><a href=\"http:\/\/oxn.github.io\" class=\"current\"  target=\"_blank\"><b>兲語天空<\/b><\/a><\/li>");
 document.writeln("<li><a href=\"index.html\"   target=\"_blank\"><b>生成器简单版<\/b><\/a><\/li>");
 document.writeln("<li><a href=\"cmp.html\"   target=\"_blank\"><b>生成器专业版<\/b><\/a><\/li>");
 document.writeln("<li><a href=\"skin.html\"   target=\"_blank\"><b>皮肤预览<\/b><\/a><\/li>");
