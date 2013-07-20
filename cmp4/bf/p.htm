@@ -9,7 +9,7 @@ html, body { height:100%; margin:0; padding:0; overflow:hidden; text-align:cente
 <body>
 <div style="margin:0 auto;padding:0;width:100%;height:100%;">
 <div id="player" style="width:100%;height:100%;"></div>
-<script type="text/javascript" src="https://oxn.googlecode.com/svn/trunk/bf/cmp.js"></script> 
+<script type="text/javascript" src="https://oxn.github.io/cmp4/bf/cmp.js"></script> 
 <script type="text/javascript">
 var cmpo;
 function QueryString(){
@@ -48,7 +48,7 @@ var flashvars = {
 var Request=new QueryString();
 code=Request["src"];
 if (code===undefined) {code="兲語天空CYCY.SF.NET"}
-var htm = CMP.create("cmp", "100%", "100%", "https://oxn.googlecode.com/svn/trunk/bf/cmpn.swf?name=兲語天空CYCY.SF.NET&src="+code+"", flashvars);
+var htm = CMP.create("cmp", "100%", "100%", "https://oxn.github.io/cmp4/bf/cmpn.swf?name=兲語天空CYCY.SF.NET&src="+code+"", flashvars);
 document.getElementById("player").innerHTML = htm;
 </script>
 </div>

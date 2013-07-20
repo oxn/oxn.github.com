@@ -273,10 +273,10 @@ function update() {
 	var cmpurl = [];
 	//主播放器地址
 	if ($("av01").checked) {
-		cmpurl.push("https://cmps.googlecode.com/svn/trunk/mp/c/y.swf?url=v.xml");
+		cmpurl.push("https://oxn.github.io/cmp4/mp/c/y.swf?url=v.xml");
 	}
 	if ($("av56").checked) {
-		cmpurl.push("https://cmps.googlecode.com/svn/trunk/mp/c/y.swf?url=o.xml");
+		cmpurl.push("https://oxn.github.io/cmp4/mp/c/y.swf?url=o.xml");
 	}
 	var vars = ["","stream=true"];//var vars = ["url=http://sfsf.tk/yy.xml","lists=","stream=true"]//
 	//取得设置
