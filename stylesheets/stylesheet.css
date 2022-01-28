@@ -70,6 +70,7 @@ header {
 
 header h1 {
   font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "PingFang SC", "Hiragino Sans GB", "STHeiti Light", "Microsoft YaHei", "WenQuanYi Micro Hei";
+  font-weight:bold;
   letter-spacing: -1px;
   font-size: 48px;
   color: #303030;
