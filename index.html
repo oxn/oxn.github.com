@@ -1,47 +1,153 @@
- 
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-<script>
-!function(p){"use strict";!function(t){var s=window,e=document,i=p,c="".concat("https:"===e.location.protocol?"https://":"http://","sdk.51.la/js-sdk-pro.min.js"),n=e.createElement("script"),r=e.getElementsByTagName("script")[0];n.type="text/javascript",n.setAttribute("charset","UTF-8"),n.async=!0,n.src=c,n.id="LA_COLLECT",i.d=n;var o=function(){s.LA.ids.push(i)};s.LA?s.LA.ids&&o():(s.LA=p,s.LA.ids=[],o()),r.parentNode.insertBefore(n,r)}()}({id:"Ja0HVnv7iPM39FgS",ck:"Ja0HVnv7iPM39FgS"});
-</script>
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <title>怸歪小站</title>
-  </head>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="none">
+    <title>欢迎光临怸歪小站</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+        }
 
-  <body>
-    <div id="container">
-      <div class="inner">
+        /* 根变量：浅色模式（极简文艺风） */
+        :root {
+            --bg-color: #fefefe;
+            --text-primary: #333;
+            --text-secondary: #666;
+            --text-desc: #777;
+            /* 主页按钮：透明背景 + 细边框 */
+            --btn-bg: transparent;
+            --btn-color: #555;
+            --btn-border: 1px solid #999;
+            --btn-radius: 4px;
+            /* 切换按钮专属变量 */
+            --toggle-color: #555;
+            --toggle-border: 1px solid #999;
+        }
 
-        <header>
-          <h1>怸歪小站</h1>
-          <h2>Oxn.GitHub.io</h2>
-        </header>
+        /* 深色模式（简约暗黑风） */
+        body.dark {
+            --bg-color: #121212;
+            --text-primary: #f0f0f0;
+            --text-secondary: #aaa;
+            --text-desc: #888;
+            /* 🔥 关键修改：深色模式下，主页按钮也保持 透明背景 + 细边框 */
+            --btn-bg: transparent;
+            --btn-color: #f0f0f0;
+            --btn-border: 1px solid #666;
+            --btn-radius: 4px;
+            /* 切换按钮专属深色样式 */
+            --toggle-color: #f0f0f0;
+            --toggle-border: 1px solid #666;
+        }
 
-        <hr>
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            background-color: var(--bg-color);
+            font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "PingFang SC", "Hiragino Sans GB", "STHeiti Light", "Microsoft YaHei", "WenQuanYi Micro Hei";
+            position: relative;
+        }
 
-        <section id="main_content">
-                  <h3>欢迎光临我的主页！我是怸歪。</h3><h4>这是我在GitHub上的网站，你可以通过以下链接访问我的其他站点：</h4>
-<span style="color: #0000ff; font-size: 14px;"><strong><span style="color: #99cc00;">我</span><span style="color: #339966;">的</span><span style="color: #33cccc;">主</span><span style="color: #993366;">站</span>：<u><em><span style="color: #000000;"><a  title="怸歪小站" href="http://cycy.fun/" target="_blank"><span style="color: #000000;"><span style="color: #ff0000;">C</span><span style="color: #008000;">y</span><span style="color: #0000ff;">C</span><span style="color: #ff9900;">y</span>.<span style="color: #ff0000;">F</span><span style="color: #0000ff;">u</span><span style="color: #ff0000;">n</span></span></a></span></strong></span></u></em><br />
-<span style="color: #0000ff; font-size: 14px;"><strong><span style="color: #000000;">镜</span></strong><strong><span style="color: #ff0000;">像</span></strong><span style="color: #0000ff;"><strong><span style="color: #00ccff;">站</span><span style="color: #000000;">①</span>：<u><em><span style="color: #000000;"><a  title="AGO盘" href="http://ago.ys168.com" target="_blank"><span style="color: #000000;"><span style="color: #ff0000;">a</span><span style="color: #008000;">g</span>o<span style="color: #ff0000;">.</span><span style="color: #008000;">y</span><span style="color: #0000ff;">s</span><span style="color: #ff0000;">1</span><span style="color: #008000;">6</span><span style="color: #0000ff;">8</span>.<span style="color: #ff0000;">c</span><span style="color: #008000;">o</span><span style="color: #008000;">m</span></span></a></span></strong></span></span></em><br />
-<span style="color: #0000ff; font-size: 14px;"><strong><span style="color: #000000;">镜</span></strong><strong><span style="color: #ff0000;">像</span></strong><span style="color: #0000ff;"><strong><span style="color: #00ccff;">站</span><span style="color: #000000;">②</span>：<u><em><span style="color: #000000;"><a  title="EWE盘" href="http://ewe.ys168.com" target="_blank"><span style="color: #000000;"><span style="color: #ff0000;">e</span><span style="color: #008000;">w</span>e<span style="color: #ff0000;">.</span><span style="color: #008000;">y</span><span style="color: #0000ff;">s</span><span style="color: #ff0000;">1</span><span style="color: #008000;">6</span><span style="color: #0000ff;">8</span>.<span style="color: #ff0000;">c</span><span style="color: #008000;">o</span><span style="color: #008000;">m</span></span></a></span></strong></span></span></u></em><br />
-<span style="color: #0000ff; font-size: 14px;"><strong><span style="color: #008000;">镜</span>像<span style="color: #ff9900;">站</span><span style="color: #ff0000;">③</span>：<u><em><a  title="怸歪博客园" href="https://www.cnblogs.com/xsbz/" target="_blank"><span style="color: #ff0000;">怸</span><span style="color: #008000;">歪</span>博<span style="color: #ff9900;">客</span><span style="color: #ff0000;">园</span></a></strong></span></u></em><br /><pre><code>Thanks GitHub Pages</code></pre></p>
-        </section>
+        /* 模式切换按钮：固定圆形 */
+        .mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: transparent;
+            color: var(--toggle-color);
+            border: var(--toggle-border);
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 99;
+        }
 
-        <footer>
-          This page was generated by <a href="https://pages.github.com" target="_blank">GitHub Pages</a>. Tactile theme by <a href="http://twitter.com/jasonlong" target="_blank">Jason Long</a>.
-        </footer>
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 80px);
+            line-height: 1.2;
+            margin-bottom: 30px;
+            color: var(--text-primary);
+            font-weight: 700;
+        }
 
-        
-      </div>
-    </div>
-  </body>
+        h2 {
+            font-size: clamp(1.2rem, 3vw, 28px);
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            line-height: 1.8;
+            font-weight: 600;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 2.2;
+            color: var(--text-desc);
+        }
+
+        /* 主页按钮样式 */
+        a {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 28px;
+            color: var(--btn-color);
+            background-color: var(--btn-bg);
+            border: var(--btn-border);
+            border-radius: var(--btn-radius);
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(64, 158, 255, 0.2);
+        }
+
+        body.dark a:hover {
+            box-shadow: 0 4px 15px rgba(64, 158, 255, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <button class="mode-toggle" onclick="toggleMode()">☀️</button>
+
+    <h1>欢迎光临怸歪小站</h1>
+    <h2>能看到这个页面说明你很牛逼了！</h2>
+    <p>更多内容点击下方链接访问我的主页~<br>
+        <a href="https://cycy.fun" target="_blank" rel="noopener noreferrer">怸歪小站CYCY.FUN ></a>
+    </p>
+
+    <script>
+        function toggleMode() {
+            const body = document.body;
+            const toggleBtn = document.querySelector('.mode-toggle');
+            body.classList.toggle('dark');
+            toggleBtn.textContent = body.classList.contains('dark') ? '🌙' : '☀️';
+            localStorage.setItem('theme', body.classList.contains('dark') ? 'dark' : 'light');
+        }
+
+        window.onload = function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark');
+                document.querySelector('.mode-toggle').textContent = '🌙';
+            }
+        }
+    </script>
+</body>
 </html>
