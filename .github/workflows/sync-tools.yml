@@ -1,0 +1,41 @@
+name: Sync cytools-html → oxn.github.io/tools
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/**'
+  repository_dispatch:
+    types: [sync_trigger]
+
+jobs:
+  copy-files:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      # 1. 拉取 cytools-html 仓库完整代码
+      - name: Checkout cytools-html
+        uses: actions/checkout@v4
+        with:
+          repository: oxn/cytools-html
+          token: ${{ secrets.SYNC_PAT }}
+          path: source
+
+      # 2. 拉取当前 oxn.github.io 仓库
+      - name: Checkout current repo
+        uses: actions/checkout@v4
+        with:
+          path: target
+
+      # 3. 把 cytools-html 全部文件覆盖复制到 target/tools
+      - name: Sync folder
+        run: |
+          rm -rf target/tools
+          mkdir target/tools
+          cp -r source/* target/tools/
+          cd target
+          git config user.name "Sync Bot"
+          git config user.email "bot@cycy.fun"
+          git add .
+          git diff --quiet && git diff --staged --quiet || (git commit -m "auto sync cytools-html to tools folder" && git push)
