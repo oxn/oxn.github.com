@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="郑重警告">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f6f7f8">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1e2020">
+  <link rel="icon" type="image/x-icon" href="https://res.wx.qq.com/a/wx_fed/assets/res/NTI4MWU5.ico">
+  <title>「怸歪小站」扫码警告！</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html {
+      color-scheme: light;
+    }
+    html.dark {
+      color-scheme: dark;
+    }
+    body {
+      min-width: 375px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f6f7f8;
+      transition: background-color 0.3s ease;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+    html.dark body {
+      background-color: #1e2020;
+    }
+    /* 主题切换按钮 */
+    .theme-btn {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+      color: #000;
+    }
+    html.dark .theme-btn {
+      background: #303134;
+      color: #fff;
+    }
+    .light-icon, .dark-icon {
+      display: none;
+    }
+    html.dark .light-icon {
+      display: block;
+    }
+    html:not(.dark) .dark-icon {
+      display: block;
+    }
+    /* 主卡片 */
+    .card {
+      width: 100%;
+      max-width: 380px;
+      margin: 0 20px;
+      padding: 32px;
+      border-radius: 16px;
+      background: #fff;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    html.dark .card {
+      background: #000;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+    }
+    /* 和原二维码容器完全一致尺寸、圆角、布局 */
+    .qrcode-wrap {
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+      border-radius: 12px;
+      width: 256px;
+      height: 256px;
+      margin: 0 auto;
+      align-items: center;
+      background: #fff3f3;
+    }
+    html.dark .qrcode-wrap {
+      background: #331414;
+    }
+    /* 文字上下跳动动画 */
+    @keyframes bounceText {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .warn-text {
+      animation: bounceText 0.8s ease-in-out infinite;
+      font-size: 18px;
+      line-height: 1.8;
+      text-align: center;
+      font-weight: bold;
+      color: #d02020;
+      padding: 0 12px;
+    }
+    html.dark .warn-text {
+      color: #ff6b6b;
+    }
+    .tip-text {
+      margin: 12px 0 20px;
+      font-size: 13px;
+      text-align: center;
+      color: rgba(0,0,0,0.5);
+    }
+    html.dark .tip-text {
+      color: rgba(255,255,255,0.5);
+    }
+    /* 账号信息栏 */
+    .info-bar {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      padding: 12px 0;
+      border-radius: 10px;
+      background: #f7f7f7;
+    }
+    html.dark .info-bar {
+      background: #303134;
+    }
+    .avatar {
+      width: 48px;
+      height: 48px;
+      margin: 0 16px;
+      border-radius: 999px;
+      object-fit: cover;
+    }
+    .info-text {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .name {
+      font-weight: bold;
+      color: #000;
+    }
+    html.dark .name {
+      color: #fff;
+    }
+    .desc {
+      font-size: 12px;
+      color: rgba(0,0,0,0.5);
+    }
+    html.dark .desc {
+      color: rgba(255,255,255,0.5);
+    }
+  </style>
+</head>
+<body>
+  <button class="theme-btn" id="themeToggle">
+    <span class="light-icon">🌙</span>
+    <span class="dark-icon">☀️</span>
+  </button>
+
+  <div class="card">
+    <!-- 保留原类名 qrcode-wrap，尺寸完全不变 -->
+    <div class="qrcode-wrap">
+      <div class="warn-text">
+        信息时代扫码危险！<br>
+        怎么让你扫码你就扫！<br>
+        你怎么那么听话那？<br>
+        快点关了！<br>
+        也就是我不然你危险了！
+      </div>
+    </div>
+    <div class="tip-text">到处乱扫，好奇害死猫！</div>
+
+    <div class="info-bar">
+      <img class="avatar"
+           src="img/avatar.webp"
+           alt="头像"
+           onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2248%22 height=%2248%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23999%22 stroke-width=%221%22><circle cx=%2212%22 cy=%228%22 r=%224%22/><path d=%22M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2%22/></svg>'">
+      <div class="info-text">
+        <div class="name">怸歪小站</div>
+        <div class="desc"><a href="https://cycy.fun" target="_blank" style="color: inherit; text-decoration: none;">👆进入cycy.fun</a> | <a href="https://347777.xyz" target="_blank" style="color: inherit; text-decoration: none;">👆进入347777.xyz</a></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 初始化主题：本地存储 > 系统深色偏好
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      html.classList.add('dark');
+    }
+
+    // 切换按钮逻辑
+    const toggleBtn = document.getElementById('themeToggle');
+    toggleBtn.addEventListener('click', () => {
+      html.classList.toggle('dark');
+      const current = html.classList.contains('dark') ? 'dark' : 'light';
+      localStorage.setItem('theme', current);
+    });
+  </script>
+</body>
+</html>
