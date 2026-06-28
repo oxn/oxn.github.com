@@ -1,14 +1,128 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <!-- 基础页面配置 -->
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <!-- 站点标题修改为 cytools-html -->
-  <title>cytools-html</title>
-  <style>
-    /* ===================== 全局变量定义区 ===================== */
-    /* 统一管理颜色、间距、圆角、过渡、字体尺寸，全局一处修改全页面生效 */
+# cytools-html
+下载即用，所有工具布置在本地，不外挂js、css，不上传到任何云端，没有任何恶意代码、广告代码、统计代码！
+# cytools-html 静态工具站 使用 & 二次开发说明文档
+## 一、站点整体概述
+**cytools-html** 是一套纯静态无后端 HTML 工具集合页面，无需服务器，直接双击 HTML 文件即可本地打开运行；所有数据、用户偏好（明暗主题、收藏工具）均存储在浏览器 `localStorage`，清除浏览器缓存会重置自定义设置。
+站点内置自动化渲染、自适应布局、主题记忆、收藏计数、分类自动折叠、实时搜索过滤、时间排序等逻辑，仅需修改固定区块即可新增导航按钮、新增工具卡片，无需改动自动化底层逻辑。
+## 二、顶部导航按钮 新增 / 修改操作指南
+### 1. 存放位置
+HTML 中 `<header>` 内部` class="nav-link-group"` 容器，所有导航功能按钮全部写在此容器内：
+
+```html
+<div class="nav-link-group">
+   <!-- 原有导航按钮示例 -->
+   <a href="#" target="_blank" class="header-btn">
+   <span>💬</span> 问题反馈
+   </a>
+</div>
+```
+
+
+### 2. 新增导航按钮标准模板（直接复制粘贴）
+```html
+<a href="跳转链接地址" target="_blank" class="header-btn">
+  <span>图标符号</span> 按钮文字
+</a>
+```
+- `href`：填写跳转地址，站内跳转填 #，外部网站填写完整 URL；
+- `target="_blank"`：保留代表新标签页打开，删除则当前页面跳转；
+`class="header-btn"` 不可删除：控制按钮样式、hover 变色、圆角，删除会样式错乱；
+`<span>图标</span>`：放置 `emoji 图标`，可自行更换。
+### 3. 修改现有导航按钮操作
+- 修改跳转地址：修改 `a` 标签内 `href` 属性；
+- 修改按钮文字：修改标签内文本；
+- 修改图标：修改 `<span>` 内 emoji 符号；
+- 删除按钮：直接删除整段 `<a>...</a>` 代码即可。
+### 4. 注意事项
+导航栏支持自动换行，按钮过多会自动向下换行，无需手动调整布局；
+最右侧固定存在「明暗主题切换按钮」，不要放入 `nav-link-group` 容器，页面预留了独立定位空间；
+不要修改 `.header-inner、.theme-switch-wrap` 结构，会导致主题按钮遮挡导航文字。
+## 三、工具大卡片 新增 / 修改操作指南
+### 1. 数据源存放位置
+所有卡片不手写 HTML，由 JS 自动化循环渲染；数据源固定在脚本 `toolList` 数组，仅修改此处即可新增 / 删除 / 编辑卡片，无需改动页面卡片渲染代码。
+```javascript
+const toolList = [
+  // 单条工具标准对象模板
+  {
+    id: "唯一英文id，不可重复",
+    icon: "卡片左上角图标emoji",
+    title: "工具大标题",
+    desc: "工具简介描述（两行自动截断）",
+    cat: "分类英文标识（如DEV、TIME、TEXT）",
+    catName: "分类中文名称",
+    catIcon: "分类标签图标emoji",
+    date: "创建日期 格式YYYY-MM-DD，用于时间排序",
+    featured: true/false, // true=卡片显示「精选」角标
+    top: true/false,      // true=卡片显示「置顶」角标，featured优先于top
+    url: "工具跳转地址",
+    tags: ["标签1","标签2","标签3"] // 底部多标签数组
+  }
+]
+```
+
+### 2. 新增工具卡片完整步骤
+在 `toolList` 数组末尾，复制一份完整对象模板；
+修改全部字段，保证 `id` 全站唯一，日期格式统一；
+分类 `cat` 自定义规则：
+全新分类：自定义英文标识，填写对应 `catName` 、`catIcon` ，页面自动化识别生成新分类标签；
+已有分类：复用现有 `cat` 值，工具会自动归入已有分类；
+角标控制：`featured:true` 显示精选橙标，`top:true` 显示蓝标，二者只开一个；
+保存文件刷新页面，自动化脚本自动生成卡片、自动新增对应分类标签。
+### 3. 修改 / 删除现有卡片
+修改卡片内容：直接编辑对应工具对象内字段；
+永久删除卡片：删除整条工具对象；
+临时隐藏卡片：无需删除，可新增开关字段过滤（底层过滤逻辑无需改动）。
+### 4. 卡片样式固定规则（无需调整 CSS）
+角标：自动定位图标右上角，向外偏移 8px，透明度 70%，无需手动调整；
+描述文字固定 13px，两行自动省略；
+鼠标悬浮卡片自动上浮、显示右下角箭头、显示收藏星星按钮；
+自适应网格：大屏 3 列、平板 2 列、手机 1 列，自动化适配屏幕宽度。
+## 四、全站自动化功能完整说明
+### （一）主题明暗模式自动化
+首次打开网站（无本地记录）：自动读取电脑 / 手机系统明暗时间，同步页面亮色 / 暗色；
+手动点击右上角主题按钮切换：自动将用户选择存入浏览器 localStorage；
+刷新页面、关闭重开页面：优先读取本地存储的手动主题，不再跟随系统；
+系统明暗自动监听：仅用户从未手动切换过时，系统切换深色 / 浅色，页面同步变化；手动切换后，系统不再干预页面主题。
+### （二）分类标签自动化系统
+自动提取分类：遍历 `toolList` 工具数组，自动收集所有不重复分类，无需手动写分类标签；
+单行宽度自适应计算：页面加载、窗口缩放时，自动计算一行能放下多少分类；
+溢出自动折叠：单行放不下的分类自动收纳至「更多」折叠面板；
+更多 / 收起切换：点击按钮展开 / 折叠隐藏分类，按钮文字自动切换「更多 / 收起」；
+分类数量实时计数：每个分类标签右侧自动显示该分类下工具总数；
+收藏计数联动：收藏 / 取消收藏时，「收藏」分类右侧数字实时刷新，无需刷新页面。
+### （三）收藏功能自动化
+收藏持久化：点击卡片星星，工具 `ID` 存入 `localStorage`，刷新、关闭页面收藏不丢失；
+实时联动更新：收藏状态变更后，自动刷新分类计数、自动重渲染卡片星星图标；
+分类过滤：点击`「收藏」`分类，页面自动只展示已收藏工具。
+### （四）搜索过滤自动化
+实时输入过滤：搜索框输入文字，页面实时匹配、过滤工具卡片；
+多字段模糊匹配：同时匹配工具标题、描述、分类名称、底部标签；
+无匹配自动提示：无符合条件工具时，自动展示空白提示文案；
+快捷键支持：`Ctrl+K` / `Cmd+K` 一键聚焦搜索框，回车刷新过滤结果。
+### （五）排序自动化
+时间升降序切换：点击顶部`「时间排序」`按钮，切换新旧排序；
+自动重渲染：切换排序后，卡片按日期重新排列，无需刷新页面；
+日期标准：以工具对象 `date` 字段为准，支持年月日标准格式解析。
+### （六）页面布局自适应自动化
+头部高度自动适配：导航按钮换行、窗口缩放时，自动计算顶部固定导航高度，同步占位块高度，避免内容被导航遮挡；
+网格卡片自适应：根据屏幕宽度自动切换 `3/2/1` 列布局；
+移动端适配：手机屏幕下搜索栏、排序按钮自动换行，卡片单列展示；
+窗口 resize 全局重算：缩放浏览器窗口时，自动重新计算分类溢出、头部高度、布局，实时适配。
+### （七）卡片自动化渲染
+循环批量生成：读取 `toolList` 数组，自动循环生成全部卡片 HTML；
+角标自动判断：根据 `featured / top` 字段自动生成`「精选 / 置顶」`半透明角标；
+标签自动生成：读取工具 `tags` 数组，自动生成底部多标签；
+收藏状态自动渲染：根据本地存储收藏列表，自动填充实心 / 空心星星。
+
+## 五、通用修改注意事项
+所有自动化逻辑全部封装在 `JS` 脚本中，仅允许修改指定数据源（导航` HTML`、`toolList` 数组），禁止删除 / 注释自动化函数，会导致分类、收藏、渲染功能失效；
+样式统一使用 `CSS` 变量，不要单独给单个按钮、卡片新增固定宽高，破坏自适应自动化；
+本地存储依赖浏览器，无痕模式下存储临时生效，关闭无痕窗口会清空；
+纯静态页面，无数据库、无后端，所有新增 / 修改仅需修改单 `HTML` 文件，保存后直接打开生效。
+## 六、颜色主题
+### 1、原版-头顶绿
+```html
+/* 统一管理颜色、间距、圆角、过渡、字体尺寸，全局一处修改全页面生效 */
     :root {
       --primary: #10b981;                 /* 主色-青绿色 */
       --primary-light: #dcfce7;           /* 主色浅背景 */
@@ -79,1140 +193,296 @@
       --key-bg: #334155;
       --key-text: #f1f5f9;
     }
+```
+### 2、 闷骚粉
+```html
+:root {
+  --primary: #ec4899;
+  --primary-light: #fdf2f8;
+  --header-bg: #fdf2f8;
+  --warn: #f97316;
+  --nav-btn-bg: #ffffff;
+  --nav-btn-border: #fce7f3;
+  --nav-btn-text: #222222;
+  --text-main: #222222;
+  --text-secondary: #555555;
+  --text-weak: #888888;
+  --border-base: #fce7f3;
+  --border-light: #fdf2f8;
+  --bg-page: #fff9fb;
+  --bg-card: #ffffff;
+  --bg-btn: #ffffff;
+  --bg-footer: #fdf2f8;
+  --shadow-sm: 0 1px 3px rgba(236,72,153,0.08);
+  --shadow-lg: 0 6px 16px rgba(236,72,153,0.12);
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 999px;
+  --space-xs: 6px;
+  --space-sm: 10px;
+  --space-md: 14px;
+  --space-lg: 16px;
+  --space-xl: 28px;
+  --transition: all 0.22s ease;
+  --key-bg: #fce7f3;
+  --key-text: #222;
+  --key-radius: 6px;
+  --key-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  --body-font-size: 16px;
+  --body-line-height: 1.6;
+  --title-line-height: 1.2;
+  --sub-title-line-height: 1.25;
+  --content-max-width: 1200px;
+  --card-gap: 16px;
+  --card-min-width: 300px;
+  --header-safe-gap: 16px;
+  --card-label-offset: 36px;
+  --nav-line-height: 38px;
+  --theme-btn-width: 36px;
+}
 
-    /* ===================== 全局通用重置样式 ===================== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      transition: var(--transition);
-    }
-    html {
-      font-size: var(--body-font-size);
-    }
-    html, body {
-      min-height: 100vh;
-      background: var(--bg-page);
-      color: var(--text-main);
-    }
-    body {
-      display: flex;
-      flex-direction: column;
-      font-family: "Inter", system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", Roboto, sans-serif;
-      font-size: var(--body-font-size);
-      line-height: var(--body-line-height);
-    }
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-    button {
-      font-family: inherit;
-      font-size: inherit;
-      border: none;
-      background: transparent;
-      cursor: pointer;
-    }
+html[data-theme="dark"] {
+  --primary: #f472b6;
+  --primary-light: rgba(244, 114, 182, 0.18);
+  --header-bg: #111827;
+  --nav-btn-bg: #1f2937;
+  --nav-btn-border: #374151;
+  --nav-btn-text: #f3f4f6;
+  --warn: #fdba74;
+  --text-main: #f9fafb;
+  --text-secondary: #d1d5db;
+  --text-weak: #9ca3af;
+  --border-base: #374151;
+  --border-light: #1f2937;
+  --bg-page: #0f172a;
+  --bg-card: #1e293b;
+  --bg-btn: #1f2937;
+  --bg-footer: #111827;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.25);
+  --shadow-lg: 0 6px 16px rgba(0,0,0,0.45);
+  --key-bg: #374151;
+  --key-text: #f9fafb;
+  --key-shadow: 0 1px 2px rgba(0,0,0,0.35);
+}
+```
+### 3、朴实灰
+```html
+:root {
+  --primary: #52525b;
+  --primary-light: #f4f4f5;
+  --header-bg: #f4f4f5;
+  --warn: #f97316;
+  --nav-btn-bg: #ffffff;
+  --nav-btn-border: #e4e4e7;
+  --nav-btn-text: #222222;
+  --text-main: #222222;
+  --text-secondary: #555555;
+  --text-weak: #71717a;
+  --border-base: #e4e4e7;
+  --border-light: #f4f4f5;
+  --bg-page: #fafafa;
+  --bg-card: #ffffff;
+  --bg-btn: #ffffff;
+  --bg-footer: #f4f4f5;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-lg: 0 6px 16px rgba(0,0,0,0.09);
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 999px;
+  --space-xs: 6px;
+  --space-sm: 10px;
+  --space-md: 14px;
+  --space-lg: 16px;
+  --space-xl: 28px;
+  --transition: all 0.22s ease;
+  --key-bg: #e4e4e7;
+  --key-text: #222;
+  --key-radius: 6px;
+  --key-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  --body-font-size: 16px;
+  --body-line-height: 1.6;
+  --title-line-height: 1.2;
+  --sub-title-line-height: 1.25;
+  --content-max-width: 1200px;
+  --card-gap: 16px;
+  --card-min-width: 300px;
+  --header-safe-gap: 16px;
+  --card-label-offset: 36px;
+  --nav-line-height: 38px;
+  --theme-btn-width: 36px;
+}
 
-    /* ===================== 页面容器通用类 ===================== */
-    .container {
-      max-width: var(--content-max-width);
-      width: calc(100% - 48px);
-      margin: 0 auto;
-    }
+html[data-theme="dark"] {
+  --primary: #a1a1aa;
+  --primary-light: rgba(161, 161, 170, 0.18);
+  --header-bg: #111827;
+  --nav-btn-bg: #1f2937;
+  --nav-btn-border: #374151;
+  --nav-btn-text: #f3f4f6;
+  --warn: #fdba74;
+  --text-main: #f9fafb;
+  --text-secondary: #d1d5db;
+  --text-weak: #9ca3af;
+  --border-base: #374151;
+  --border-light: #1f2937;
+  --bg-page: #0f172a;
+  --bg-card: #1e293b;
+  --bg-btn: #1f2937;
+  --bg-footer: #111827;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.25);
+  --shadow-lg: 0 6px 16px rgba(0,0,0,0.45);
+  --key-bg: #374151;
+  --key-text: #f9fafb;
+  --key-shadow: 0 1px 2px rgba(0,0,0,0.35);
+}
+```
+### 4、眼瓦蓝
+```html
+:root {
+  --primary: #52525b;
+  --primary-light: #f4f4f5;
+  --header-bg: #f4f4f5;
+  --warn: #f97316;
+  --nav-btn-bg: #ffffff;
+  --nav-btn-border: #e4e4e7;
+  --nav-btn-text: #222222;
+  --text-main: #222222;
+  --text-secondary: #555555;
+  --text-weak: #71717a;
+  --border-base: #e4e4e7;
+  --border-light: #f4f4f5;
+  --bg-page: #fafafa;
+  --bg-card: #ffffff;
+  --bg-btn: #ffffff;
+  --bg-footer: #f4f4f5;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-lg: 0 6px 16px rgba(0,0,0,0.09);
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 999px;
+  --space-xs: 6px;
+  --space-sm: 10px;
+  --space-md: 14px;
+  --space-lg: 16px;
+  --space-xl: 28px;
+  --transition: all 0.22s ease;
+  --key-bg: #e4e4e7;
+  --key-text: #222;
+  --key-radius: 6px;
+  --key-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  --body-font-size: 16px;
+  --body-line-height: 1.6;
+  --title-line-height: 1.2;
+  --sub-title-line-height: 1.25;
+  --content-max-width: 1200px;
+  --card-gap: 16px;
+  --card-min-width: 300px;
+  --header-safe-gap: 16px;
+  --card-label-offset: 36px;
+  --nav-line-height: 38px;
+  --theme-btn-width: 36px;
+}
 
-    /* ===================== 顶部固定导航栏 ===================== */
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 99; /* 最高层级，覆盖页面内容 */
-      background: var(--header-bg);
-      border-bottom: 1px solid var(--border-base);
-      box-shadow: none;
-    }
-    .header-inner {
-      position: relative;
-      display: flex;
-      align-items: flex-start;
-      flex-wrap: wrap;
-      gap: 8px 12px;
-      padding: 14px 0;
-      /* 预留右侧主题按钮空间，防止文字被遮挡 */
-      padding-right: calc(var(--theme-btn-width) + 16px);
-    }
-    /* Logo区域 */
-    .logo-wrap {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-shrink: 0;
-    }
-    .logo-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: var(--radius-md);
-      background: var(--primary-light);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      flex-shrink: 0;
-    }
-    .logo-text h1 {
-      font-size: clamp(24px, 3vw, 32px);
-      font-weight: 700;
-      line-height: var(--title-line-height);
-      white-space: nowrap;
-    }
-    .logo-text p {
-      font-size: 14px;
-      line-height: 1.3;
-      margin-top: 4px;
-      color: var(--text-secondary);
-    }
-    /* 右侧导航按钮组 */
-    .nav-link-group {
-      flex: 1;
-      display: flex;
-      align-items: flex-start;
-      justify-content: flex-end;
-      flex-wrap: wrap;
-      gap: var(--space-xs);
-      min-width: 220px;
-    }
-    .header-btn {
-      padding: 7px 10px;
-      border: 1px solid var(--nav-btn-border);
-      border-radius: var(--radius-lg);
-      font-size: 12px;
-      line-height: 1;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      white-space: nowrap;
-      background: var(--nav-btn-bg);
-      color: var(--nav-btn-text);
-      flex-shrink: 0;
-      min-width: fit-content;
-      height: var(--nav-line-height);
-    }
-    .header-btn:hover {
-      border-color: var(--primary);
-      background: var(--primary-light);
-      color: var(--primary);
-    }
-    /* 主题切换按钮固定右上角绝对定位 */
-    .theme-switch-wrap {
-      position: absolute;
-      top: 14px;
-      right: 0;
-    }
-    .header-btn.theme-switch {
-      width: var(--theme-btn-width);
-      min-width: var(--theme-btn-width);
-      height: 32px;
-      padding: 0;
-      justify-content: center;
-      font-size: 14px;
-    }
+html[data-theme="dark"] {
+  --primary: #a1a1aa;
+  --primary-light: rgba(161, 161, 170, 0.18);
+  --header-bg: #111827;
+  --nav-btn-bg: #1f2937;
+  --nav-btn-border: #374151;
+  --nav-btn-text: #f3f4f6;
+  --warn: #fdba74;
+  --text-main: #f9fafb;
+  --text-secondary: #d1d5db;
+  --text-weak: #9ca3af;
+  --border-base: #374151;
+  --border-light: #1f2937;
+  --bg-page: #0f172a;
+  --bg-card: #1e293b;
+  --bg-btn: #1f2937;
+  --bg-footer: #111827;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.25);
+  --shadow-lg: 0 6px 16px rgba(0,0,0,0.45);
+  --key-bg: #374151;
+  --key-text: #f9fafb;
+  --key-shadow: 0 1px 2px rgba(0,0,0,0.35);
+}
+```
+### 5、淡橙色暖杏主题
+```html
+:root {
+  --primary: #3b82f6;
+  --primary-light: #eff6ff;
+  --header-bg: #eff6ff;
+  --warn: #f97316;
+  --nav-btn-bg: #ffffff;
+  --nav-btn-border: #dbeafe;
+  --nav-btn-text: #222222;
+  --text-main: #222222;
+  --text-secondary: #555555;
+  --text-weak: #888888;
+  --border-base: #dbeafe;
+  --border-light: #eff6ff;
+  --bg-page: #f8faff;
+  --bg-card: #ffffff;
+  --bg-btn: #ffffff;
+  --bg-footer: #eff6ff;
+  --shadow-sm: 0 1px 3px rgba(59,130,246,0.08);
+  --shadow-lg: 0 6px 16px rgba(59,130,246,0.12);
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 999px;
+  --space-xs: 6px;
+  --space-sm: 10px;
+  --space-md: 14px;
+  --space-lg: 16px;
+  --space-xl: 28px;
+  --transition: all 0.22s ease;
+  --key-bg: #dbeafe;
+  --key-text: #222;
+  --key-radius: 6px;
+  --key-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  --body-font-size: 16px;
+  --body-line-height: 1.6;
+  --title-line-height: 1.2;
+  --sub-title-line-height: 1.25;
+  --content-max-width: 1200px;
+  --card-gap: 16px;
+  --card-min-width: 300px;
+  --header-safe-gap: 16px;
+  --card-label-offset: 36px;
+  --nav-line-height: 38px;
+  --theme-btn-width: 36px;
+}
 
-    /* 头部占位块，抵消fixed头部高度，防止内容被遮挡 */
-    .header-spacer {
-      width: 100%;
-      height: 0;
-      flex-shrink: 0;
-    }
-
-    main.container {
-      margin-top: var(--header-safe-gap);
-      flex: 1;
-    }
-
-    /* ===================== 搜索栏区域 ===================== */
-    .search-wrap {
-      padding: 4px 0 10px 0;
-      display: flex;
-      gap: var(--space-sm);
-      align-items: center;
-    }
-    .search-box {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      padding: 0 16px;
-      height: 52px;
-      border: 1px solid var(--border-base);
-      border-radius: var(--radius-lg);
-      background: var(--bg-btn);
-      gap: 10px;
-      min-width: 0;
-      position: relative;
-    }
-    .search-icon {
-      font-size: 18px;
-      color: var(--text-weak);
-      flex-shrink: 0;
-    }
-    #searchInput {
-      flex: 1;
-      height: 100%;
-      border: none;
-      outline: none;
-      font-size: var(--body-font-size);
-      line-height: 1;
-      background: transparent;
-      color: var(--text-main);
-      min-width: 0;
-      padding-right: 120px;
-    }
-    #searchInput::placeholder {
-      color: var(--text-weak);
-    }
-    /* Ctrl+K 快捷键提示 */
-    .search-key-hint {
-      position: absolute;
-      right: 16px;
-      display: flex;
-      gap: 6px;
-      user-select: none;
-      pointer-events: none;
-    }
-    .key-tag {
-      font-size: 13px;
-      line-height: 1;
-      color: var(--key-text);
-      background: var(--key-bg);
-      padding: 3px 8px;
-      border-radius: var(--key-radius);
-      box-shadow: var(--key-shadow);
-      font-weight: 500;
-    }
-    /* 排序按钮 */
-    .sort-btn {
-      height: 52px;
-      padding: 0 16px;
-      border: 1px solid var(--border-base);
-      border-radius: var(--radius-lg);
-      background: var(--bg-btn);
-      font-size: var(--body-font-size);
-      line-height: 1;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      white-space: nowrap;
-      color: var(--text-main);
-      flex-shrink: 0;
-    }
-    .sort-btn:hover {
-      border-color: var(--primary);
-      background: var(--primary-light);
-      color: var(--primary);
-    }
-
-    /* ===================== 分类标签栏（含更多/收起 已统一按钮样式） ===================== */
-    .category-wrap {
-      padding-bottom: var(--space-md);
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-    .category-visible-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      overflow: visible;
-      position: relative;
-    }
-    .tag-flow-box {
-      display: flex;
-      gap: 8px;
-      overflow: hidden;
-      flex: 1;
-      min-width: 0;
-    }
-    /* 统一标签与更多按钮样式 */
-    .category-tag,
-    .more-toggle-btn {
-      flex-shrink: 0;
-      padding: 9px 16px;
-      border: 1px solid var(--border-base);
-      border-radius: var(--radius-full);
-      font-size: 14px;
-      line-height: 1;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      white-space: nowrap;
-      background: var(--bg-btn);
-      color: var(--text-main);
-      transition: var(--transition);
-    }
-    .category-tag.active {
-      border-color: var(--primary);
-      background: var(--primary-light);
-      color: var(--primary);
-    }
-    .category-tag:hover,
-    .more-toggle-btn:hover {
-      border-color: var(--primary);
-      background: var(--primary-light);
-      color: var(--primary);
-    }
-    /* 更多按钮独有配置 */
-    .more-toggle-btn {
-      width: 88px;
-      justify-content: center;
-      visibility: visible !important;
-      opacity: 1 !important;
-    }
-    /* 折叠溢出分类面板 */
-    .overflow-panel {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      row-gap: 6px;
-      margin-top: 0;
-      height: 0;
-      overflow: hidden;
-      opacity: 0;
-      visibility: hidden;
-      transition: height 0.22s ease, opacity 0.22s ease, visibility 0.22s ease, margin-top 0.22s ease;
-      pointer-events: none;
-    }
-    .overflow-panel.open {
-      height: auto;
-      margin-top: 8px;
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-    }
-    /* 无搜索结果空白提示 */
-    .empty-tip {
-      text-align: center;
-      padding: 60px 0;
-      font-size: var(--body-font-size);
-      color: var(--text-weak);
-    }
-
-    /* ===================== 工具卡片网格布局 ===================== */
-    .tool-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
-      gap: var(--card-gap);
-    }
-    /* 大屏三列 */
-    @media (min-width: 1200px) {
-      .tool-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-    }
-    /* 中屏两列 */
-    @media (max-width: 860px) {
-      .tool-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-    /* 手机单列，搜索栏换行 */
-    @media (max-width: 640px) {
-      .tool-grid {
-        grid-template-columns: 1fr;
-      }
-      .search-wrap {
-        flex-wrap: wrap;
-      }
-      .search-box,
-      .sort-btn {
-        width: 100%;
-      }
-    }
-
-    /* ===================== 单张工具卡片样式 ===================== */
-    .tool-card {
-      display: flex;
-      flex-direction: column;
-      border: 1px solid var(--border-base);
-      border-radius: var(--radius-lg);
-      padding: var(--space-lg);
-      background: var(--bg-card);
-      box-shadow: var(--shadow-sm);
-      position: relative;
-      min-width: 0;
-      overflow: hidden;
-    }
-    .tool-card:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--shadow-lg);
-      border-color: var(--primary-light);
-    }
-    .tool-card:hover .card-icon {
-      background: var(--primary);
-      color: #fff;
-    }
-    /* 卡片右下角悬浮箭头 */
-    .tool-card::after {
-      content: "⮕";
-      position: absolute;
-      right: var(--space-lg);
-      bottom: var(--space-lg);
-      font-size: 20px;
-      color: var(--primary);
-      opacity: 0;
-      transition: opacity 0.22s ease;
-      pointer-events: none;
-      font-weight: bold;
-    }
-    .tool-card:hover::after {
-      opacity: 1;
-    }
-    /* 卡片角标：向外右上偏移8px，透明度70% 需求实现 */
-    .card-label {
-      position: absolute;
-      top: -8px;
-      right: -8px;
-      height: 20px;
-      padding: 0 7px;
-      border-radius: var(--radius-full);
-      color: #fff;
-      font-size: 11px;
-      line-height: 1;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 2;
-      opacity: 0.7;
-    }
-    .label-featured {
-      background: linear-gradient(135deg, #ff8822, #ff4400);
-    }
-    .label-top {
-      background: #3b82f6;
-    }
-    .label-recommend {
-      background: #ef4444;
-    }
-    /* 卡片头部：图标+标题行 */
-    .card-header {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 12px;
-      min-width: 0;
-      padding-left: 0;
-    }
-    /* 图标容器：相对定位，作为角标定位锚点 */
-    .card-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: var(--radius-sm);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      background: var(--primary-light);
-      color: var(--primary);
-      flex-shrink: 0;
-      position: relative;
-    }
-    .card-title-wrap {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      min-width: 0;
-    }
-    .card-title {
-      font-size: 19px;
-      font-weight: 600;
-      line-height: var(--sub-title-line-height);
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-    }
-    .card-meta {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 3px;
-      font-size: 13px;
-      line-height: 1.3;
-      color: var(--text-secondary);
-      min-width: 0;
-    }
-    /* 卡片描述文字缩小至13px 需求实现 */
-    .card-desc {
-      font-size: 13px;
-      line-height: 1.45;
-      color: var(--text-secondary);
-      margin-bottom: 10px;
-      min-height: 38px;
-      height: auto;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-    }
-    /* 卡片底部标签区域 */
-    .card-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: auto;
-      gap: var(--space-sm);
-      min-width: 0;
-    }
-    .card-tags {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      min-width: 0;
-      flex-shrink: 1;
-      max-width: calc(100% - 40px);
-    }
-    .card-tag {
-      padding: 3px 8px;
-      border-radius: var(--radius-xs);
-      font-size: 12px;
-      line-height: 1;
-      background: var(--border-light);
-      color: var(--text-secondary);
-      white-space: nowrap;
-    }
-    /* 收藏星星按钮，悬浮显示 */
-    .fav-star-fixed {
-      position: absolute;
-      top: var(--space-lg);
-      right: var(--space-lg);
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      flex-shrink: 0;
-      border: 1px solid var(--border-base);
-      background: var(--bg-card);
-      color: var(--text-weak);
-      transform: scale(1);
-      transform-origin: center center;
-      will-change: transform;
-      transition: transform 0.22s ease, opacity 0.22s ease;
-      z-index: 3;
-      opacity: 0;
-      visibility: hidden;
-    }
-    .fav-star-fixed.fav {
-      color: #f59e0b;
-      border-color: #f59e0b;
-      background: #fffbeb;
-      opacity: 1;
-      visibility: visible;
-    }
-    .tool-card:hover .fav-star-fixed {
-      opacity: 1;
-      visibility: visible;
-    }
-    .fav-star-fixed:hover {
-      transform: scale(1.12);
-    }
-
-    /* 页面底部版权 */
-    footer {
-      padding: var(--space-xl) 0;
-      text-align: center;
-      border-top: 1px solid var(--border-base);
-      font-size: 13px;
-      line-height: 1.4;
-      color: var(--text-weak);
-      margin-top: var(--space-xl);
-      background: var(--bg-footer);
-    }
-  </style>
-</head>
-<body>
-<!-- 顶部固定导航头部 -->
-<header id="headerDom">
-  <div class="container header-inner">
-    <!-- Logo区域，修改站点名称与简介 -->
-    <a href="#" class="logo-wrap">
-      <div class="logo-icon">🛠</div>
-      <div class="logo-text">
-        <h1>cytools-html</h1>
-        <p>开源HTML工具集-大道至简！</p>
-      </div>
-    </a>
-    <!-- 顶部右侧功能导航按钮 -->
-    <div class="nav-link-group">
-      <a href="https://cycy.fun" target="_blank" class="header-btn">
-        <span>💬</span> 问题反馈
-      </a>
-      <a href="#" target="_blank" class="header-btn">
-        <span>📈</span> 工具排行
-      </a>
-      <a href="https://cycy.fun" target="_blank" class="header-btn">
-        <span>📝</span> 提交需求
-      </a>
-      <a href="https://github.com/oxn" target="_blank" class="header-btn">
-        <span><svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor">
-					<path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
-				</svg></span> GitHub
-      </a>
-      <a href="#" target="_blank" class="header-btn">
-        <span>➕</span> 贡献工具
-      </a>
-    </div>
-    <!-- 主题切换按钮容器 -->
-    <div class="theme-switch-wrap">
-      <button id="themeToggle" class="header-btn theme-switch">🌙</button>
-    </div>
-  </div>
-</header>
-
-<!-- 头部高度占位块，JS动态计算高度 -->
-<div class="header-spacer" id="headerSpacer"></div>
-
-<!-- 主内容区域 -->
-<main class="container">
-  <!-- 搜索+排序行 -->
-  <div class="search-wrap">
-    <div class="search-box">
-      <span class="search-icon">🔍</span>
-      <input id="searchInput" placeholder="搜索工具名称、描述或标签...">
-      <div class="search-key-hint">
-        <span class="key-tag">Ctrl</span>
-        <span class="key-tag">K</span>
-      </div>
-    </div>
-    <button id="sortBtn" class="sort-btn">时间排序 ⬇️</button>
-  </div>
-
-  <!-- 分类标签栏（全部/收藏/各工具分类+更多折叠） -->
-  <div class="category-wrap">
-    <div class="category-visible-row">
-      <div class="tag-flow-box" id="visibleTagBox"></div>
-      <button class="more-toggle-btn" id="moreToggle">▼ 更多</button>
-    </div>
-    <div class="overflow-panel" id="overflowPanel"></div>
-  </div>
-
-  <!-- 工具卡片渲染容器 -->
-  <div id="cardContainer" class="tool-grid"></div>
-</main>
-
-<!-- 页脚版权 -->
-<footer>
-  <div class="container">
-    Copyright © 2026 cytools-html | 开源HTML工具集6.28-大道至简！ All Rights Reserved
-  </div>
-</footer>
-
-<script>
-/*
-============================== 脚本全局功能存档备注 ==============================
-功能总览：
-1. 主题模式持久化逻辑
-   - 首次进入无本地存储：自动跟随系统明暗时间
-   - 用户手动切换亮色/暗色：存入localStorage永久记忆，刷新不重置
-   - 仅无手动记录时，系统明暗切换页面同步更新
-2. 收藏功能
-   - 收藏ID存入localStorage持久保存
-   - 点击收藏星标实时更新分类栏右侧收藏数量，无需刷新页面
-   - 切换分类、搜索、缩放窗口自动重算收藏计数
-3. 分类自动折叠逻辑
-   - 自动计算单行可容纳标签宽度，溢出分类放入折叠面板
-   - 「更多/收起」切换面板展开状态，文字同步变化
-4. 搜索过滤
-   - 输入实时过滤卡片，匹配标题/描述/分类/标签
-   - Ctrl+K快捷键快速聚焦搜索框，回车刷新结果
-5. 排序功能
-   - 按创建时间正序/倒序切换
-6. 自适应布局
-   - 窗口resize自动重算头部高度、重新排版分类标签
-7. 卡片渲染
-   - 循环工具列表生成卡片HTML，自动生成精选/置顶角标
-   - 角标内置图标右上角、向外偏移8px、透明度70%
-   - 卡片描述文字缩小13px
-8. 响应式网格
-   大屏3列 / 平板2列 / 手机1列
-=====================================================================================
-*/
-
-  // ===================== 主题持久化模块（独立优先执行） =====================
-  const htmlRoot = document.documentElement;
-  const themeBtn = document.getElementById("themeToggle");
-  const mediaDark = window.matchMedia('(prefers-color-scheme: dark)');
-  const STORAGE_KEY = "site_theme_mode"; // 本地存储key，存储light/dark
-
-  /**
-   * 应用指定主题
-   * @param {string} mode light / dark
-   */
-  function applyTheme(mode) {
-    if (mode === "dark") {
-      htmlRoot.setAttribute("data-theme", "dark");
-      themeBtn.innerHTML = "☀️"; // 暗色显示太阳，切换亮色
-    } else {
-      htmlRoot.removeAttribute("data-theme");
-      themeBtn.innerHTML = "🌙"; // 亮色显示月亮，切换暗色
-    }
-  }
-
-  /**
-   * 页面初始化主题
-   * 逻辑：有本地手动记录 → 读取记录；无记录 → 跟随系统明暗
-   */
-  function initTheme() {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      applyTheme(saved);
-    } else {
-      applyTheme(mediaDark.matches ? "dark" : "light");
-    }
-  }
-
-  /**
-   * 切换主题并保存到本地存储
-   */
-  function toggleTheme() {
-    const current = htmlRoot.hasAttribute("data-theme") ? "dark" : "light";
-    const next = current === "dark" ? "light" : "dark";
-    localStorage.setItem(STORAGE_KEY, next);
-    applyTheme(next);
-  }
-
-  /**
-   * 监听系统明暗自动切换
-   * 限制：仅用户从未手动切换主题时生效
-   */
-  mediaDark.addEventListener("change", (e) => {
-    if (!localStorage.getItem(STORAGE_KEY)) {
-      applyTheme(e.matches ? "dark" : "light");
-    }
-  });
-
-  // 页面加载最先初始化主题
-  initTheme();
-  themeBtn.onclick = toggleTheme;
-
-  // ===================== 工具数据源（可自行增删工具） =====================
-  const toolList = [
-    {
-      id: "curl",
-      icon: "🧭",
-      title: "CURL 转代码工具",
-      desc: "将 curl 命令转换成 JavaScript / Python / Java / Go 请求代码，快速生成后端请求模板",
-      cat: "DEV",
-      catName: "开发工具",
-      catIcon: "⚡",
-      date: "2026-01-24",
-      featured: true,
-      top: false,
-      url: "#",
-      tags: ["curl", "http", "接口", "后端"]
-    },
-    {
-      id: "json",
-      icon: "{}",
-      title: "JSON 格式化",
-      desc: "JSON 格式化、压缩、校验，支持错误定位和语法高亮，一键美化杂乱JSON文本",
-      cat: "DEV",
-      catName: "开发工具",
-      catIcon: "⚡",
-      date: "2026-01-20",
-      featured: false,
-      top: true,
-      url: "#",
-      tags: ["json", "格式化", "校验"]
-    },
-    {
-      id: "timestamp",
-      icon: "⏱",
-      title: "时间戳转换",
-      desc: "时间戳与日期互转，支持多种格式与时区，毫秒/秒级时间戳双向解析",
-      cat: "TIME",
-      catName: "时间工具",
-      catIcon: "⏰",
-      date: "2026-01-18",
-      featured: true,
-      top: true,
-      url: "#",
-      tags: ["时间戳", "日期", "时区"]
-    },
-    {
-      id: "base64-text",
-      icon: "🔤",
-      title: "Base64 编解码",
-      desc: "Base64 编码与解码，支持文本与文件，兼容中文、二进制内容转换",
-      cat: "TEXT",
-      catName: "文本工具",
-      catIcon: "📄",
-      date: "2026-01-15",
-      featured: false,
-      top: false,
-      url: "#",
-      tags: ["base64", "编码", "加密"]
-    },
-    {
-      id: "url",
-      icon: "%",
-      title: "URL 编解码",
-      desc: "URL 编码与解码，支持完整链接与参数，自动处理特殊符号转义",
-      cat: "DEV",
-      catName: "开发工具",
-      catIcon: "⚡",
-      date: "2026-01-12",
-      featured: false,
-      top: false,
-      url: "#",
-      tags: ["url", "参数", "转义"]
-    },
-    {
-      id: "qrcode",
-      icon: "▣",
-      title: "二维码生成器",
-      desc: "自定义颜色、尺寸生成二维码，支持文本、链接、联系方式批量生成",
-      cat: "GENERATOR",
-      catName: "生成器",
-      catIcon: "🎲",
-      date: "2026-01-10",
-      featured: true,
-      top: true,
-      url: "#",
-      tags: ["二维码", "生成", "扫码"]
-    },
-    {
-      id: "jwt",
-      icon: "🔐",
-      title: "JWT 解码器",
-      desc: "解析JWT，查看Header、Payload与签名信息，无需密钥即可读取载荷",
-      cat: "DEV",
-      catName: "开发工具",
-      catIcon: "⚡",
-      date: "2026-01-08",
-      featured: false,
-      top: false,
-      url: "#",
-      tags: ["jwt", "token", "登录"]
-    },
-    {
-      id: "regex",
-      icon: ".*",
-      title: "正则测试器",
-      desc: "正则表达式实时匹配、捕获组预览，支持多修饰符在线调试正则规则",
-      cat: "TEXT",
-      catName: "文本工具",
-      catIcon: "📄",
-      date: "2026-01-05",
-      featured: false,
-      top: false,
-      url: "#",
-      tags: ["正则", "匹配", "文本处理"]
-    },
-    {
-      id: "json-yaml",
-      icon: "🔄",
-      title: "JSON 转 YAML",
-      desc: "JSON与YAML双向转换工具，适配配置文件、容器编排文件快速互转",
-      cat: "CONVERT",
-      catName: "格式转换",
-      catIcon: "🔄",
-      date: "2025-12-22",
-      featured: true,
-      top: false,
-      url: "#",
-      tags: ["json", "yaml", "配置"]
-    }
-  ];
-
-  // ===================== DOM元素缓存（全局复用，减少重复查询DOM） =====================
-  const visibleTagBox = document.getElementById("visibleTagBox");
-  const overflowPanel = document.getElementById("overflowPanel");
-  const moreToggle = document.getElementById("moreToggle");
-  const cardContainer = document.getElementById("cardContainer");
-  const searchInput = document.getElementById("searchInput");
-  const sortBtn = document.getElementById('sortBtn');
-  const headerDom = document.getElementById('headerDom');
-  const headerSpacer = document.getElementById('headerSpacer');
-
-  // 全局状态变量
-  let currentCat = "all";          // 当前选中分类
-  let panelOpen = false;            // 分类折叠面板展开状态
-  let visibleCategories = [];      // 单行可放下的分类数组
-  let overflowCategories = [];     // 溢出需要折叠的分类数组
-  let sortMode = "date-desc";      // 排序模式：date-desc 新→旧 / date-asc 旧→新
-  let favList = JSON.parse(localStorage.getItem("toolFav")) || []; // 收藏ID数组
-
-  // ===================== 收藏核心逻辑 =====================
-  /**
-   * 保存收藏到本地存储 + 刷新分类右侧计数
-   */
-  function saveFavAndRefreshCount() {
-    localStorage.setItem("toolFav", JSON.stringify(favList));
-    refreshAllCategoryUI();
-  }
-
-  /**
-   * 切换工具收藏状态
-   * @param {string} toolId 工具唯一ID
-   */
-  function toggleFav(toolId) {
-    const idx = favList.indexOf(toolId);
-    if (idx > -1) {
-      favList.splice(idx, 1); // 已收藏 → 取消
-    } else {
-      favList.push(toolId);   // 未收藏 → 加入收藏
-    }
-    saveFavAndRefreshCount();
-    filterTools(); // 重新渲染卡片，更新星星图标
-  }
-
-  // ===================== 分类数据处理 =====================
-  /**
-   * 自动提取所有不重复工具分类
-   * @returns 分类对象数组 {cat, name, icon}
-   */
-  function getAutoCategoryList() {
-    const catMap = new Map();
-    toolList.forEach(item => {
-      if (!catMap.has(item.cat)) catMap.set(item.cat, { cat: item.cat, name: item.catName, icon: item.catIcon });
-    });
-    return Array.from(catMap.values());
-  }
-
-  /**
-   * 拼接完整分类列表：固定分类(全部、收藏) + 自动工具分类
-   */
-  function buildFullCategoryConfig() {
-    const fixedBase = [{ cat: "all", icon: "🏠", name: "全部" }, { cat: "star", icon: "⭐", name: "收藏" }];
-    const autoCats = getAutoCategoryList();
-    return [...fixedBase, ...autoCats];
-  }
-
-  /**
-   * 获取指定分类下工具总数
-   * @param {string} catKey 分类标识 all/star/DEV/TIME等
-   * @returns 数量数字
-   */
-  function getCatCount(catKey) {
-    if (catKey === "all") return toolList.length;
-    if (catKey === "star") return favList.length;
-    return toolList.filter(i => i.cat === catKey).length;
-  }
-
-  /**
-   * 重新渲染全部分类标签，自动区分可见/溢出，刷新右侧数字
-   * 窗口缩放、收藏变更、切换分类都会调用
-   */
-  function refreshAllCategoryUI() {
-    const cats = buildFullCategoryConfig();
-    visibleTagBox.innerHTML = "";
-    overflowPanel.innerHTML = "";
-    visibleCategories = [];
-    overflowCategories = [];
-
-    // 临时隐藏容器计算每个标签宽度，判断是否溢出
-    const tempWrap = document.createElement("div");
-    tempWrap.style.cssText = "position:absolute;visibility:hidden;display:flex;gap:8px;white-space:nowrap;";
-    document.body.appendChild(tempWrap);
-    const boxWidth = visibleTagBox.clientWidth;
-    let usedW = 0;
-
-    cats.forEach(cat => {
-      const count = getCatCount(cat.cat);
-      const tag = document.createElement("div");
-      tag.className = "category-tag";
-      tag.innerHTML = `${cat.icon} ${cat.name}(${count})`;
-      tempWrap.appendChild(tag);
-      const w = tag.offsetWidth + 8;
-      if (usedW + w <= boxWidth) {
-        visibleCategories.push(cat);
-        usedW += w;
-      } else {
-        overflowCategories.push(cat);
-      }
-      tempWrap.removeChild(tag);
-    });
-    document.body.removeChild(tempWrap);
-
-    // 渲染可见行分类
-    visibleCategories.forEach(cat => {
-      const count = getCatCount(cat.cat);
-      const div = document.createElement("div");
-      div.className = `category-tag ${currentCat === cat.cat ? "active" : ""}`;
-      div.innerHTML = `${cat.icon} ${cat.name}(${count})`;
-      div.dataset.cat = cat.cat;
-      div.onclick = () => setActiveCat(cat.cat);
-      visibleTagBox.appendChild(div);
-    });
-
-    // 渲染折叠面板内溢出分类
-    overflowCategories.forEach(item => {
-      const count = getCatCount(item.cat);
-      const div = document.createElement("div");
-      div.className = "category-tag";
-      div.innerHTML = `${item.icon} ${item.name}(${count})`;
-      div.dataset.cat = item.cat;
-      div.onclick = () => setActiveCat(item.cat);
-      overflowPanel.appendChild(div);
-    });
-
-    // 有无溢出控制更多按钮显隐
-    if (overflowCategories.length > 0) {
-      moreToggle.style.display = "flex";
-    } else {
-      moreToggle.style.display = "none";
-    }
-    moreToggle.innerHTML = panelOpen ? "▲ 收起" : "▼ 更多";
-  }
-
-  /**
-   * 切换选中分类，刷新UI并重过滤卡片
-   * @param {string} cat 分类key
-   */
-  function setActiveCat(cat) {
-    currentCat = cat;
-    refreshAllCategoryUI();
-    filterTools();
-  }
-
-  // 更多/收起按钮点击事件
-  moreToggle.onclick = () => {
-    panelOpen = !panelOpen;
-    overflowPanel.classList.toggle("open", panelOpen);
-    moreToggle.innerHTML = panelOpen ? "▲ 收起" : "▼ 更多";
-  };
-
-  // ===================== 搜索、过滤、排序、卡片渲染 =====================
-  /**
-   * 根据当前分类+搜索关键词+排序规则过滤工具列表
-   */
-  function filterTools() {
-    let arr = [...toolList];
-    const kw = searchInput.value.toLowerCase().trim();
-
-    // 分类过滤
-    if (currentCat === "star") {
-      arr = arr.filter(i => favList.includes(i.id));
-    } else if (currentCat !== "all") {
-      arr = arr.filter(i => i.cat === currentCat);
-    }
-
-    // 搜索关键词模糊匹配
-    if (kw) {
-      arr = arr.filter(item => {
-        const title = item.title.toLowerCase();
-        const desc = item.desc.toLowerCase();
-        const catName = item.catName.toLowerCase();
-        const tagStr = item.tags.join(" ").toLowerCase();
-        return title.includes(kw) || desc.includes(kw) || catName.includes(kw) || tagStr.includes(kw);
-      });
-    }
-
-    // 时间排序
-    arr.sort((a, b) => {
-      const da = new Date(a.date).getTime();
-      const db = new Date(b.date).getTime();
-      return sortMode === "date-desc" ? db - da : da - db;
-    });
-
-    renderTools(arr);
-  }
-
-  /**
-   * 渲染工具卡片到页面
-   * @param {array} list 过滤后的工具数组
-   */
-  function renderTools(list) {
-    cardContainer.innerHTML = "";
-    if (!list.length) {
-      cardContainer.innerHTML = `<div class="empty-tip">未找到匹配的工具，请更换关键词/分类</div>`;
-      return;
-    }
-    list.forEach(item => {
-      const isFav = favList.includes(item.id);
-      const star = isFav ? "★" : "☆";
-      // 生成角标HTML：精选/置顶二选一
-      let labelHtml = "";
-      if (item.featured) labelHtml = `<span class="card-label label-featured">精选</span>`;
-      else if (item.top) labelHtml = `<span class="card-label label-top">置顶</span>`;
-      // 生成标签行HTML
-      const tagHtml = item.tags.map(t => `<span class="card-tag">${t}</span>`).join("");
-      // 单张卡片完整HTML
-      const html = `
-          <a href="${item.url}" class="tool-card" data-id="${item.id}">
-            <button class="fav-star-fixed ${isFav ? "fav" : ""}" onclick="toggleFav('${item.id}');event.preventDefault();">${star}</button>
-            <div class="card-header">
-              <div class="card-icon">
-                ${item.icon}
-                ${labelHtml}
-              </div>
-              <div class="card-title-wrap">
-                <div class="card-title">${item.title}</div>
-                <div class="card-meta">
-                  <div class="card-meta-item">📂 ${item.catName}</div>
-                  <div class="card-meta-item">🕒 ${item.date}</div>
-                </div>
-              </div>
-            </div>
-            <div class="card-desc">${item.desc}</div>
-            <div class="card-bottom">
-              <div class="card-tags">${tagHtml}</div>
-            </div>
-          </a>
-        `;
-      cardContainer.innerHTML += html;
-    });
-  }
-
-  // 排序按钮切换时间升降序
-  sortBtn.onclick = () => {
-    sortMode = sortMode === "date-desc" ? "date-asc" : "date-desc";
-    sortBtn.innerText = sortMode === "date-desc" ? "时间排序 ⬇️" : "时间排序 ⬆️";
-    filterTools();
-  };
-
-  // 搜索框输入实时过滤
-  searchInput.addEventListener("input", filterTools);
-  searchInput.addEventListener("keydown", e => {
-    if (e.key === "Enter") filterTools();
-  });
-
-  // 全局快捷键 Ctrl/Cmd + K 聚焦搜索框
-  document.addEventListener("keydown", e => {
-    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
-      e.preventDefault();
-      searchInput.focus();
-    }
-  });
-
-  // ===================== 窗口自适应监听 =====================
-  window.addEventListener("resize", () => {
-    syncHeaderSpacerHeight();
-    refreshAllCategoryUI();
-  });
-
-  // 页面加载完成初始化全部渲染
-  window.addEventListener("load", () => {
-    syncHeaderSpacerHeight();
-    refreshAllCategoryUI();
-    filterTools();
-  });
-
-  /**
-   * 动态同步头部高度到占位块，防止页面顶部内容被fixed导航遮挡
-   */
-  function syncHeaderSpacerHeight() {
-    const h = headerDom.offsetHeight;
-    headerSpacer.style.height = `${h}px`;
-  }
-</script>
-</body>
-</html>
+html[data-theme="dark"] {
+  --primary: #60a5fa;
+  --primary-light: rgba(96, 165, 250, 0.18);
+  --header-bg: #111827;
+  --nav-btn-bg: #1f2937;
+  --nav-btn-border: #374151;
+  --nav-btn-text: #f3f4f6;
+  --warn: #fdba74;
+  --text-main: #f9fafb;
+  --text-secondary: #d1d5db;
+  --text-weak: #9ca3af;
+  --border-base: #374151;
+  --border-light: #1f2937;
+  --bg-page: #0f172a;
+  --bg-card: #1e293b;
+  --bg-btn: #1f2937;
+  --bg-footer: #111827;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.25);
+  --shadow-lg: 0 6px 16px rgba(0,0,0,0.45);
+  --key-bg: #374151;
+  --key-text: #f9fafb;
+  --key-shadow: 0 1px 2px rgba(0,0,0,0.35);
+}
+```
