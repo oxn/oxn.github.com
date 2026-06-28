@@ -74,8 +74,8 @@
       --bg-card: #1e293b;
       --bg-btn: #1e293b;
       --bg-footer: #111827;
-      --shadow-sm: 0 1px 3px rgba(0,0,0.2);
-      --shadow-lg: 0 6px 16px rgba(0,0,0.35);
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.2);
+      --shadow-lg: 0 6px 16px rgba(0,0,0,0.35);
       --key-bg: #334155;
       --key-text: #f1f5f9;
     }
@@ -313,7 +313,7 @@
       color: var(--primary);
     }
 
-    /* ===================== 分类标签栏（含更多/收起） ===================== */
+    /* ===================== 分类标签栏（含更多/收起 已统一按钮样式） ===================== */
     .category-wrap {
       padding-bottom: var(--space-md);
       display: flex;
@@ -334,7 +334,9 @@
       flex: 1;
       min-width: 0;
     }
-    .category-tag {
+    /* 统一标签与更多按钮样式 */
+    .category-tag,
+    .more-toggle-btn {
       flex-shrink: 0;
       padding: 9px 16px;
       border: 1px solid var(--border-base);
@@ -348,28 +350,23 @@
       white-space: nowrap;
       background: var(--bg-btn);
       color: var(--text-main);
+      transition: var(--transition);
     }
     .category-tag.active {
       border-color: var(--primary);
       background: var(--primary-light);
       color: var(--primary);
     }
-    /* 更多/收起按钮样式，强制可见，JS控制有无溢出时显隐 */
+    .category-tag:hover,
+    .more-toggle-btn:hover {
+      border-color: var(--primary);
+      background: var(--primary-light);
+      color: var(--primary);
+    }
+    /* 更多按钮独有配置 */
     .more-toggle-btn {
-      flex-shrink: 0;
       width: 88px;
-      padding: 9px 10px;
-      border: 1px solid var(--border-base);
-      border-radius: var(--radius-full);
-      font-size: 14px;
-      line-height: 1;
-      cursor: pointer;
-      white-space: nowrap;
-      background: var(--bg-btn);
-      display: flex;
-      align-items: center;
       justify-content: center;
-      gap: 6px;
       visibility: visible !important;
       opacity: 1 !important;
     }
@@ -711,7 +708,7 @@
 <!-- 页脚版权 -->
 <footer>
   <div class="container">
-    Copyright © 2026 cytools-html | 开源HTML工具集0.1-大道至简！ All Rights Reserved
+    Copyright © 2026 cytools-html | 开源HTML工具集6.28-大道至简！ All Rights Reserved
   </div>
 </footer>
 
