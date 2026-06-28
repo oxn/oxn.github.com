@@ -77,6 +77,12 @@
       --key-text: #f1f5f9;
     }
 
+    /* 固定滚动条宽度，页面滚动不会宽度突变 */
+    html {
+      overflow-y: scroll;
+      scrollbar-gutter: stable both-edges;
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -91,6 +97,7 @@
       background: var(--bg-page);
       color: var(--text-main);
       transition: var(--transition);
+      -webkit-overflow-scrolling: touch;
     }
     body {
       display: flex;
@@ -135,6 +142,9 @@
       z-index: 99;
       background: var(--header-bg);
       border-bottom: 1px solid var(--border-base);
+      /* 硬件加速，移动端滑动不抖动 */
+      transform: translateZ(0);
+      will-change: transform;
     }
     .header-inner {
       position: relative;
@@ -147,7 +157,6 @@
       padding-right: calc(var(--theme-btn-width) + 16px);
       transition: flex-direction 0.2s ease;
     }
-    /* JS添加下沉标识，切换上下纵向布局 */
     .header-inner.down {
       flex-direction: column;
     }
@@ -181,7 +190,6 @@
       margin-top: 4px;
       color: var(--text-secondary);
     }
-    /* 同行状态：强制最多2行高度，超出内容溢出，JS检测高度突变 */
     .nav-link-group {
       flex: 1;
       display: flex;
@@ -190,11 +198,9 @@
       align-content: flex-end;
       gap: var(--space-xs);
       min-width: 0;
-      /* 2行高度硬限制，最多容纳2行按钮 */
       max-height: calc(var(--nav-line-height) * 2 + 16px);
       overflow: hidden;
     }
-    /* 下沉状态：取消高度限制，满宽居中，横向自动换行 */
     .header-inner.down .nav-link-group {
       max-height: unset;
       width: 100%;
@@ -204,7 +210,6 @@
       flex-wrap: wrap;
       flex-direction: row;
     }
-    /* 导航按钮基础样式 */
     .header-btn {
       padding: 7px 10px;
       border: 1px solid var(--nav-btn-border);
@@ -228,7 +233,7 @@
       background: var(--primary-light);
       color: var(--primary);
     }
-    /* ========== 核心新增：下沉后隐藏按钮文字，仅保留图标 ========== */
+    /* 下沉只显示图标，隐藏文字 */
     .header-inner.down .header-btn {
       padding-inline: 10px;
       min-width: 40px;
@@ -237,7 +242,6 @@
     .header-inner.down .header-btn span + span {
       display: none;
     }
-    /* 明暗切换按钮：锁死右上角悬浮，脱离文档流不挤压导航 */
     .theme-switch-wrap {
       position: absolute;
       top: 14px;
@@ -269,6 +273,7 @@
       display: flex;
       gap: var(--space-sm);
       align-items: center;
+      width: 100%;
     }
     .search-box {
       flex: 1;
@@ -340,12 +345,12 @@
       color: var(--primary);
     }
 
-    /* 分类标签 */
     .category-wrap {
       padding-bottom: var(--space-md);
       display: flex;
       flex-direction: column;
       gap: 0;
+      width: 100%;
     }
     .category-visible-row {
       display: flex;
@@ -353,6 +358,7 @@
       gap: 8px;
       overflow: visible;
       position: relative;
+      width: 100%;
     }
     .tag-flow-box {
       display: flex;
@@ -439,27 +445,29 @@
       color: var(--text-weak);
     }
 
-    /* 卡片网格自适应 */
+    /* 卡片网格修复宽屏错乱 */
     .tool-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(var(--card-min-width), 1fr));
       gap: var(--card-gap);
+      width: 100%;
     }
     @media (min-width: 1200px) {
       .tool-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(3, 1fr);
       }
     }
     @media (max-width: 860px) {
       .tool-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        .search-wrap {
-          flex-wrap: wrap;
-        }
-        .search-box,
-        .sort-btn {
-          width: 100%;
-        }
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .search-wrap {
+        flex-wrap: wrap;
+      }
+      .search-box,
+      .sort-btn {
+        width: 100%;
+      }
     }
     @media (max-width: 640px) {
       .tool-grid {
@@ -467,7 +475,7 @@
       }
     }
 
-    /* 工具卡片 */
+    /* 卡片样式：收藏按钮常态永久可见 */
     .tool-card {
       display: flex;
       flex-direction: column;
@@ -479,6 +487,7 @@
       position: relative;
       min-width: 0;
       overflow: hidden;
+      height: 100%;
     }
     .tool-card:hover {
       transform: translateY(-3px);
@@ -534,6 +543,7 @@
       margin-bottom: 12px;
       min-width: 0;
       padding-left: 0;
+      width: 100%;
     }
     .card-icon {
       width: 44px;
@@ -553,6 +563,7 @@
       flex-direction: column;
       gap: 4px;
       min-width: 0;
+      flex: 1;
     }
     .card-title {
       font-size: 17px;
@@ -587,6 +598,7 @@
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
+      flex: 1;
     }
     .card-bottom {
       display: flex;
@@ -595,6 +607,7 @@
       margin-top: auto;
       gap: var(--space-sm);
       min-width: 0;
+      width: 100%;
     }
     .card-tags {
       display: flex;
@@ -602,7 +615,7 @@
       flex-wrap: wrap;
       min-width: 0;
       flex-shrink: 1;
-      max-width: calc(100% - 40px);
+      max-width: 100%;
     }
     .card-tag {
       padding: 3px 8px;
@@ -612,6 +625,7 @@
       background: var(--border-light);
       color: var(--text-secondary);
     }
+    /* 收藏按钮默认永久显示，手机平板友好 */
     .fav-star-fixed {
       position: absolute;
       top: var(--space-lg);
@@ -632,19 +646,13 @@
       will-change: transform;
       transition: transform 0.22s ease, opacity 0.22s ease;
       z-index: 3;
-      opacity: 0;
-      visibility: hidden;
+      opacity: 1;
+      visibility: visible;
     }
     .fav-star-fixed.fav {
       color: var(--warn);
       border-color: var(--warn);
       background: #fffbeb;
-      opacity: 1;
-      visibility: visible;
-    }
-    .tool-card:hover .fav-star-fixed {
-      opacity: 1;
-      visibility: visible;
     }
     .fav-star-fixed:hover {
       transform: scale(1.12);
@@ -729,18 +737,14 @@
 
 <script>
 /*
-JS修复要点：
-1. 移除scroll滚动监听，滑动页面不再触发布局计算，彻底解决滑动变形抖动
-2. 防抖resize窗口缩放事件，避免频繁切换布局
-3. 坐标容错取整，±8像素偏移不会误判新增行
-4. 仅页面加载、窗口缩放完成后执行行数判断
+JS核心修复：彻底移除scroll监听，滑动页面完全不触发布局计算，杜绝拖动误变竖排
+仅页面加载、窗口缩放防抖执行行数判断
 */
   const htmlRoot = document.documentElement;
   const themeBtn = document.getElementById("themeToggle");
   const mediaDark = window.matchMedia('(prefers-color-scheme: dark)');
   const STORAGE_KEY = "site_theme_mode";
 
-  // 明暗切换逻辑
   function applyTheme(mode) {
     if (mode === "dark") {
       htmlRoot.setAttribute("data-theme", "dark");
@@ -767,13 +771,12 @@ JS修复要点：
   initTheme();
   themeBtn.onclick = toggleTheme;
 
-  // 导航布局判断核心
   const headerInner = document.querySelector('.header-inner');
   const navGroup = document.querySelector('.nav-link-group');
   const headerDom = document.getElementById('headerDom');
   const headerSpacer = document.getElementById('headerSpacer');
 
-  // 防抖工具：窗口缩放停止200ms后执行布局计算
+  // 防抖：仅窗口缩放延迟执行
   function debounce(fn, delay = 200) {
     let timer = null;
     return function(...args) {
@@ -782,13 +785,13 @@ JS修复要点：
     }
   }
 
-  // 精准计算真实行数：加大坐标容错，±8像素视为同一行，消除滚动像素抖动误判
+  // 大幅扩大容错20像素，微小渲染偏移不会判定新行
   function calcNavRealRows() {
     const btns = navGroup.querySelectorAll('.header-btn');
     const rowTopSet = new Set();
     btns.forEach(btn => {
       const rect = btn.getBoundingClientRect();
-      const stableTop = Math.round(rect.top / 8) * 8;
+      const stableTop = Math.round(rect.top / 20) * 20;
       rowTopSet.add(stableTop);
     });
     return rowTopSet.size;
@@ -796,7 +799,6 @@ JS修复要点：
 
   function updateHeaderLayout() {
     const rows = calcNavRealRows();
-    console.log('当前导航渲染行数', rows);
     if (rows >= 3) {
       headerInner.classList.add('down');
     } else {
@@ -805,12 +807,12 @@ JS修复要点：
     headerSpacer.style.height = `${headerDom.offsetHeight}px`;
   }
 
-  // 仅窗口尺寸变化使用防抖，彻底移除scroll滚动监听
+  // 关键：只绑定resize，完全删除scroll监听！滑动页面不执行任何布局计算
   window.addEventListener('resize', debounce(updateHeaderLayout, 200));
   window.addEventListener('load', updateHeaderLayout);
   setTimeout(updateHeaderLayout, 100);
 
-  // 分类与工具渲染逻辑（无改动）
+  // 工具卡片渲染、筛选、收藏逻辑无修改
   const visibleTagBox = document.getElementById("visibleTagBox");
   const overflowPanel = document.getElementById("overflowPanel");
   const moreToggle = document.getElementById("moreToggle");
