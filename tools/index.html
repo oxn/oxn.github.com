@@ -145,6 +145,7 @@
       gap: 12px;
       padding: 14px 0;
       padding-right: calc(var(--theme-btn-width) + 16px);
+      transition: flex-direction 0.2s ease;
     }
     /* JS添加下沉标识，切换上下纵向布局 */
     .header-inner.down {
@@ -193,7 +194,7 @@
       max-height: calc(var(--nav-line-height) * 2 + 16px);
       overflow: hidden;
     }
-    /* 下沉状态：取消高度限制，满宽居中，横向自动换行（核心：不改成column，保持横向排布） */
+    /* 下沉状态：取消高度限制，满宽居中，横向自动换行 */
     .header-inner.down .nav-link-group {
       max-height: unset;
       width: 100%;
@@ -203,7 +204,7 @@
       flex-wrap: wrap;
       flex-direction: row;
     }
-    /* 导航按钮固定尺寸，全程不拉伸、不缩小 */
+    /* 导航按钮基础样式 */
     .header-btn {
       padding: 7px 10px;
       border: 1px solid var(--nav-btn-border);
@@ -220,11 +221,21 @@
       flex: none;
       min-width: fit-content;
       height: var(--nav-line-height);
+      transition: all 0.2s ease;
     }
     .header-btn:hover {
       border-color: var(--primary);
       background: var(--primary-light);
       color: var(--primary);
+    }
+    /* ========== 核心新增：下沉后隐藏按钮文字，仅保留图标 ========== */
+    .header-inner.down .header-btn {
+      padding-inline: 10px;
+      min-width: 40px;
+      justify-content: center;
+    }
+    .header-inner.down .header-btn span + span {
+      display: none;
     }
     /* 明暗切换按钮：锁死右上角悬浮，脱离文档流不挤压导航 */
     .theme-switch-wrap {
@@ -663,19 +674,19 @@
     </a>
     <div class="nav-link-group">
       <a href="#" target="_blank" class="header-btn">
-        <span>💬</span> 问题反馈
+        <span>💬</span><span> 问题反馈</span>
       </a>
       <a href="#" target="_blank" class="header-btn">
-        <span>📈</span> 工具排行
+        <span>📈</span><span> 工具排行</span>
       </a>
       <a href="#" target="_blank" class="header-btn">
-        <span>📝</span> 提交需求
+        <span>📝</span><span> 提交需求</span>
       </a>
       <a href="#" target="_blank" class="header-btn">
-        <span>©</span> GitHub
+        <span>©</span><span> GitHub</span>
       </a>
       <a href="#" target="_blank" class="header-btn">
-        <span>➕</span> 贡献工具
+        <span>➕</span><span> 贡献工具</span>
       </a>
     </div>
     <div class="theme-switch-wrap">
@@ -718,9 +729,11 @@
 
 <script>
 /*
-JS逻辑：全局绝对坐标精准计算真实渲染行数，行数>=3自动下沉
-1. 窗口加载、缩放、延迟渲染三重检测，稳定触发下沉
-2. 打印当前行数方便调试
+JS修复要点：
+1. 移除scroll滚动监听，滑动页面不再触发布局计算，彻底解决滑动变形抖动
+2. 防抖resize窗口缩放事件，避免频繁切换布局
+3. 坐标容错取整，±8像素偏移不会误判新增行
+4. 仅页面加载、窗口缩放完成后执行行数判断
 */
   const htmlRoot = document.documentElement;
   const themeBtn = document.getElementById("themeToggle");
@@ -760,13 +773,23 @@ JS逻辑：全局绝对坐标精准计算真实渲染行数，行数>=3自动下
   const headerDom = document.getElementById('headerDom');
   const headerSpacer = document.getElementById('headerSpacer');
 
-  // 精准计算真实行数：页面全局绝对top坐标，消除偏移误差
+  // 防抖工具：窗口缩放停止200ms后执行布局计算
+  function debounce(fn, delay = 200) {
+    let timer = null;
+    return function(...args) {
+      clearTimeout(timer);
+      timer = setTimeout(() => fn.apply(this, args), delay);
+    }
+  }
+
+  // 精准计算真实行数：加大坐标容错，±8像素视为同一行，消除滚动像素抖动误判
   function calcNavRealRows() {
     const btns = navGroup.querySelectorAll('.header-btn');
     const rowTopSet = new Set();
     btns.forEach(btn => {
       const rect = btn.getBoundingClientRect();
-      rowTopSet.add(Math.round(rect.top));
+      const stableTop = Math.round(rect.top / 8) * 8;
+      rowTopSet.add(stableTop);
     });
     return rowTopSet.size;
   }
@@ -774,22 +797,20 @@ JS逻辑：全局绝对坐标精准计算真实渲染行数，行数>=3自动下
   function updateHeaderLayout() {
     const rows = calcNavRealRows();
     console.log('当前导航渲染行数', rows);
-    // 真实渲染行数>=3，导航下沉到Logo下方
     if (rows >= 3) {
       headerInner.classList.add('down');
     } else {
       headerInner.classList.remove('down');
     }
-    // 同步更新顶部占位高度，防止fixed导航遮挡页面内容
     headerSpacer.style.height = `${headerDom.offsetHeight}px`;
   }
 
-  // 多重监听，确保渲染完成后执行判断
-  window.addEventListener('resize', updateHeaderLayout);
+  // 仅窗口尺寸变化使用防抖，彻底移除scroll滚动监听
+  window.addEventListener('resize', debounce(updateHeaderLayout, 200));
   window.addEventListener('load', updateHeaderLayout);
   setTimeout(updateHeaderLayout, 100);
 
-  // 分类与工具渲染逻辑（不变）
+  // 分类与工具渲染逻辑（无改动）
   const visibleTagBox = document.getElementById("visibleTagBox");
   const overflowPanel = document.getElementById("overflowPanel");
   const moreToggle = document.getElementById("moreToggle");
