@@ -47,8 +47,8 @@
       --content-max-width: 1200px;
       --card-gap: 16px;
       --card-min-width: 300px;
-      --header-safe-gap: 16px;
-      --card-label-offset: 36px;
+      /* 固定Header最大高度（下沉展开后的高度，永久占位） */
+      --header-fixed-height: 180px;
       --nav-line-height: 38px;
       --theme-btn-width: 36px;
     }
@@ -77,7 +77,6 @@
       --key-text: #f1f5f9;
     }
 
-    /* 修复1：禁止页面弹性回弹拖拽，杜绝视口拉伸偏移 */
     html {
       overflow-y: scroll;
       scrollbar-gutter: stable both-edges;
@@ -138,15 +137,15 @@
       margin: 0 auto;
     }
 
+    /* 悬浮Header，不占用文档流高度 */
     header {
-      position: fixed;
+      position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       z-index: 99;
       background: var(--header-bg);
       border-bottom: 1px solid var(--border-base);
-      /* 修复2：全量硬件加速隔离渲染层，滚动坐标稳定 */
       transform: translate3d(0,0,0);
       will-change: transform;
       contain: layout style paint;
@@ -162,7 +161,6 @@
       padding-right: calc(var(--theme-btn-width) + 16px);
       transition: flex-direction 0.2s ease;
     }
-    /* 修复3：最高优先级锁定down状态，滚动不会临时丢失class */
     .header-inner.down {
       flex-direction: column !important;
     }
@@ -239,7 +237,6 @@
       background: var(--primary-light);
       color: var(--primary);
     }
-    /* 下沉只显示图标，隐藏文字 */
     .header-inner.down .header-btn {
       padding-inline: 10px;
       min-width: 40px;
@@ -263,14 +260,16 @@
       font-size: 16px;
     }
 
+    /* 固定永久占位高度 = 下沉后最大高度，下方内容永远不动 */
     .header-spacer {
       width: 100%;
-      height: 0;
+      height: var(--header-fixed-height);
       flex-shrink: 0;
     }
 
+    /* 主体顶部边距永久固定，不受Header高度变化影响 */
     main.container {
-      margin-top: var(--header-safe-gap);
+      margin-top: 0;
       flex: 1;
     }
 
@@ -451,7 +450,6 @@
       color: var(--text-weak);
     }
 
-    /* 卡片网格修复宽屏错乱 */
     .tool-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(var(--card-min-width), 1fr));
@@ -481,7 +479,6 @@
       }
     }
 
-    /* 卡片样式：收藏按钮常态永久可见 */
     .tool-card {
       display: flex;
       flex-direction: column;
@@ -631,7 +628,6 @@
       background: var(--border-light);
       color: var(--text-secondary);
     }
-    /* 收藏按钮默认永久显示，手机平板友好 */
     .fav-star-fixed {
       position: absolute;
       top: var(--space-lg);
@@ -677,6 +673,7 @@
   </style>
 </head>
 <body>
+<!-- 悬浮顶部导航，不占用文档流高度 -->
 <header id="headerDom">
   <div class="container header-inner">
     <a href="#" class="logo-wrap">
@@ -709,7 +706,8 @@
   </div>
 </header>
 
-<div class="header-spacer" id="headerSpacer"></div>
+<!-- 永久固定高度占位块，下方内容永远不会上下跳动 -->
+<div class="header-spacer"></div>
 
 <main class="container">
   <div class="search-wrap">
@@ -743,8 +741,10 @@
 
 <script>
 /*
-JS核心新增：滚动状态锁，手指滑动全程禁止布局计算，滑动结束延迟执行
-原有全部业务逻辑无任何修改，功能100%保留
+JS修复新增：
+1. 缓存上一次稳定布局状态，滑动抖动时直接复用缓存，不临时切换样式
+2. 触摸滑动全程锁定布局计算，松开延迟250ms才重算
+3. 仅窗口尺寸真实变化执行判断，滚动完全不触发
 */
   const htmlRoot = document.documentElement;
   const themeBtn = document.getElementById("themeToggle");
@@ -780,9 +780,8 @@ JS核心新增：滚动状态锁，手指滑动全程禁止布局计算，滑动
   const headerInner = document.querySelector('.header-inner');
   const navGroup = document.querySelector('.nav-link-group');
   const headerDom = document.getElementById('headerDom');
-  const headerSpacer = document.getElementById('headerSpacer');
 
-  // 防抖：仅窗口缩放延迟执行
+  // 防抖：窗口缩放延迟执行
   function debounce(fn, delay = 200) {
     let timer = null;
     return function(...args) {
@@ -791,11 +790,12 @@ JS核心新增：滚动状态锁，手指滑动全程禁止布局计算，滑动
     }
   }
 
-  // 修复4：新增全局滚动锁定标记，滑动时禁止重算布局
   let isScrolling = false;
   let scrollStopTimer = null;
+  // 缓存稳定布局状态，滑动抖动时复用
+  let lastLayoutIsDown = false;
 
-  // 大幅扩大容错30像素，微小渲染偏移不会判定新行
+  // 坐标容错30像素，微小渲染偏移不判定新行
   function calcNavRealRows() {
     const btns = navGroup.querySelectorAll('.header-btn');
     const rowTopSet = new Set();
@@ -808,30 +808,33 @@ JS核心新增：滚动状态锁，手指滑动全程禁止布局计算，滑动
   }
 
   function updateHeaderLayout() {
-    // 滑动中直接返回，不执行任何布局切换
-    if(isScrolling) return;
+    if(isScrolling) {
+      // 滑动中直接复用上次稳定状态，不重新计算
+      if(lastLayoutIsDown) headerInner.classList.add('down');
+      else headerInner.classList.remove('down');
+      return;
+    }
     const rows = calcNavRealRows();
-    if (rows >= 3) {
+    const nowDown = rows >= 3;
+    lastLayoutIsDown = nowDown;
+    if (nowDown) {
       headerInner.classList.add('down');
     } else {
       headerInner.classList.remove('down');
     }
-    headerSpacer.style.height = `${headerDom.offsetHeight}px`;
   }
 
-  // 窗口resize防抖
   window.addEventListener('resize', debounce(updateHeaderLayout, 200));
   window.addEventListener('load', updateHeaderLayout);
   setTimeout(updateHeaderLayout, 100);
 
-  // 新增touch事件监听，锁定滚动状态
+  // 触摸滑动锁定逻辑
   document.addEventListener('touchstart', () => {
     isScrolling = true;
     clearTimeout(scrollStopTimer);
   }, {passive:true});
 
   document.addEventListener('touchend', () => {
-    // 手指松开250ms后解锁，允许重算布局
     scrollStopTimer = setTimeout(() => {
       isScrolling = false;
       updateHeaderLayout();
@@ -845,7 +848,7 @@ JS核心新增：滚动状态锁，手指滑动全程禁止布局计算，滑动
     }, 250);
   }, {passive:true});
 
-  // 工具卡片渲染、筛选、收藏逻辑无修改
+  // 卡片、筛选、收藏逻辑无修改
   const visibleTagBox = document.getElementById("visibleTagBox");
   const overflowPanel = document.getElementById("overflowPanel");
   const moreToggle = document.getElementById("moreToggle");
