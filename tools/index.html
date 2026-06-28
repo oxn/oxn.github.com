@@ -77,10 +77,15 @@
       --key-text: #f1f5f9;
     }
 
-    /* 固定滚动条宽度，页面滚动不会宽度突变 */
+    /* 修复1：禁止页面弹性回弹拖拽，杜绝视口拉伸偏移 */
     html {
       overflow-y: scroll;
       scrollbar-gutter: stable both-edges;
+      overscroll-behavior: none;
+    }
+    body {
+      overscroll-behavior: none;
+      -webkit-overflow-scrolling: touch;
     }
 
     * {
@@ -97,7 +102,6 @@
       background: var(--bg-page);
       color: var(--text-main);
       transition: var(--transition);
-      -webkit-overflow-scrolling: touch;
     }
     body {
       display: flex;
@@ -142,9 +146,10 @@
       z-index: 99;
       background: var(--header-bg);
       border-bottom: 1px solid var(--border-base);
-      /* 硬件加速，移动端滑动不抖动 */
-      transform: translateZ(0);
+      /* 修复2：全量硬件加速隔离渲染层，滚动坐标稳定 */
+      transform: translate3d(0,0,0);
       will-change: transform;
+      contain: layout style paint;
     }
     .header-inner {
       position: relative;
@@ -157,8 +162,9 @@
       padding-right: calc(var(--theme-btn-width) + 16px);
       transition: flex-direction 0.2s ease;
     }
+    /* 修复3：最高优先级锁定down状态，滚动不会临时丢失class */
     .header-inner.down {
-      flex-direction: column;
+      flex-direction: column !important;
     }
     .logo-wrap {
       display: flex;
@@ -240,7 +246,7 @@
       justify-content: center;
     }
     .header-inner.down .header-btn span + span {
-      display: none;
+      display: none !important;
     }
     .theme-switch-wrap {
       position: absolute;
@@ -731,14 +737,14 @@
 
 <footer>
   <div class="container">
-    Copyright © 2026 cytools-html | 开源HTML工具集1.0-大道至简！ All Rights Reserved
+    Copyright © 2026 cytools-html | 开源HTML工具集-大道至简！ All Rights Reserved
   </div>
 </footer>
 
 <script>
 /*
-JS核心修复：彻底移除scroll监听，滑动页面完全不触发布局计算，杜绝拖动误变竖排
-仅页面加载、窗口缩放防抖执行行数判断
+JS核心新增：滚动状态锁，手指滑动全程禁止布局计算，滑动结束延迟执行
+原有全部业务逻辑无任何修改，功能100%保留
 */
   const htmlRoot = document.documentElement;
   const themeBtn = document.getElementById("themeToggle");
@@ -785,19 +791,25 @@ JS核心修复：彻底移除scroll监听，滑动页面完全不触发布局计
     }
   }
 
-  // 大幅扩大容错20像素，微小渲染偏移不会判定新行
+  // 修复4：新增全局滚动锁定标记，滑动时禁止重算布局
+  let isScrolling = false;
+  let scrollStopTimer = null;
+
+  // 大幅扩大容错30像素，微小渲染偏移不会判定新行
   function calcNavRealRows() {
     const btns = navGroup.querySelectorAll('.header-btn');
     const rowTopSet = new Set();
     btns.forEach(btn => {
       const rect = btn.getBoundingClientRect();
-      const stableTop = Math.round(rect.top / 20) * 20;
+      const stableTop = Math.round(rect.top / 30) * 30;
       rowTopSet.add(stableTop);
     });
     return rowTopSet.size;
   }
 
   function updateHeaderLayout() {
+    // 滑动中直接返回，不执行任何布局切换
+    if(isScrolling) return;
     const rows = calcNavRealRows();
     if (rows >= 3) {
       headerInner.classList.add('down');
@@ -807,10 +819,31 @@ JS核心修复：彻底移除scroll监听，滑动页面完全不触发布局计
     headerSpacer.style.height = `${headerDom.offsetHeight}px`;
   }
 
-  // 关键：只绑定resize，完全删除scroll监听！滑动页面不执行任何布局计算
+  // 窗口resize防抖
   window.addEventListener('resize', debounce(updateHeaderLayout, 200));
   window.addEventListener('load', updateHeaderLayout);
   setTimeout(updateHeaderLayout, 100);
+
+  // 新增touch事件监听，锁定滚动状态
+  document.addEventListener('touchstart', () => {
+    isScrolling = true;
+    clearTimeout(scrollStopTimer);
+  }, {passive:true});
+
+  document.addEventListener('touchend', () => {
+    // 手指松开250ms后解锁，允许重算布局
+    scrollStopTimer = setTimeout(() => {
+      isScrolling = false;
+      updateHeaderLayout();
+    }, 250);
+  }, {passive:true});
+
+  document.addEventListener('touchcancel', () => {
+    scrollStopTimer = setTimeout(() => {
+      isScrolling = false;
+      updateHeaderLayout();
+    }, 250);
+  }, {passive:true});
 
   // 工具卡片渲染、筛选、收藏逻辑无修改
   const visibleTagBox = document.getElementById("visibleTagBox");
