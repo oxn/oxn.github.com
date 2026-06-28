@@ -1,5 +1,12 @@
 # cytools-html
-下载即用，所有工具布置在本地，不外挂js、css，不上传到任何云端，没有任何恶意代码、广告代码、统计代码！
+<!-- # 红色警告 -->
+> [!caution]
+> 🟥 今天想找一个html，找了好几个发现都是外挂东西的。干脆自己慢慢弄一个工具站算了。自己弄的，放心。<br>
+本库所有html都是单文件，不外挂js、css，今天是.6年6.28我今天让豆包陪我一天弄出了这个主页文件。<br>
+在此还要感谢`htmls.dev`、`https://tools.realtime-ai.chat`/<br>
+本源码只需要修改站点信息和下面说的 `顶部导航按钮` `数据源存放位置` 其余自动生成。<br>
+地域原因来此不易，如有问题联系怸歪小站：<a href="https://cycy.fun" target="_blank" rel="noopener noreferrer" style="font-weight:bold;color:#0066cc;word-break:break-all;">👆CYCY.FUN</a>
+
 # cytools-html 静态工具站 使用 & 二次开发说明文档
 ## 一、站点整体概述
 **cytools-html** 是一套纯静态无后端 HTML 工具集合页面，无需服务器，直接双击 HTML 文件即可本地打开运行；所有数据、用户偏好（明暗主题、收藏工具）均存储在浏览器 `localStorage`，清除浏览器缓存会重置自定义设置。
