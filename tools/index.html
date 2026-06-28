@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <title>cytools-html</title>
   <style>
     :root {
@@ -146,7 +146,7 @@
       padding: 14px 0;
       padding-right: calc(var(--theme-btn-width) + 16px);
     }
-    /* 下沉标识类：JS 添加，切换上下布局 */
+    /* JS添加下沉标识，切换上下纵向布局 */
     .header-inner.down {
       flex-direction: column;
     }
@@ -180,7 +180,7 @@
       margin-top: 4px;
       color: var(--text-secondary);
     }
-    /* 同行状态：右对齐、自动逐按钮换行，无高度截断 */
+    /* 同行状态：强制最多2行高度，超出内容溢出，JS检测高度突变 */
     .nav-link-group {
       flex: 1;
       display: flex;
@@ -189,17 +189,21 @@
       align-content: flex-end;
       gap: var(--space-xs);
       min-width: 0;
-      /* 移除max-height截断，让按钮完整逐个换行 */
-      max-height: unset;
-      overflow: visible;
+      /* 2行高度硬限制，最多容纳2行按钮 */
+      max-height: calc(var(--nav-line-height) * 2 + 16px);
+      overflow: hidden;
     }
-    /* 下沉状态：居中对齐、满宽自由换行 */
+    /* 下沉状态：取消高度限制，满宽居中，横向自动换行（核心：不改成column，保持横向排布） */
     .header-inner.down .nav-link-group {
+      max-height: unset;
       width: 100%;
       padding-right: 0;
       justify-content: center;
+      overflow: visible;
+      flex-wrap: wrap;
+      flex-direction: row;
     }
-    /* 导航按钮固定尺寸，绝不缩放 */
+    /* 导航按钮固定尺寸，全程不拉伸、不缩小 */
     .header-btn {
       padding: 7px 10px;
       border: 1px solid var(--nav-btn-border);
@@ -222,7 +226,7 @@
       background: var(--primary-light);
       color: var(--primary);
     }
-    /* 主题切换按钮锁死右上角悬浮 */
+    /* 明暗切换按钮：锁死右上角悬浮，脱离文档流不挤压导航 */
     .theme-switch-wrap {
       position: absolute;
       top: 14px;
@@ -424,7 +428,7 @@
       color: var(--text-weak);
     }
 
-    /* 卡片网格 */
+    /* 卡片网格自适应 */
     .tool-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
@@ -438,18 +442,17 @@
     @media (max-width: 860px) {
       .tool-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
+        .search-wrap {
+          flex-wrap: wrap;
+        }
+        .search-box,
+        .sort-btn {
+          width: 100%;
+        }
     }
     @media (max-width: 640px) {
       .tool-grid {
         grid-template-columns: 1fr;
-      }
-      .search-wrap {
-        flex-wrap: wrap;
-      }
-      .search-box,
-      .sort-btn {
-        width: 100%;
       }
     }
 
@@ -597,7 +600,6 @@
       line-height: 1;
       background: var(--border-light);
       color: var(--text-secondary);
-      white-space: nowrap;
     }
     .fav-star-fixed {
       position: absolute;
@@ -716,19 +718,16 @@
 
 <script>
 /*
-核心JS逻辑解决CSS无法逐按钮判断行数的问题：
-1. 实时监听导航容器高度，同行状态下计算按钮堆叠行数；
-2. 窗口缩小，按钮单个依次换行，行数=2时保持同行；
-3. 检测到行数>=3，给header-inner添加down类，导航整体下沉到Logo下方；
-4. 下沉后导航justify-content:center居中对齐，继续缩窄单个按钮逐行掉落；
-5. 窗口放大，行数回到2行以内，移除down类，导航恢复右侧同行；
-6. 按钮flex:none固定尺寸，不会整体一次性掉落。
+JS逻辑：全局绝对坐标精准计算真实渲染行数，行数>=3自动下沉
+1. 窗口加载、缩放、延迟渲染三重检测，稳定触发下沉
+2. 打印当前行数方便调试
 */
   const htmlRoot = document.documentElement;
   const themeBtn = document.getElementById("themeToggle");
   const mediaDark = window.matchMedia('(prefers-color-scheme: dark)');
   const STORAGE_KEY = "site_theme_mode";
 
+  // 明暗切换逻辑
   function applyTheme(mode) {
     if (mode === "dark") {
       htmlRoot.setAttribute("data-theme", "dark");
@@ -738,71 +737,65 @@
       themeBtn.innerHTML = "🌙";
     }
   }
-
   function initTheme() {
     const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      applyTheme(saved);
-    } else {
-      applyTheme(mediaDark.matches ? "dark" : "light");
-    }
+    if (saved) applyTheme(saved);
+    else applyTheme(mediaDark.matches ? "dark" : "light");
   }
-
   function toggleTheme() {
     const current = htmlRoot.hasAttribute("data-theme") ? "dark" : "light";
     const next = current === "dark" ? "light" : "dark";
     localStorage.setItem(STORAGE_KEY, next);
     applyTheme(next);
   }
-
-  mediaDark.addEventListener("change", (e) => {
-    if (!localStorage.getItem(STORAGE_KEY)) {
-      applyTheme(e.matches ? "dark" : "light");
-    }
+  mediaDark.addEventListener("change", e => {
+    if (!localStorage.getItem(STORAGE_KEY)) applyTheme(e.matches ? "dark" : "light");
   });
-
   initTheme();
   themeBtn.onclick = toggleTheme;
 
-  // 导航行数监听核心逻辑
+  // 导航布局判断核心
   const headerInner = document.querySelector('.header-inner');
   const navGroup = document.querySelector('.nav-link-group');
-  const navBtns = document.querySelectorAll('.nav-link-group .header-btn');
-  const lineHeight = parseFloat(getComputedStyle(navBtns[0]).height) + parseFloat(getComputedStyle(navGroup).gap);
+  const headerDom = document.getElementById('headerDom');
+  const headerSpacer = document.getElementById('headerSpacer');
 
-  function calcNavLines() {
-    const groupHeight = navGroup.clientHeight;
-    return Math.round(groupHeight / lineHeight);
+  // 精准计算真实行数：页面全局绝对top坐标，消除偏移误差
+  function calcNavRealRows() {
+    const btns = navGroup.querySelectorAll('.header-btn');
+    const rowTopSet = new Set();
+    btns.forEach(btn => {
+      const rect = btn.getBoundingClientRect();
+      rowTopSet.add(Math.round(rect.top));
+    });
+    return rowTopSet.size;
   }
 
-  function updateLayout() {
-    const lines = calcNavLines();
-    if (lines >= 3) {
+  function updateHeaderLayout() {
+    const rows = calcNavRealRows();
+    console.log('当前导航渲染行数', rows);
+    // 真实渲染行数>=3，导航下沉到Logo下方
+    if (rows >= 3) {
       headerInner.classList.add('down');
     } else {
       headerInner.classList.remove('down');
     }
-    syncHeaderSpacer();
+    // 同步更新顶部占位高度，防止fixed导航遮挡页面内容
+    headerSpacer.style.height = `${headerDom.offsetHeight}px`;
   }
 
-  function syncHeaderSpacer() {
-    const h = headerDom.offsetHeight;
-    headerSpacer.style.height = `${h}px`;
-  }
+  // 多重监听，确保渲染完成后执行判断
+  window.addEventListener('resize', updateHeaderLayout);
+  window.addEventListener('load', updateHeaderLayout);
+  setTimeout(updateHeaderLayout, 100);
 
-  // 窗口缩放、加载时执行布局判断
-  window.addEventListener('resize', updateLayout);
-  window.addEventListener('load', updateLayout);
-
-  // 分类渲染逻辑不变
+  // 分类与工具渲染逻辑（不变）
   const visibleTagBox = document.getElementById("visibleTagBox");
   const overflowPanel = document.getElementById("overflowPanel");
   const moreToggle = document.getElementById("moreToggle");
   const cardContainer = document.getElementById("cardContainer");
   const searchInput = document.getElementById("searchInput");
   const sortBtn = document.getElementById('sortBtn');
-  const headerDom = document.getElementById('headerDom');
-  const headerSpacer = document.getElementById('headerSpacer');
 
   let currentCat = "all";
   let panelOpen = false;
@@ -815,7 +808,6 @@
     localStorage.setItem("toolFav", JSON.stringify(favList));
     refreshAllCategoryUI();
   }
-
   function toggleFav(toolId) {
     const idx = favList.indexOf(toolId);
     if (idx > -1) favList.splice(idx, 1);
@@ -823,7 +815,6 @@
     saveFavAndRefreshCount();
     filterTools();
   }
-
   function getAutoCategoryList() {
     const catMap = new Map();
     toolList.forEach(item => {
@@ -831,19 +822,16 @@
     });
     return Array.from(catMap.values());
   }
-
   function buildFullCategoryConfig() {
     const fixedBase = [{ cat: "all", icon: "🏠", name: "全部" }, { cat: "star", icon: "⭐", name: "收藏" }];
     const autoCats = getAutoCategoryList();
     return [...fixedBase, ...autoCats];
   }
-
   function getCatCount(catKey) {
     if (catKey === "all") return toolList.length;
     if (catKey === "star") return favList.length;
     return toolList.filter(i => i.cat === catKey).length;
   }
-
   function refreshAllCategoryUI() {
     const cats = buildFullCategoryConfig();
     visibleTagBox.innerHTML = "";
@@ -889,37 +877,31 @@
       div.onclick = () => setActiveCat(item.cat);
       overflowPanel.appendChild(div);
     });
-    if (overflowCategories.length > 0) moreToggle.style.display = "flex";
-    else moreToggle.style.display = "none";
+    moreToggle.style.display = overflowCategories.length > 0 ? "flex" : "none";
     moreToggle.innerHTML = panelOpen ? "▲ 收起" : "▼ 更多";
   }
-
   function setActiveCat(cat) {
     currentCat = cat;
     refreshAllCategoryUI();
     filterTools();
   }
-
   moreToggle.onclick = () => {
     panelOpen = !panelOpen;
     overflowPanel.classList.toggle("open", panelOpen);
     moreToggle.innerHTML = panelOpen ? "▲ 收起" : "▼ 更多";
   };
-
   function filterTools() {
     let arr = [...toolList];
     const kw = searchInput.value.toLowerCase().trim();
     if (currentCat === "star") arr = arr.filter(i => favList.includes(i.id));
     else if (currentCat !== "all") arr = arr.filter(i => i.cat === currentCat);
-    if (kw) {
-      arr = arr.filter(item => {
-        const title = item.title.toLowerCase();
-        const desc = item.desc.toLowerCase();
-        const catName = item.catName.toLowerCase();
-        const tagStr = item.tags.join(" ").toLowerCase();
-        return title.includes(kw) || desc.includes(kw) || catName.includes(kw) || tagStr.includes(kw);
-      });
-    }
+    if (kw) arr = arr.filter(item => {
+      const title = item.title.toLowerCase();
+      const desc = item.desc.toLowerCase();
+      const catName = item.catName.toLowerCase();
+      const tagStr = item.tags.join(" ").toLowerCase();
+      return title.includes(kw) || desc.includes(kw) || catName.includes(kw) || tagStr.includes(kw);
+    });
     arr.sort((a, b) => {
       if (a.top && !b.top) return -1;
       if (!a.top && b.top) return 1;
@@ -929,7 +911,6 @@
     });
     renderTools(arr);
   }
-
   function renderTools(list) {
     cardContainer.innerHTML = "";
     if (!list.length) {
@@ -968,25 +949,6 @@
       cardContainer.innerHTML += html;
     });
   }
-
-  sortBtn.onclick = () => {
-    sortMode = sortMode === "date-desc" ? "date-asc" : "date-desc";
-    sortBtn.innerText = sortMode === "date-desc" ? "时间排序 ⬇️" : "时间排序 ⬆️";
-    filterTools();
-  };
-
-  searchInput.addEventListener("input", filterTools);
-  searchInput.addEventListener("keydown", e => {
-    if (e.key === "Enter") filterTools();
-  });
-
-  document.addEventListener("keydown", e => {
-    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
-      e.preventDefault();
-      searchInput.focus();
-    }
-  });
-
   const toolList = [
     {
       id: "curl",
@@ -1118,6 +1080,7 @@
 
   refreshAllCategoryUI();
   filterTools();
+  updateHeaderLayout();
 </script>
 </body>
 </html>
