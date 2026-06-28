@@ -311,7 +311,7 @@
       box-shadow: var(--key-shadow);
       font-weight: 500;
     }
-    /* 排序按钮 */
+    /* 排序按钮 - 新增justify-content:center实现文字居中 */
     .sort-btn {
       height: 52px;
       padding: 0 16px;
@@ -323,6 +323,7 @@
       cursor: pointer;
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 6px;
       white-space: nowrap;
       color: var(--text-main);
@@ -877,9 +878,9 @@
         catIcon: "⚡",
         date: "2026-01-20",
         featured: false,
-        top: false,
+        top: true,
         url: "#",
-        tags: ["json", "格式化false", "校验"]
+        tags: ["json", "格式化", "校验"]
       },
       {
         id: "timestamp",
@@ -890,8 +891,8 @@
         catName: "时间工具",
         catIcon: "⏰",
         date: "2026-01-18",
-        featured: false,
-        top: false,
+        featured: true,
+        top: true,
         url: "#",
         tags: ["时间戳", "日期", "时区"]
       },
@@ -932,8 +933,8 @@
         catName: "生成器",
         catIcon: "🎲",
         date: "2026-01-10",
-        featured: false,
-        top: false,
+        featured: true,
+        top: true,
         url: "#",
         tags: ["二维码", "生成", "扫码"]
       },
