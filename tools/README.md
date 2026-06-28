@@ -8,7 +8,7 @@
 ### 1. 存放位置
 HTML 中 `<header>` 内部` class="nav-link-group"` 容器，所有导航功能按钮全部写在此容器内：
 
-```html- 
+```html
 <div class="nav-link-group">
    <!-- 原有导航按钮示例 -->
    <a href="#" target="_blank" class="header-btn">
@@ -113,8 +113,254 @@ const toolList = [
 角标自动判断：根据 `featured / top` 字段自动生成`「精选 / 置顶」`半透明角标；
 标签自动生成：读取工具 `tags` 数组，自动生成底部多标签；
 收藏状态自动渲染：根据本地存储收藏列表，自动填充实心 / 空心星星。
+
 ## 五、通用修改注意事项
 所有自动化逻辑全部封装在 `JS` 脚本中，仅允许修改指定数据源（导航` HTML`、`toolList` 数组），禁止删除 / 注释自动化函数，会导致分类、收藏、渲染功能失效；
 样式统一使用 `CSS` 变量，不要单独给单个按钮、卡片新增固定宽高，破坏自适应自动化；
 本地存储依赖浏览器，无痕模式下存储临时生效，关闭无痕窗口会清空；
 纯静态页面，无数据库、无后端，所有新增 / 修改仅需修改单 `HTML` 文件，保存后直接打开生效。
+## 六、颜色主题
+### 1、原版-头顶绿
+```html
+:root {
+      --primary: #10b981;                 /* 主色-青绿色 */
+      --primary-light: #dcfce7;           /* 主色浅背景 */
+      --header-bg: #f0fdf4;               /* 头部亮色背景 */
+      --warn: #f97316;                    /* 警告橙色 */
+      --nav-btn-bg: #ffffff;              /* 导航按钮亮色底色 */
+      --nav-btn-border: #e5e7eb;          /* 导航按钮边框 */
+      --nav-btn-text: #222222;            /* 导航文字亮色 */
+      --text-main: #222222;               /* 正文主要文字 */
+      --text-secondary: #555555;          /* 次要说明文字 */
+      --text-weak: #888888;               /* 弱化提示文字 */
+      --border-base: #e5e7eb;             /* 通用边框亮色 */
+      --border-light: #f3f4f6;            /* 浅分割底色 */
+      --bg-page: #ffffff;                 /* 页面亮色背景 */
+      --bg-card: #ffffff;                 /* 卡片亮色背景 */
+      --bg-btn: #ffffff;                  /* 按钮亮色背景 */
+      --bg-footer: #f0fdf4;               /* 页脚亮色背景 */
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);    /* 轻微阴影 */
+      --shadow-lg: 0 6px 16px rgba(0,0,0.1);      /* 卡片悬浮大阴影 */
+      --radius-xs: 4px;    /* 极小圆角 */
+      --radius-sm: 6px;    /* 小圆角 */
+      --radius-md: 8px;    /* 中等圆角 */
+      --radius-lg: 12px;   /* 大圆角 */
+      --radius-full: 999px;/* 全圆角胶囊按钮 */
+      --space-xs: 6px;
+      --space-sm: 10px;
+      --space-md: 14px;
+      --space-lg: 16px;
+      --space-xl: 28px;
+      --transition: all 0.22s ease; /* 全局统一过渡动画时长 */
+      --key-bg: #e5e7eb;    /* 快捷键提示底色 */
+      --key-text: #222;
+      --key-radius: 6px;
+      --key-shadow: 0 1px 2px rgba(0,0,0.15);
+      --body-font-size: 16px;
+      --body-line-height: 1.6;
+      --title-line-height: 1.2;
+      --sub-title-line-height: 1.25;
+      --content-max-width: 1200px; /* 页面最大宽度限制 */
+      --card-gap: 16px;            /* 卡片网格间距 */
+      --card-min-width: 300px;     /* 卡片最小宽度，自适应网格 */
+      --header-safe-gap: 16px;
+      --card-label-offset: 36px;
+      --nav-line-height: 38px;     /* 导航按钮高度 */
+      --theme-btn-width: 36px;     /* 主题切换按钮宽度 */
+    }
+```
+### 2、 闷骚粉
+```html
+:root {
+  --primary: #ec4899;
+  --primary-light: #fdf2f8;
+  --header-bg: #fdf2f8;
+  --warn: #f97316;
+  --nav-btn-bg: #ffffff;
+  --nav-btn-border: #fce7f3;
+  --nav-btn-text: #222222;
+  --text-main: #222222;
+  --text-secondary: #555555;
+  --text-weak: #888888;
+  --border-base: #fce7f3;
+  --border-light: #fdf2f8;
+  --bg-page: #fff9fb;
+  --bg-card: #ffffff;
+  --bg-btn: #ffffff;
+  --bg-footer: #fdf2f8;
+  --shadow-sm: 0 1px 3px rgba(236,72,153,0.08);
+  --shadow-lg: 0 6px 16px rgba(236,72,153,0.12);
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 999px;
+  --space-xs: 6px;
+  --space-sm: 10px;
+  --space-md: 14px;
+  --space-lg: 16px;
+  --space-xl: 28px;
+  --transition: all 0.22s ease;
+  --key-bg: #fce7f3;
+  --key-text: #222;
+  --key-radius: 6px;
+  --key-shadow: 0 1px 2px rgba(0,0,0.15);
+  --body-font-size: 16px;
+  --body-line-height: 1.6;
+  --title-line-height: 1.2;
+  --sub-title-line-height: 1.25;
+  --content-max-width: 1200px;
+  --card-gap: 16px;
+  --card-min-width: 300px;
+  --header-safe-gap: 16px;
+  --card-label-offset: 36px;
+  --nav-line-height: 38px;
+  --theme-btn-width: 36px;
+}
+```
+### 3、朴实灰
+```html
+:root {
+  --primary: #52525b;
+  --primary-light: #f4f4f5;
+  --header-bg: #f4f4f5;
+  --warn: #f97316;
+  --nav-btn-bg: #ffffff;
+  --nav-btn-border: #e4e4e7;
+  --nav-btn-text: #222222;
+  --text-main: #222222;
+  --text-secondary: #555555;
+  --text-weak: #71717a;
+  --border-base: #e4e4e7;
+  --border-light: #f4f4f5;
+  --bg-page: #fafafa;
+  --bg-card: #ffffff;
+  --bg-btn: #ffffff;
+  --bg-footer: #f4f4f5;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-lg: 0 6px 16px rgba(0,0,0,0.09);
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 999px;
+  --space-xs: 6px;
+  --space-sm: 10px;
+  --space-md: 14px;
+  --space-lg: 16px;
+  --space-xl: 28px;
+  --transition: all 0.22s ease;
+  --key-bg: #e4e4e7;
+  --key-text: #222;
+  --key-radius: 6px;
+  --key-shadow: 0 1px 2px rgba(0,0,0.15);
+  --body-font-size: 16px;
+  --body-line-height: 1.6;
+  --title-line-height: 1.2;
+  --sub-title-line-height: 1.25;
+  --content-max-width: 1200px;
+  --card-gap: 16px;
+  --card-min-width: 300px;
+  --header-safe-gap: 16px;
+  --card-label-offset: 36px;
+  --nav-line-height: 38px;
+  --theme-btn-width: 36px;
+}
+```
+### 4、眼瓦蓝
+```html
+:root {
+  --primary: #3b82f6;
+  --primary-light: #eff6ff;
+  --header-bg: #eff6ff;
+  --warn: #f97316;
+  --nav-btn-bg: #ffffff;
+  --nav-btn-border: #dbeafe;
+  --nav-btn-text: #222222;
+  --text-main: #222222;
+  --text-secondary: #555555;
+  --text-weak: #888888;
+  --border-base: #dbeafe;
+  --border-light: #eff6ff;
+  --bg-page: #f8faff;
+  --bg-card: #ffffff;
+  --bg-btn: #ffffff;
+  --bg-footer: #eff6ff;
+  --shadow-sm: 0 1px 3px rgba(59,130,246,0.08);
+  --shadow-lg: 0 6px 16px rgba(59,130,246,0.12);
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 999px;
+  --space-xs: 6px;
+  --space-sm: 10px;
+  --space-md: 14px;
+  --space-lg: 16px;
+  --space-xl: 28px;
+  --transition: all 0.22s ease;
+  --key-bg: #dbeafe;
+  --key-text: #222;
+  --key-radius: 6px;
+  --key-shadow: 0 1px 2px rgba(0,0,0.15);
+  --body-font-size: 16px;
+  --body-line-height: 1.6;
+  --title-line-height: 1.2;
+  --sub-title-line-height: 1.25;
+  --content-max-width: 1200px;
+  --card-gap: 16px;
+  --card-min-width: 300px;
+  --header-safe-gap: 16px;
+  --card-label-offset: 36px;
+  --nav-line-height: 38px;
+  --theme-btn-width: 36px;
+}```
+### 5、淡橙色暖杏主题
+```html
+:root {
+  --primary: #f97316;
+  --primary-light: #fff7ed;
+  --header-bg: #fff7ed;
+  --warn: #ea580c;
+  --nav-btn-bg: #ffffff;
+  --nav-btn-border: #ffedd5;
+  --nav-btn-text: #222222;
+  --text-main: #222222;
+  --text-secondary: #555555;
+  --text-weak: #888888;
+  --border-base: #ffedd5;
+  --border-light: #fff7ed;
+  --bg-page: #fffaf5;
+  --bg-card: #ffffff;
+  --bg-btn: #ffffff;
+  --bg-footer: #fff7ed;
+  --shadow-sm: 0 1px 3px rgba(249,115,22,0.08);
+  --shadow-lg: 0 6px 16px rgba(249,115,22,0.12);
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 999px;
+  --space-xs: 6px;
+  --space-sm: 10px;
+  --space-md: 14px;
+  --space-lg: 16px;
+  --space-xl: 28px;
+  --transition: all 0.22s ease;
+  --key-bg: #ffedd5;
+  --key-text: #222;
+  --key-radius: 6px;
+  --key-shadow: 0 1px 2px rgba(0,0,0.15);
+  --body-font-size: 16px;
+  --body-line-height: 1.6;
+  --title-line-height: 1.2;
+  --sub-title-line-height: 1.25;
+  --content-max-width: 1200px;
+  --card-gap: 16px;
+  --card-min-width: 300px;
+  --header-safe-gap: 16px;
+  --card-label-offset: 36px;
+  --nav-line-height: 38px;
+  --theme-btn-width: 36px;
+}
+```
