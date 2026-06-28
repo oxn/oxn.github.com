@@ -27,7 +27,7 @@
       --bg-btn: #ffffff;                  /* 按钮亮色背景 */
       --bg-footer: #f0fdf4;               /* 页脚亮色背景 */
       --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);    /* 轻微阴影 */
-      --shadow-lg: 0 6px 16px rgba(0,0,0.1);      /* 卡片悬浮大阴影 */
+      --shadow-lg: 0 6px 16px rgba(0,0,0,0.1);      /* 卡片悬浮大阴影 */
       --radius-xs: 4px;    /* 极小圆角 */
       --radius-sm: 6px;    /* 小圆角 */
       --radius-md: 8px;    /* 中等圆角 */
@@ -42,7 +42,7 @@
       --key-bg: #e5e7eb;    /* 快捷键提示底色 */
       --key-text: #222;
       --key-radius: 6px;
-      --key-shadow: 0 1px 2px rgba(0,0,0.15);
+      --key-shadow: 0 1px 2px rgba(0,0,0,0.15);
       --body-font-size: 16px;
       --body-line-height: 1.6;
       --title-line-height: 1.2;
@@ -210,13 +210,34 @@
       top: 14px;
       right: 0;
     }
-    .header-btn.theme-switch {
+    /* 圆形纯图标明暗切换按钮，与工具页统一 */
+    .header-btn-circle {
       width: var(--theme-btn-width);
-      min-width: var(--theme-btn-width);
-      height: 32px;
+      height: var(--theme-btn-width);
       padding: 0;
-      justify-content: center;
-      font-size: 14px;
+      border: 1px solid var(--nav-btn-border);
+      border-radius: 50%; /* 正圆形 */
+      font-size: 16px;
+      cursor: pointer;
+      display: grid;
+      place-items: center; /* 图标垂直水平居中 */
+      background: var(--nav-btn-bg);
+      color: var(--nav-btn-text);
+      flex-shrink: 0;
+      transition: var(--transition);
+    }
+    .header-btn-circle:hover {
+      border-color: var(--primary);
+      background: var(--primary-light);
+      color: var(--primary);
+    }
+    /* 手机竖屏适配缩小圆形按钮 */
+    @media screen and (max-width:767px) and (orientation:portrait){
+      .header-btn-circle{
+        width:34px;
+        height:34px;
+        font-size:14px;
+      }
     }
 
     /* 头部占位块，抵消fixed头部高度，防止内容被遮挡 */
@@ -671,7 +692,7 @@
     </div>
     <!-- 主题切换按钮容器 -->
     <div class="theme-switch-wrap">
-      <button id="themeToggle" class="header-btn theme-switch">🌙</button>
+      <button id="themeToggle" class="header-btn-circle">🌙</button>
     </div>
   </div>
 </header>
