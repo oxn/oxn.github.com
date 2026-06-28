@@ -122,7 +122,8 @@ const toolList = [
 ## 六、颜色主题
 ### 1、原版-头顶绿
 ```html
-:root {
+/* 统一管理颜色、间距、圆角、过渡、字体尺寸，全局一处修改全页面生效 */
+    :root {
       --primary: #10b981;                 /* 主色-青绿色 */
       --primary-light: #dcfce7;           /* 主色浅背景 */
       --header-bg: #f0fdf4;               /* 头部亮色背景 */
@@ -168,6 +169,30 @@ const toolList = [
       --nav-line-height: 38px;     /* 导航按钮高度 */
       --theme-btn-width: 36px;     /* 主题切换按钮宽度 */
     }
+
+    /* ===================== 暗黑模式变量覆盖 ===================== */
+    html[data-theme="dark"] {
+      --primary: #10b981;
+      --primary-light: rgba(16, 185, 129, 0.15);
+      --header-bg: #111827;
+      --nav-btn-bg: #1f2937;
+      --nav-btn-border: #374151;
+      --nav-btn-text: #f3f4f6;
+      --warn: #f97316;
+      --text-main: #f1f5f9;
+      --text-secondary: #cbd5e1;
+      --text-weak: #94a3b8;
+      --border-base: #334155;
+      --border-light: #334155;
+      --bg-page: #0f172a;
+      --bg-card: #1e293b;
+      --bg-btn: #1e293b;
+      --bg-footer: #111827;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.2);
+      --shadow-lg: 0 6px 16px rgba(0,0,0,0.35);
+      --key-bg: #334155;
+      --key-text: #f1f5f9;
+    }
 ```
 ### 2、 闷骚粉
 ```html
@@ -204,7 +229,7 @@ const toolList = [
   --key-bg: #fce7f3;
   --key-text: #222;
   --key-radius: 6px;
-  --key-shadow: 0 1px 2px rgba(0,0,0.15);
+  --key-shadow: 0 1px 2px rgba(0,0,0,0.15);
   --body-font-size: 16px;
   --body-line-height: 1.6;
   --title-line-height: 1.2;
@@ -216,6 +241,30 @@ const toolList = [
   --card-label-offset: 36px;
   --nav-line-height: 38px;
   --theme-btn-width: 36px;
+}
+
+html[data-theme="dark"] {
+  --primary: #f472b6;
+  --primary-light: rgba(244, 114, 182, 0.18);
+  --header-bg: #111827;
+  --nav-btn-bg: #1f2937;
+  --nav-btn-border: #374151;
+  --nav-btn-text: #f3f4f6;
+  --warn: #fdba74;
+  --text-main: #f9fafb;
+  --text-secondary: #d1d5db;
+  --text-weak: #9ca3af;
+  --border-base: #374151;
+  --border-light: #1f2937;
+  --bg-page: #0f172a;
+  --bg-card: #1e293b;
+  --bg-btn: #1f2937;
+  --bg-footer: #111827;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.25);
+  --shadow-lg: 0 6px 16px rgba(0,0,0,0.45);
+  --key-bg: #374151;
+  --key-text: #f9fafb;
+  --key-shadow: 0 1px 2px rgba(0,0,0,0.35);
 }
 ```
 ### 3、朴实灰
@@ -253,7 +302,7 @@ const toolList = [
   --key-bg: #e4e4e7;
   --key-text: #222;
   --key-radius: 6px;
-  --key-shadow: 0 1px 2px rgba(0,0,0.15);
+  --key-shadow: 0 1px 2px rgba(0,0,0,0.15);
   --body-font-size: 16px;
   --body-line-height: 1.6;
   --title-line-height: 1.2;
@@ -266,8 +315,105 @@ const toolList = [
   --nav-line-height: 38px;
   --theme-btn-width: 36px;
 }
+
+html[data-theme="dark"] {
+  --primary: #a1a1aa;
+  --primary-light: rgba(161, 161, 170, 0.18);
+  --header-bg: #111827;
+  --nav-btn-bg: #1f2937;
+  --nav-btn-border: #374151;
+  --nav-btn-text: #f3f4f6;
+  --warn: #fdba74;
+  --text-main: #f9fafb;
+  --text-secondary: #d1d5db;
+  --text-weak: #9ca3af;
+  --border-base: #374151;
+  --border-light: #1f2937;
+  --bg-page: #0f172a;
+  --bg-card: #1e293b;
+  --bg-btn: #1f2937;
+  --bg-footer: #111827;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.25);
+  --shadow-lg: 0 6px 16px rgba(0,0,0,0.45);
+  --key-bg: #374151;
+  --key-text: #f9fafb;
+  --key-shadow: 0 1px 2px rgba(0,0,0,0.35);
+}
 ```
 ### 4、眼瓦蓝
+```html
+:root {
+  --primary: #52525b;
+  --primary-light: #f4f4f5;
+  --header-bg: #f4f4f5;
+  --warn: #f97316;
+  --nav-btn-bg: #ffffff;
+  --nav-btn-border: #e4e4e7;
+  --nav-btn-text: #222222;
+  --text-main: #222222;
+  --text-secondary: #555555;
+  --text-weak: #71717a;
+  --border-base: #e4e4e7;
+  --border-light: #f4f4f5;
+  --bg-page: #fafafa;
+  --bg-card: #ffffff;
+  --bg-btn: #ffffff;
+  --bg-footer: #f4f4f5;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-lg: 0 6px 16px rgba(0,0,0,0.09);
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 999px;
+  --space-xs: 6px;
+  --space-sm: 10px;
+  --space-md: 14px;
+  --space-lg: 16px;
+  --space-xl: 28px;
+  --transition: all 0.22s ease;
+  --key-bg: #e4e4e7;
+  --key-text: #222;
+  --key-radius: 6px;
+  --key-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  --body-font-size: 16px;
+  --body-line-height: 1.6;
+  --title-line-height: 1.2;
+  --sub-title-line-height: 1.25;
+  --content-max-width: 1200px;
+  --card-gap: 16px;
+  --card-min-width: 300px;
+  --header-safe-gap: 16px;
+  --card-label-offset: 36px;
+  --nav-line-height: 38px;
+  --theme-btn-width: 36px;
+}
+
+html[data-theme="dark"] {
+  --primary: #a1a1aa;
+  --primary-light: rgba(161, 161, 170, 0.18);
+  --header-bg: #111827;
+  --nav-btn-bg: #1f2937;
+  --nav-btn-border: #374151;
+  --nav-btn-text: #f3f4f6;
+  --warn: #fdba74;
+  --text-main: #f9fafb;
+  --text-secondary: #d1d5db;
+  --text-weak: #9ca3af;
+  --border-base: #374151;
+  --border-light: #1f2937;
+  --bg-page: #0f172a;
+  --bg-card: #1e293b;
+  --bg-btn: #1f2937;
+  --bg-footer: #111827;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.25);
+  --shadow-lg: 0 6px 16px rgba(0,0,0,0.45);
+  --key-bg: #374151;
+  --key-text: #f9fafb;
+  --key-shadow: 0 1px 2px rgba(0,0,0,0.35);
+}
+```
+### 5、淡橙色暖杏主题
 ```html
 :root {
   --primary: #3b82f6;
@@ -302,7 +448,7 @@ const toolList = [
   --key-bg: #dbeafe;
   --key-text: #222;
   --key-radius: 6px;
-  --key-shadow: 0 1px 2px rgba(0,0,0.15);
+  --key-shadow: 0 1px 2px rgba(0,0,0,0.15);
   --body-font-size: 16px;
   --body-line-height: 1.6;
   --title-line-height: 1.2;
@@ -314,53 +460,29 @@ const toolList = [
   --card-label-offset: 36px;
   --nav-line-height: 38px;
   --theme-btn-width: 36px;
-}```
-### 5、淡橙色暖杏主题
-```html
-:root {
-  --primary: #f97316;
-  --primary-light: #fff7ed;
-  --header-bg: #fff7ed;
-  --warn: #ea580c;
-  --nav-btn-bg: #ffffff;
-  --nav-btn-border: #ffedd5;
-  --nav-btn-text: #222222;
-  --text-main: #222222;
-  --text-secondary: #555555;
-  --text-weak: #888888;
-  --border-base: #ffedd5;
-  --border-light: #fff7ed;
-  --bg-page: #fffaf5;
-  --bg-card: #ffffff;
-  --bg-btn: #ffffff;
-  --bg-footer: #fff7ed;
-  --shadow-sm: 0 1px 3px rgba(249,115,22,0.08);
-  --shadow-lg: 0 6px 16px rgba(249,115,22,0.12);
-  --radius-xs: 4px;
-  --radius-sm: 6px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-full: 999px;
-  --space-xs: 6px;
-  --space-sm: 10px;
-  --space-md: 14px;
-  --space-lg: 16px;
-  --space-xl: 28px;
-  --transition: all 0.22s ease;
-  --key-bg: #ffedd5;
-  --key-text: #222;
-  --key-radius: 6px;
-  --key-shadow: 0 1px 2px rgba(0,0,0.15);
-  --body-font-size: 16px;
-  --body-line-height: 1.6;
-  --title-line-height: 1.2;
-  --sub-title-line-height: 1.25;
-  --content-max-width: 1200px;
-  --card-gap: 16px;
-  --card-min-width: 300px;
-  --header-safe-gap: 16px;
-  --card-label-offset: 36px;
-  --nav-line-height: 38px;
-  --theme-btn-width: 36px;
+}
+
+html[data-theme="dark"] {
+  --primary: #60a5fa;
+  --primary-light: rgba(96, 165, 250, 0.18);
+  --header-bg: #111827;
+  --nav-btn-bg: #1f2937;
+  --nav-btn-border: #374151;
+  --nav-btn-text: #f3f4f6;
+  --warn: #fdba74;
+  --text-main: #f9fafb;
+  --text-secondary: #d1d5db;
+  --text-weak: #9ca3af;
+  --border-base: #374151;
+  --border-light: #1f2937;
+  --bg-page: #0f172a;
+  --bg-card: #1e293b;
+  --bg-btn: #1f2937;
+  --bg-footer: #111827;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.25);
+  --shadow-lg: 0 6px 16px rgba(0,0,0,0.45);
+  --key-bg: #374151;
+  --key-text: #f9fafb;
+  --key-shadow: 0 1px 2px rgba(0,0,0,0.35);
 }
 ```
