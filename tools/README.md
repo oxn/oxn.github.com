@@ -5,7 +5,7 @@
 本库所有html都是单文件，不外挂js、css，今天是.6年6.28我今天让豆包陪我一天弄出了这个主页文件。<br>
 在此还要感谢`htmls.dev`、`https://tools.realtime-ai.chat`/<br>
 本源码只需要修改站点信息和下面说的 `顶部导航按钮` `数据源存放位置` 其余自动生成。<br>
-地域原因来此不易，如有问题联系怸歪小站：<a href="https://cycy.fun" target="_blank" rel="noopener noreferrer" style="font-weight:bold;color:#0066cc;word-break:break-all;">👆CYCY.FUN</a>
+地域原因来此不易，如有问题联系怸歪小站：<a href="https://cycy.fun" target="_blank" rel="noopener noreferrer" style="font-weight:bold;color:#0066cc;word-break:break-all;">👆CYCY.FUN</a><br>[English Doc](./Readme-en.md)
 
 # cytools-html 静态工具站 使用 & 二次开发说明文档
 ## 一、站点整体概述
