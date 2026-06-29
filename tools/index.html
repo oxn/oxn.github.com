@@ -700,7 +700,7 @@
 
 <footer>
   <div class="container">
-    Copyright © 2026 cytools-html | 开源HTML工具集6.28-大道至简！ All Rights Reserved
+     © 2026 cytools-html | 开源HTML工具集-大道至简！ All Rights Reserved<br>最后更新2026.06.29-10：58
   </div>
 </footer>
 
@@ -747,7 +747,21 @@
   themeBtn.onclick = toggleTheme;
 
   // 工具数据源
-  const toolList = [
+    const toolList = [
+    {
+      id: "symbols-copy-and-paster",
+      icon: "📄",
+      title: "特殊符号大全",
+      desc: "特殊符号大全用于集中查找和复制常见 Unicode 符号，包含数学符号、箭头、货币、希腊字母、上标下标等",
+      cat: "DEV",
+      catName: "文本工具",
+      catIcon: "📄",
+      date: "2026-06-29",
+      featured: true,
+      top: false,
+      url: "./symbols-copy-and-paste.html",
+      tags: ["特殊","符号","Unicode"]
+    },
     {
       id: "password-generator",
       icon: "🔐",
@@ -760,7 +774,7 @@
       featured: true,
       top: false,
       url: "./password-generator.html",
-      tags: ["totp","随机","密钥"]
+      tags: ["密码","随机","生成"]
     },
     {
       id: "totp-generator",
