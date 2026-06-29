@@ -1,43 +1,3 @@
-<!--
-=============================================
-特殊符号大全工具 - 数据驱动完整版
-维护说明：
-1. 页面所有分类标签、符号网格全部由 JS 中 const symData 对象自动生成
-   HTML 内无任何手写符号方块、无手写分类标签，后续仅需维护 symData 即可，无需改动页面DOM
-2. symData 数据结构规范：
-   {
-     分类标识: {
-        title: "分类显示名称（页面顶部标签、区块标题）",
-        singleItem: true/false 【可选参数】
-        list: [
-            "一串连续符号字符串1",
-            "一串连续符号字符串2"
-        ]
-     }
-   }
-   singleItem = true：数组每一项完整一格，不拆分字符（颜文字专用）
-   singleItem = false / 不写：字符串逐个字符拆分格子（普通数学/字母符号，原有逻辑）
-3. 维护操作指南：
-   ① 新增符号：找到对应分类 list 字符串，直接追加字符，刷新页面自动生成格子
-   ② 新增分类：在 symData 内新增一组键值对，页面自动生成顶部标签+符号区块
-   ③ 删除分类：直接删除对应分类整段键值对，页面自动移除标签与区块
-   ④ 修改已有符号：编辑对应 list 内的字符，增删改后刷新生效
-4. 内置功能：
-   - 顶部渐变Toast复制成功弹窗，浅色/暗黑双主题适配，2秒自动淡出
-   - 全局明暗主题，修复切换失效问题，与cytools站点统一存储配置
-   - 「全部」固定首标签，点击显示所有分类；单标签筛选对应区块
-   - 关键词搜索匹配符号/分类标题，模糊检索
-   - 点击符号自动复制剪贴板，拼接至下方文本框
-   - 一键清空拼接内容、一键复制全部拼接文本
-   - 移动端自适应布局，符号网格自动适配屏幕宽度
-5. 页面结构固定顺序，无需调整：
-   顶部导航栏 → 页面标题区域 → 搜索栏 → 拼接文本框 → 自动渲染分类标签栏 → 自动渲染符号区块 → 底部三栏工具介绍卡片 → Toast弹窗容器
-6. 注意事项：
-   - 普通分类不填 singleItem，沿用原有逐字符拆分逻辑
-   - 颜文字等需要整块展示的分类添加 singleItem: true
-   - 搜索、弹窗、筛选功能全部依赖 symData 完整字符，不可清空对应分类 list
-=============================================
--->
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -45,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>特殊符号大全</title>
     <style>
-        /* ===================== 【1.全局色彩主题变量区】与cytools首页完全统一 ===================== */
+        /* ===================== 全局变量 ===================== */
         :root {
             --primary: #10b981;
             --primary-light: #dcfce7;
-            --header-bg: transparent; /* 导航栏透明，移除绿色底色 */
+            --header-bg: transparent;
             --warn: #f97316;
             --nav-btn-bg: #ffffff;
             --nav-btn-border: #e5e7eb;
@@ -81,7 +41,7 @@
             --key-radius: 6px;
             --key-shadow: 0 1px 2px rgba(0,0,0,0.15);
             --body-font-size: 16px;
-            --desktop-font-ratio: 0.85; /* 仅桌面端字体缩放比例，手机不生效 */
+            --desktop-font-ratio: 0.85;
             --title-line-height: 1.2;
             --sub-title-line-height: 1.25;
             --content-max-width: 1200px;
@@ -91,7 +51,6 @@
             --nav-line-height: 38px;
             --theme-btn-width: 36px;
         }
-        /* 暗黑模式 与首页共用标识、本地存储key */
         html[data-theme="dark"] {
             --primary: #10b981;
             --primary-light: rgba(16, 185, 129, 0.15);
@@ -114,34 +73,18 @@
             --key-bg: #334155;
             --key-text: #f1f5f9;
         }
-        /* 修复页面背景不铺满 + 【核心修复：全局兼容符号字体栈】 */
-html {
-    font-family: 
-        "Apple Color Emoji", 
-        "Segoe UI Emoji", 
-        "Segoe UI Symbol", 
-        "Noto Color Emoji", 
-        "Noto Sans Symbols 2",
-        "Noto Sans Math",
-        "STIX Two Text",
-        system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
-}
-.sym-item {
-    font-family: 
-        "Noto Sans Math",
-        "STIX Two Text",
-        "Noto Sans Symbols 2",
-        "Apple Color Emoji", 
-        "Segoe UI Emoji", 
-        "Segoe UI Symbol", 
-        "Noto Color Emoji", sans-serif;
-}
+        html {
+            font-family: "Noto Sans Math","STIX Two Text","Noto Sans Symbols 2","Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji",system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+        }
+        .sym-item {
+            font-family: "Noto Sans Math","STIX Two Text","Noto Sans Symbols 2","Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji",sans-serif;
+        }
         body {
             min-height: 100%;
             background: var(--bg-page);
             display: flex;
             flex-direction: column;
-            line-height: var(--body-line-height);
+            line-height: 1.5;
             font-size: calc(var(--body-font-size) * var(--desktop-font-ratio));
         }
         * {
@@ -166,7 +109,6 @@ html {
             width: calc(100% - 48px);
             margin: 0 auto;
         }
-        /* ===================== 【2.顶部悬浮导航栏 无背景色块】 ===================== */
         header {
             position: fixed;
             top: 0;
@@ -174,7 +116,7 @@ html {
             width: 100%;
             z-index: 99;
             background: var(--header-bg);
-            border-bottom: none; /* 移除分割线 */
+            border-bottom: none;
         }
         .header-inner {
             position: relative;
@@ -183,7 +125,6 @@ html {
             justify-content: space-between;
             gap: 12px;
             padding: 14px 0;
-            padding-right: calc(var(--theme-btn-width) + 16px);
         }
         .back-btn {
             display: inline-flex;
@@ -191,7 +132,7 @@ html {
             gap: 6px;
             color: var(--nav-btn-text);
             text-decoration: none;
-            font-size: 12px; /* 固定原始字号，不再缩放 */
+            font-size: 12px;
             font-weight: 500;
             padding: 7px 10px;
             border-radius: var(--radius-lg);
@@ -205,12 +146,14 @@ html {
             background: var(--primary-light);
             color: var(--primary);
         }
-        /* 页面标题文字直接删除，隐藏占位 */
         .page-title {
             display: none;
         }
         .theme-switch-wrap {
-            position: relative;
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
         }
         .header-btn-circle {
             width: var(--theme-btn-width);
@@ -242,7 +185,6 @@ html {
             flex: 1;
             padding-bottom: 60px;
         }
-        /* ===================== 页面头部标题说明区域 ===================== */
         .page-head {
             text-align: center;
             margin: 20px 0 30px;
@@ -261,7 +203,6 @@ html {
             color: var(--text-weak);
             font-size: calc(15px * var(--desktop-font-ratio));
         }
-        /* ===================== 页面说明信息卡片区域（移至页面底部） ===================== */
         .info-card-section {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -287,7 +228,6 @@ html {
             line-height: 1.8;
             color: var(--text-secondary);
         }
-        /* ===================== 搜索栏 + 操作按钮行 ===================== */
         .search-bar-row {
             display: flex;
             gap: 12px;
@@ -331,7 +271,6 @@ html {
             background: #fef2f2;
             color: #ef4444;
         }
-        /* ===================== 拼接结果文本域 ===================== */
         .result-box {
             width: 100%;
             min-height: 100px;
@@ -347,7 +286,6 @@ html {
         .result-box::placeholder {
             color: var(--text-weak);
         }
-        /* ===================== 分类标签栏 ===================== */
         .cat-tag-wrap {
             display: flex;
             flex-wrap: wrap;
@@ -374,7 +312,6 @@ html {
             background: var(--primary-light);
             color: var(--primary);
         }
-        /* ===================== 符号分类区块 ===================== */
         .sym-block {
             margin-bottom: 32px;
         }
@@ -390,35 +327,24 @@ html {
             grid-template-columns: repeat(auto-fill, minmax(52px, 1fr));
             gap: 8px;
         }
-        /* 【修复】颜文字加宽格子，避免长字符挤压换行 */
         .sym-grid.wide-item {
             grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
             gap: 12px;
         }
-        /* 【核心修复】符号格子单独强制符号字体，彻底解决方块空白 */
-.sym-item {
-    height: 48px;
-    display: grid;
-    place-items: center;
-    border: 1px solid var(--border-base);
-    border-radius: var(--radius-xs);
-    background: var(--bg-btn);
-    font-size: calc(20px * var(--desktop-font-ratio));
-    color: var(--text-main);
-    cursor: pointer;
-    user-select: none;
-    text-align: center;
-    padding: 0 8px;
-    /* 数学字体前置，优先渲染分数、罗马数字 */
-    font-family: 
-        "Noto Sans Math",
-        "STIX Two Text",
-        "Apple Color Emoji", 
-        "Segoe UI Emoji", 
-        "Segoe UI Symbol", 
-        "Noto Color Emoji", 
-        "Noto Sans Symbols 2", sans-serif;
-}
+        .sym-item {
+            height: 48px;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--border-base);
+            border-radius: var(--radius-xs);
+            background: var(--bg-btn);
+            font-size: calc(20px * var(--desktop-font-ratio));
+            color: var(--text-main);
+            cursor: pointer;
+            user-select: none;
+            text-align: center;
+            padding: 0 8px;
+        }
         .sym-item:hover {
             border-color: var(--primary);
             background: var(--primary-light);
@@ -426,10 +352,10 @@ html {
         }
         .block-tip {
             margin-top: 10px;
-            font-size: calc(13px * var(--desktop-font-ratio));
+            font-size: calc(15px * var(--desktop-font-ratio));
             color: var(--text-weak);
         }
-        /* ===================== 顶部复制成功Toast弹窗样式 ===================== */
+        /* 复制弹窗 原版尺寸 */
         .toast-copy {
             position: fixed;
             top: 80px;
@@ -443,14 +369,16 @@ html {
             border: 1px solid #bbf7d0;
             border-radius: 16px;
             box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
-            z-index: 9999;
+            z-index: 99999;
             opacity: 0;
             pointer-events: none;
             transition: all 0.3s ease;
+            min-height: 72px;
         }
         .toast-copy.show {
             opacity: 1;
             transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
         }
         .toast-icon {
             width: 40px;
@@ -462,13 +390,14 @@ html {
             place-items: center;
             font-size: calc(22px * var(--desktop-font-ratio));
             font-weight: bold;
+            flex-shrink: 0;
         }
         .toast-text {
             font-size: calc(28px * var(--desktop-font-ratio));
             color: #16a34a;
             font-weight: 500;
+            white-space: nowrap;
         }
-        /* 暗黑模式弹窗适配 */
         html[data-theme="dark"] .toast-copy {
             background: rgba(34, 197, 94, 0.12);
             border-color: rgba(34, 197, 94, 0.3);
@@ -476,16 +405,21 @@ html {
         html[data-theme="dark"] .toast-text {
             color: #4ade80;
         }
-        /* ===================== 移动端：取消字体缩放，恢复原始字号 ===================== */
+        /* 隐藏复制专用textarea */
+        #copyTemp {
+            position: absolute;
+            left: -9999px;
+            top: -9999px;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+        }
         @media (max-width: 640px) {
             body {
                 font-size: var(--body-font-size);
             }
             .back-btn {
                 font-size: 12px;
-            }
-            .page-title {
-                font-size: 20px;
             }
             .header-btn-circle {
                 font-size: 16px;
@@ -521,7 +455,7 @@ html {
                 font-size: 20px;
             }
             .block-tip {
-                font-size: 13px;
+                font-size: 15px;
             }
             .toast-icon {
                 font-size: 16px;
@@ -529,7 +463,6 @@ html {
             .toast-text {
                 font-size: 20px;
             }
-            /* 布局适配不变 */
             .search-bar-row {
                 flex-wrap: wrap;
             }
@@ -549,6 +482,7 @@ html {
             .toast-copy {
                 width: calc(100% - 40px);
                 padding: 12px 20px;
+                min-height: 64px;
             }
             .toast-icon {
                 width: 32px;
@@ -570,11 +504,10 @@ html {
     </style>
 </head>
 <body>
-<!-- 顶部悬浮导航栏：无背景、无中间标题文字 -->
+<!-- 顶部导航 -->
 <header id="headerDom">
     <div class="container header-inner">
         <a href="index.html" class="back-btn">← 返回首页</a>
-        <!-- 中间标题文字已删除 -->
         <div class="theme-switch-wrap">
             <button id="themeToggle" class="header-btn-circle">🌙</button>
         </div>
@@ -583,33 +516,26 @@ html {
 <div class="header-spacer" id="headerSpacer"></div>
 
 <main class="container">
-    <!-- 页面标题说明 -->
     <div class="page-head">
         <h1>特殊符号大全</h1>
         <div class="blue-tip">点击符号即可复制，支持分类筛选与结果拼接</div>
         <div class="desc-text">适合文案排版、昵称装饰、公式输入与多语言字符输入</div>
     </div>
 
-    <!-- 搜索 + 操作按钮 -->
     <div class="search-bar-row">
         <input type="text" id="searchSym" placeholder="搜索符号或分类，如：箭头、数学、€、Ω">
         <button class="op-btn warn" id="clearResult">清空结果</button>
         <button class="op-btn" id="copyResult">复制结果</button>
     </div>
 
-    <!-- 拼接输出框 -->
     <textarea class="result-box" id="resultOutput" placeholder="点击下方任意符号后会自动追加到这里"></textarea>
 
-    <!-- 分类标签容器（JS自动渲染全部标签，仅预留空容器） -->
     <div class="cat-tag-wrap" id="catWrap">
-        <!-- 固定「全部」标签，永远第一个 -->
         <div class="sym-cat-tag active" data-cat="all">全部</div>
     </div>
 
-    <!-- 符号区块容器（JS自动渲染所有分类网格，无手写DOM） -->
     <div id="allSymBlocks"></div>
 
-    <!-- 底部三栏介绍卡片 -->
     <div class="info-card-section">
         <div class="info-card">
             <h3>什么是特殊符号大全</h3>
@@ -626,15 +552,18 @@ html {
     </div>
 </main>
 
-<!-- 复制成功顶部Toast弹窗容器 -->
+<!-- 复制弹窗 -->
 <div class="toast-copy" id="copyToast">
     <div class="toast-icon">✓</div>
     <span class="toast-text">复制成功：</span>
     <span class="toast-text" id="toastChar"></span>
 </div>
 
+<!-- 隐藏复制缓冲框（核心兼容方案） -->
+<textarea id="copyTemp"></textarea>
+
 <script>
-    // ===================== 全局主题模块 与cytools首页完全同步【修复明暗切换失效】 =====================
+    // 主题切换
     const htmlRoot = document.documentElement;
     const themeBtn = document.getElementById("themeToggle");
     const mediaDark = window.matchMedia('(prefers-color-scheme: dark)');
@@ -659,12 +588,13 @@ html {
         localStorage.setItem(STORAGE_KEY, next);
         applyTheme(next);
     }
-    mediaDark.addEventListener("change", (e) => {
+    mediaDark.addEventListener("change", e => {
         if (!localStorage.getItem(STORAGE_KEY)) applyTheme(e.matches ? "dark" : "light");
     });
     initTheme();
     themeBtn.onclick = toggleTheme;
-    // 头部高度自适应
+
+    // 头部自适应高度
     const headerDom = document.getElementById('headerDom');
     const headerSpacer = document.getElementById('headerSpacer');
     function syncHeaderHeight() {
@@ -673,7 +603,7 @@ html {
     window.addEventListener('resize', syncHeaderHeight);
     syncHeaderHeight();
 
-    // ===================== DOM元素缓存 =====================
+    // DOM缓存
     const resultOutput = document.getElementById('resultOutput');
     const clearResultBtn = document.getElementById('clearResult');
     const copyResultBtn = document.getElementById('copyResult');
@@ -682,340 +612,155 @@ html {
     const allSymBlocks = document.getElementById('allSymBlocks');
     const copyToast = document.getElementById('copyToast');
     const toastChar = document.getElementById('toastChar');
-    let activeCat = "all"; // 默认选中全部
+    const copyTemp = document.getElementById('copyTemp');
+    let activeCat = "all";
 
-    // ===================== Toast弹窗函数（复制成功提示） =====================
+    // 弹窗显示函数（极简稳定）
     function showCopyToast(text) {
-        toastChar.innerText = text;
-        copyToast.classList.add('show');
-        setTimeout(() => {
-            copyToast.classList.remove('show');
-        }, 2000);
+        toastChar.textContent = text;
+        copyToast.classList.remove('show');
+        setTimeout(() => copyToast.classList.add('show'), 10);
+        setTimeout(() => copyToast.classList.remove('show'), 2000);
     }
 
-    // ===================== 【唯一维护数据源】新增singleItem参数控制渲染模式 =====================
-    const symData = {
-        math: {
-            title: "数学符号",
-            list: [
-                "≥≮≠≢^∽≌≯≈＜＞≥≤⩾⩽⋘⋙=≈≝≞‖∠∡∢≡+-×÷＋－±/㏑∨⊙㏒‖∑∈⌒∶∴∵∷&%∩∪∝∞Ω∏∐∫∮∟⊿∀∁∃∅∆∇⊥∧∨⊂⊃⊄⊅⊆⊇⊈⊉∈∋∉∌√∛∜℅‰‱∫∬∭∮∯∰∱∲∳v̄"
-            ]
-        },
-emoticon: {
-    title: "颜文字",
-    singleItem: true,
-    list: [
-        // 开心/欢呼
-        "(≧∇≦)ﾉ",
-        "ヽ(✿ﾟ▽ﾟ)ノ",
-        "╰(*°▽°*)╯",
-        "(๑•̀ㅂ•́)و✧",
-        "٩(๑>◡<๑)۶",
-        "ヽ(๑ˊ▿ˋ๑)ﾉ",
-        "(๑˃̵ᴗ˂̵)و",
-        "٩(ˊᗜˋ*)و",
-        "ヽ(•̀ω•́ )ゝ",
-        "ヽ(≧Д≦)ノ",
-        "(≧∀≦)♪",
-        "ヽ(｡◕ω◕｡)ﾉ",
-        // 害羞/脸红
-        "(｡•́ω•̀｡)",
-        "(⁄ ⁄>⁄ ▽ ⁄<⁄ ⁄)",
-        "(//∇//)",
-        "(⁄ ⁄•⁄ω⁄•⁄ ⁄)",
-        "(๑•́ω•̀๑)",
-        "(*/ω＼*)",
-        "(⁄ ⁄˃ᴗ˂⁄ ⁄)",
-        // 委屈/难过/哭泣
-        "QAQ",
-        "T_T",
-        "(T_T)",
-        "(っ╥╯﹏╰╥c)",
-        "(｡•́︿•̀｡)",
-        "(╥﹏╥)",
-        "｡･ﾟﾟ･(>д<)･ﾟﾟ･｡",
-        "(´;︵;`)",
-        // 无奈/摊手
-        "╮(╯▽╰)╭",
-        "╮(￣▽￣)╭",
-        "╮(︶﹏︶)╭",
-        "╮(╯_╰)╭",
-        "╮(︶︿︶)╭",
-        // 平淡/慵懒
-        "(´･ω･`)",
-        "(´-ω-`)",
-        "(・ω・)",
-        "(･ω･)",
-        "(´･_･`)",
-        "(・ω・｀)",
-        // 生气/烦躁
-        "(╬◣д◢)",
-        "(｡•ˇ‸ˇ•｡)",
-        "(╯°□°）╯︵ ┻━┻",
-        "(¬_¬)",
-        "(ー_ー゛)",
-        // 可爱/卖萌
-        "(๑˃̵ᴗ˂̵)",
-        "(◍˃ᵕ˂◍)",
-        "(｡･ω･｡)",
-        "(๑•̀ㅂ•́)و✧",
-        "(≧∇≦)",
-        "(ฅ•ω•ฅ)",
-        "ฅ՞•ﻌ•՞ฅ",
-        "(๑•̀ω•́๑)",
-        // 星星眼/花痴
-        "(✧ω✧)",
-        "(≧∇≦)ﾟ",
-        "(✧∇✧)",
-        "(๑˃̶͈̀௰˂̶͈́)",
-        // 困/打哈欠
-        "(´-ω-`)zzz",
-        "(。-ω-)zzz",
-        "(｡-ω-)",
-        "(´｡-ω-｀)",
-        // 坏笑/狡黠
-        "(￣▽￣)",
-        "(¬ω¬)",
-        "(￣∇￣)",
-        "(･ω･¬)",
-        // 惊吓/慌张
-        "(°ー°〃)",
-        "(°ー°)",
-        "(・ω・。)",
-        "(｡•́ω•̀｡)！",
-        // 爱心/心动
-        "(♡ω♡)",
-        "(≧∇≦)♡",
-        "(♡´･ᴗ｀♡)",
-        "(๑♡ω♡๑)",
-        // 拜拜/挥手
-        "(´･ω･`)ノ",
-        "ヽ(・∀・)ノ",
-        "( ´ ▽ ` )ﾉ",
-        // 发呆/放空
-        "(・_・)",
-        "(ー_ー)",
-        "(･_･;)",
-        "(・ω・？)"
-    ]
-},
-        num: {
-            title: "数字符号",
-            list: ["⓪①②③④⑤⑥⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳⓵⓶⓷⓸⓹⓺⓻⓼⓽⓾⓿❶❷❸❹❺❻❼❽❾❿⓫⓬⓭⓮⓯⓰⓱⓲⓳⓴㊀㊁㊂㊃㊄㊅㊆㊇㊈㊉㈠㈡㈢㈣㈤㈥㈦㈧㈨㈩⑴⑵⑶⑷⑸⑹⑺⑻⑼⑽⑾⑿⒀⒁⒂⒃⒄⒅⒆⒇⒈⒉⒊⒋⒌⒍⒎⒏⒐⒑⒒⒓⒔⒕⒖⒗⒘⒙⒚⒛〇一二三四五六七八九十百千万亿零壹贰叁肆伍陆柒捌玖拾佰仟萬億0️⃣1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣🔟ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩⅪⅫⅰⅱⅲⅳⅴⅵⅶⅷⅸⅹ½⅓⅔¼¾⅛⅜⅝⅞⅟⅕⅙⅖⅚⅗⅘"]
-        },
-        date: {
-            title: "时间日期",
-            list: ["㋀㋁㋂㋃㋄㋅㋆㋇㋈㋉㋊㋋㏠㏡㏢㏣㏤㏥㏦㏧㏨㏩㏪㏫㏬㏭㏮㏯㏰㏱㏲㏳㏴㏵㏶㏷㏸㏹㏺㏻㏼㏽㏾㍙㍚㍛㍜㍝㍞㍟㍠㍡㍢㍣㍤㍥㍦㍧㍨㍩㍪㍫㍬㍭㍮㍯㍰㍘"]
-        },
-        supsub: {
-            title: "上标下标",
-            list: ["⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ⁿᵐᵒᵖ","₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎ₙₘₒₚ"]
-        },
-        unit: {
-            title: "单位符号",
-            list: ["㎎㎏㎜㎝㎞㎡㎥㏄㏊㏈㏋㏌㏍㏎㏏㏐㏑㏒㏓㏔㏕㏖㏗㏘㏙㏚㏛㏜㏝㏞㏟","℃℉°′″‰‱"]
-        },
-        punct: {
-            title: "标点符号",
-            list: ["。，、：∶；‘’“”〝〞ˆˇ﹕︰﹔﹖﹑·•¨.¸;´？！～—｜‖＂〃｀@﹫¡¿﹏﹋︴々﹟#﹩$﹠&﹪%﹡﹢×﹦‐￣¯―﹨˜﹍﹎＿-~（）〈〉‹›﹛﹜『』〖〗［］《》〔〕{}「」⎡⎦⎣⎤【】︵︷︿︹︽_︶︸﹀︺︾ˉ﹂﹄︼﹁﹃︻▲●□…→"]
-        },
-        shape: {
-            title: "图形符号",
-            list: ["○●□■△▲▽▼◇◆☆★◎◐◑◒◓◔◕"]
-        },
-        arrow: {
-            title: "箭头符号",
-            list: ["←↑→↓↔↕↖↗↘↙⇐⇑⇒⇓⇎⇏⇔⇕⇖⇗⇘⇙"]
-        },
-        currency: {
-            title: "货币符号",
-            list: ["¥$€£₩₫₪₴₲₳₵₷₸₹₽₿"]
-        },
-        en: {
-            title: "英文字母",
-            list: ["𝒶𝒷𝒸𝒹ℯ𝒻𝑔𝒽𝒾𝒿𝓀𝓁𝓂𝓃ℴ𝓅𝓆𝓇𝓈𝓉𝓊𝓋𝓌𝓍𝓎𝓏","𝒜ℬ𝒞𝒟ℰℱ𝒢ℋℐ𝒥𝒦ℒℳ𝒩𝒪𝒫𝒬ℛ𝒮𝒯𝒰𝒱𝒲𝒳𝒴𝒵"]
-        },
-        greek: {
-            title: "希腊字母",
-            list: ["αβγδεζηθικλμνξοπρστυφχψω","ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ"]
-        },
-        hanstruct: {
-            title: "汉字结构符号",
-            list: ["亻氵讠扌艹宀心忄灬辶廴阝卩刂力彳纟"]
-        },
-        hanpinyin: {
-            title: "汉字注音符号",
-            list: ["ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦㄧㄨㄩ"]
-        },
-        hanstroke: {
-            title: "汉字笔画符号",
-            list: ["一丨丿丶𠃍𠃊𠃋𠃌𠃎𠃏𠃐"]
-        },
-        circlehan: {
-            title: "带圈中文字符",
-            list: ["㊀㊁㊂㊃㊄㊅㊆㊇㊈㊉㊊㊋㊌㊍㊎㊏㊐㊑㊒㊓㊔㊕㊖㊗㊘㊙㊚㊛㊜㊝㊞㊟㊠㊡㊢㊣㊤㊥㊦㊧㊨㊩㊪㊫㊬㊭㊮㊯㊰"]
-        },
-        mahjong: {
-            title: "麻将符号",
-            list: ["🀀🀁🀂🀃🀄🀅🀆🀇🀈🀉🀊🀋🀌🀍🀎🀏🀐🀑🀒🀓🀔🀕🀖🀗🀘🀙🀚🀛🀜🀝🀞🀟🀠🀡"]
-        },
-        jp: {
-            title: "日语符号",
-            list: ["あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん","アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン"]
-        },
-        kr: {
-            title: "韩语符号",
-            list: [
-                "ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ",
-                "ㅏㅑㅓㅕㅗㅛㅜㅠㅡㅣㅐㅒㅔㅖ",
-                "ㅘㅙㅚㅝㅞㅟㅢ",
-                "ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎㄲㅆ",
-                "ᄀᄁᄂᄃᄄᄅᄆᄇᄈᄉᄊᄋᄌᄍᄎᄏᄐᄑᄒ",
-                "ᅡᅣᅢᅤᅥᅧᅦᅨᅩᅭᅪᅫᅬᅮᅲᅯᅰᅱᅳᅴᅵ",
-                "ᆨᆫᆮᆯᆷᆸᆺᆼᆽᆾᆿᇀᇁᇂ",
-                "ㆍ〃「」『』・★☆♡♢♧♤",
-                "일이삼사오육칠팔구십일월이월삼월사월오월육월칠월팔월구월십월십일월십이월"
-            ]
-        }
-    };
-
-    // ===================== 全局渲染函数：自动生成分类标签 + 全部符号区块 =====================
-    function renderAll() {
-        // 1、自动渲染所有分类标签（追加到已有「全部」标签后方）
-        let tagHtml = "";
-        Object.keys(symData).forEach(catKey => {
-            const catInfo = symData[catKey];
-            tagHtml += `<div class="sym-cat-tag" data-cat="${catKey}">${catInfo.title}</div>`;
-        });
-        catWrap.innerHTML += tagHtml;
-        const allCatTags = Array.from(catWrap.querySelectorAll('.sym-cat-tag'));
-
-        // 2、自动渲染所有符号区块，根据 singleItem 判断两种渲染逻辑
-        let blockAllHtml = "";
-        Object.keys(symData).forEach(catKey => {
-            const catInfo = symData[catKey];
-            let gridHtml = "";
-            // 判断是否为整块模式（颜文字专用）
-            if (catInfo.singleItem === true) {
-                // 模式A：数组每一项完整一格，不拆分字符
-                catInfo.list.forEach(itemStr => {
-                    gridHtml += `<div class="sym-item">${itemStr}</div>`;
-                })
-                // 加宽格子class
-                blockAllHtml += `
-                    <div class="sym-block" data-block="${catKey}">
-                        <h3>${catInfo.title}</h3>
-                        <div class="sym-grid wide-item">${gridHtml}</div>
-                        <div class="block-tip">提示: 点击符号即可复制到剪贴板并追加到结果区。</div>
-                    </div>
-                `;
-            } else {
-                // 模式B：原有默认逻辑，字符串逐字符拆分（普通符号不变）
-                catInfo.list.forEach(groupStr => {
-                    [...groupStr].forEach(char => {
-                        gridHtml += `<div class="sym-item">${char}</div>`;
-                    })
-                })
-                blockAllHtml += `
-                    <div class="sym-block" data-block="${catKey}">
-                        <h3>${catInfo.title}</h3>
-                        <div class="sym-grid">${gridHtml}</div>
-                        <div class="block-tip">提示: 点击符号即可复制到剪贴板并追加到结果区。</div>
-                    </div>
-                `;
-            }
-        })
-        allSymBlocks.innerHTML = blockAllHtml;
-
-        // 3、绑定标签点击切换事件
-        allCatTags.forEach(tag => {
-            tag.onclick = () => {
-                allCatTags.forEach(t => t.classList.remove('active'));
-                tag.classList.add('active');
-                activeCat = tag.dataset.cat;
-                filterByCat();
-            }
-        });
-
-        // 4、绑定所有符号点击复制+弹窗事件
-        bindSymClick();
-        // 初始化筛选（默认显示全部）
-        filterByCat();
+    // 通用复制函数（全浏览器兼容）
+    function copyText(text) {
+        copyTemp.value = text;
+        copyTemp.select();
+        document.execCommand('copy');
     }
 
-    // 绑定单个符号点击事件
+    // 符号点击复制
     function bindSymClick() {
-        const allSymItems = document.querySelectorAll('.sym-item');
-        allSymItems.forEach(item => {
-            item.onclick = async () => {
-                const char = item.innerText;
-                try {
-                    await navigator.clipboard.writeText(char);
-                    // 弹出顶部复制成功Toast
-                    showCopyToast(char);
-                } catch (err) {
-                    console.log("剪贴板复制失败：", err);
-                }
-                // 追加到下方文本框
-                resultOutput.value += char;
+        const items = document.querySelectorAll('.sym-item');
+        items.forEach(item => {
+            item.onclick = function() {
+                const txt = this.innerText;
+                copyText(txt);
+                resultOutput.value += txt;
                 resultOutput.scrollTop = resultOutput.scrollHeight;
+                showCopyToast(txt);
             }
         })
     }
 
-    // 按分类筛选显示/隐藏区块
-    function filterByCat() {
-        const allBlocks = document.querySelectorAll('.sym-block');
-        allBlocks.forEach(block => {
-            const blockCat = block.dataset.block;
-            if (activeCat === "all" || blockCat === activeCat) {
-                block.style.display = "block";
-            } else {
-                block.style.display = "none";
-            }
-        })
-    }
-
-    // 搜索框模糊检索
-    searchInput.addEventListener('input', () => {
-        const kw = searchInput.value.trim().toLowerCase();
-        const allBlocks = document.querySelectorAll('.sym-block');
-        allBlocks.forEach(block => {
-            const titleText = block.querySelector('h3').innerText.toLowerCase();
-            const symItems = block.querySelectorAll('.sym-item');
-            let isMatch = false;
-            // 匹配分类标题
-            if (titleText.includes(kw)) isMatch = true;
-            // 匹配任意符号字符
-            symItems.forEach(sym => {
-                if (sym.innerText.includes(kw)) isMatch = true;
-            })
-            block.style.display = isMatch ? "block" : "none";
-        })
-    })
-
-    // 清空结果按钮
+    // 清空按钮
     clearResultBtn.onclick = () => {
         resultOutput.value = "";
     }
 
-    // 一键复制全部拼接结果（带Toast弹窗）
-    copyResultBtn.onclick = async () => {
-        const fullText = resultOutput.value.trim();
-        if (!fullText) {
-            alert("暂无拼接内容，无法复制");
+    // 批量复制按钮
+    copyResultBtn.onclick = () => {
+        const txt = resultOutput.value.trim();
+        if (!txt) {
+            alert("暂无拼接内容");
             return;
         }
-        try {
-            await navigator.clipboard.writeText(fullText);
-            showCopyToast("全部拼接内容");
-        } catch (err) {
-            alert("复制失败，请手动框选文本 Ctrl+C");
-            resultOutput.select();
-        }
+        copyText(txt);
+        showCopyToast("全部拼接内容");
     }
 
-    // 页面加载完成一次性渲染所有标签、符号网格
+    // 分类筛选
+    function filterByCat() {
+        document.querySelectorAll('.sym-block').forEach(block => {
+            block.style.display = block.dataset.block === activeCat || activeCat === "all" ? "block" : "none";
+        })
+    }
+
+    // 搜索过滤
+    searchInput.oninput = function() {
+        const kw = this.value.trim().toLowerCase();
+        document.querySelectorAll('.sym-block').forEach(block => {
+            const title = block.querySelector('h3').innerText.toLowerCase();
+            const syms = block.querySelectorAll('.sym-item');
+            let hit = title.includes(kw);
+            if (!hit) {
+                syms.forEach(s => {
+                    if (s.innerText.includes(kw)) hit = true;
+                })
+            }
+            block.style.display = hit ? "block" : "none";
+        })
+    }
+
+    // 符号数据源
+    const symData = {
+        math: {
+            title: "数学符号",
+            list: "≥≮≠≢^∽≌≯≈＜＞≥≤⩾⩽⋘⋙=≈≝≞‖∠∡∢≡+-×÷＋－±/㏑∨⊙㏒‖∑∈⌒∶∴∵∷&%∩∪∝∞Ω∏∐∫∮∟⊿∀∁∃∅∆∇⊥∧∨⊂⊃⊄⊅⊆⊇⊈⊉∈∋∉∌√∛∜℅‰‱∫∬∭∮∯∰∱∲∳v̄"
+        },
+        emoticon: {
+            title: "颜文字",
+            singleItem: true,
+            list: [
+                "(≧∇≦)ﾉ","ヽ(✿ﾟ▽ﾟ)ノ","╰(*°▽°*)╯","(๑•̀ㅂ•́)و✧","٩(๑>◡<๑)۶","ヽ(๑ˊ▿ˋ๑)ﾉ","(๑˃̵ᴗ˂̵)و","٩(ˊᗜˋ*)و","ヽ(•̀ω•́ )ゝ","ヽ(≧Д≦)ノ","(≧∀≦)♪","ヽ(｡◕ω◕｡)ﾉ",
+                "(｡•́ω•̀｡)","(⁄ ⁄>⁄ ▽ ⁄<⁄ ⁄)","(//∇//)","(⁄ ⁄•⁄ω⁄•⁄ ⁄)","(๑•́ω•̀๑)","(*/ω＼*)","(⁄ ⁄˃ᴗ˂⁄ ⁄)",
+                "QAQ","T_T","(T_T)","(っ╥╯﹏╰╥c)","(｡•́︿•̀｡)","(╥﹏╥)","｡･ﾟﾟ･(>д<)･ﾟﾟ･｡","(´;︵;`)",
+                "╮(╯▽╰)╭","╮(￣▽￣)╭","╮(︶﹏︶)╭","╮(╯_╰)╭","╮(︶︿︶)╭",
+                "(´･ω･`)", "(´-ω-`)", "(・ω・)", "(･ω･)", "(´･_･`)", "(・ω・｀)",
+                "(╬◣д◢)","(｡•ˇ‸ˇ•｡)","(╯°□°）╯︵ ┻━┻","(¬_¬)","(ー_ー゛)",
+                "(๑˃̵ᴗ˂̵)","(◍˃ᵕ˂◍)","(｡･ω･｡)","(๑•̀ㅂ•́)و✧","(≧∇≦)","(ฅ•ω•ฅ)","ฅ՞•ﻌ•՞ฅ","(๑•̀ω•́๑)",
+                "(✧ω✧)","(≧∇≦)ﾟ","(✧∇✧)","(๑˃̶͈̀௰˂̶͈́)",
+                "(´-ω-`)zzz","(。-ω-)zzz","(｡-ω-)","(´｡-ω-｀)",
+                "(￣▽￣)","(¬ω¬)","(￣∇￣)","(･ω･¬)",
+                "(°ー°〃)","(°ー°)","(・ω・。)","(｡•́ω•̀｡)！",
+                "(♡ω♡)","(≧∇≦)♡","(♡´･ᴗ｀♡)","(๑♡ω♡๑)",
+                "(´･ω･`)ノ","ヽ(・∀・)ノ","( ´ ▽ ` )ﾉ",
+                "(・_・)","(ー_ー)","(･_･;)","(・ω・？)"
+            ]
+        },
+        num: {title:"数字符号",list:"⓪①②③④⑤⑥⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳⓵⓶⓷⓸⓹⓺⓻⓼⓽⓾⓿❶❷❸❹❺❻❼❽❾❿⓫⓬⓭⓮⓯⓰⓱⓲⓳⓴㊀㊁㊂㊃㊄㊅㊆㊇㊈㊉㈠㈡㈢㈣㈤㈥㈦㈧㈨㈩⑴⑵⑶⑷⑸⑹⑺⑻⑼⑽⑾⑿⒀⒁⒂⒃⒄⒅⒆⒇⒈⒉⒊⒋⒌⒍⒎⒏⒐⒑⒒⒓⒔⒕⒖⒗⒘⒙⒚⒛〇一二三四五六七八九十百千万亿零壹贰叁肆伍陆柒捌玖拾佰仟萬億0️⃣1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣🔟ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩⅪⅫⅰⅱⅲⅳⅴⅵⅶⅷⅸⅹ½⅓⅔¼¾⅛⅜⅝⅞⅟⅕⅙⅖⅚⅗⅘"},
+        date: {title:"时间日期",list:"㋀㋁㋂㋃㋄㋅㋆㋇㋈㋉㋊㋋㏠㏡㏢㏣㏤㏥㏦㏧㏨㏩㏪㏫㏬㏭㏮㏯㏰㏱㏲㏳㏴㏵㏶㏷㏸㏹㏺㏻㏼㏽㏾㍙㍚㍛㍜㍝㍞㍟㍠㍡㍢㍣㍤㍥㍦㍧㍨㍩㍪㍫㍬㍭㍮㍯㍰㍘"},
+        supsub: {title:"上标下标",list:"⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ⁿᵐᵒᵖ₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎ₙₘₒₚ"},
+        unit: {title:"单位符号",list:"㎎㎏㎜㎝㎞㎡㎥㏄㏊㏈㏋㏌㏍㏎㏏㏐㏑㏒㏓㏔㏕㏖㏗㏘㏙㏚㏛㏜㏝㏞㏟℃℉°′″‰‱"},
+        punct: {title:"标点符号",list:"。，、：∶；‘’“”〝〞ˆˇ﹕︰﹔﹖﹑·•¨.¸;´？！～—｜‖＂〃｀@﹫¡¿﹏﹋︴々﹟#﹩$﹠&﹪%﹡﹢×﹦‐￣¯―﹨˜﹍﹎＿-~（）〈〉‹›﹛﹜『』〖〗［］《》〔〕{}「」⎡⎦⎣⎤【】︵︷︿︹︽_︶︸﹀︺︾ˉ﹂﹄︼﹁﹃︻▲●□…→"},
+        shape: {title:"图形符号",list:"○●□■△▲▽▼◇◆☆★◎◐◑◒◓◔◕"},
+        arrow: {title:"箭头符号",list:"←↑→↓↔↕↖↗↘↙⇐⇑⇒⇓⇎⇏⇔⇕⇖⇗⇘⇙"},
+        currency: {title:"货币符号",list:"¥$€£₩₫₪₴₲₳₵₷₸₹₽₿"},
+        en: {title:"英文字母",list:"𝒶𝒷𝒸𝒹ℯ𝒻𝑔𝒽𝒾𝒿𝓀𝓁𝓂𝓃ℴ𝓅𝓆𝓇𝓈𝓉𝓊𝓋𝓌𝓍𝓎𝓏𝒜ℬ𝒞𝒟ℰℱ𝒢ℋℐ𝒥𝒦ℒℳ𝒩𝒪𝒫𝒬ℛ𝒮𝒯𝒰𝒱𝒲𝒳𝒴𝒵"},
+        greek: {title:"希腊字母",list:"αβγδεζηθικλμνξοπρστυφχψωΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ"},
+        hanstruct: {title:"汉字结构符号",list:"亻氵讠扌艹宀心忄灬辶廴阝卩刂力彳纟"},
+        hanpinyin: {title:"汉字注音符号",list:"ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦㄧㄨㄩ"},
+        hanstroke: {title:"汉字笔画符号",list:"一丨丿丶𠃍𠃊𠃋𠃌𠃎𠃏𠃐"},
+        circlehan: {title:"带圈中文字符",list:"㊀㊁㊂㊃㊄㊅㊆㊇㊈㊉㊊㊋㊌㊍㊎㊏㊐㊑㊒㊓㊔㊕㊖㊗㊘㊙㊚㊛㊜㊝㊞㊟㊠㊡㊢㊣㊤㊥㊦㊧㊨㊩㊪㊫㊬㊭㊮㊯㊰"},
+        mahjong: {title:"麻将符号",list:"🀀🀁🀂🀃🀄🀅🀆🀇🀈🀉🀊🀋🀌🀍🀎🀏🀐🀑🀒🀓🀔🀕🀖🀗🀘🀙🀚🀛🀜🀝🀞🀟🀠🀡"},
+        jp: {title:"日语符号",list:"あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをんアイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン"},
+        kr: {title:"韩语符号",list:"ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎㅏㅑㅓㅕㅗㅛㅜㅠㅡㅣㅐㅒㅔㅖㅘㅙㅚㅝㅞㅟㅢㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎㄲㅆᄀᄁᄂᄃᄄᄅᄆᄇᄈᄉᄊᄋᄌᄍᄎᄏᄐᄑ하ᅣᅢᅤᅥᅧᅦᅨᅩᅭᅪᅫᅬᅮᅲᅯᅰᅱᅳᅴᅵᆨᆫᆮᆯᆷᆸᆺᆼᆽᆾᆿᇀᇁᇂㆍ〃「」『』・★☆♡♢♧♤일이삼사오육칠팔구십일월이월삼월사월오월육월칠월팔월구월십월십일월십이월"}
+    };
+
+    // 渲染页面
+    function renderAll() {
+        let tagHtml = "";
+        Object.keys(symData).forEach(k => {
+            tagHtml += `<div class="sym-cat-tag" data-cat="${k}">${symData[k].title}</div>`;
+        })
+        catWrap.innerHTML += tagHtml;
+        const tags = catWrap.querySelectorAll('.sym-cat-tag');
+        tags.forEach(t => {
+            t.onclick = () => {
+                tags.forEach(x=>x.classList.remove('active'));
+                t.classList.add('active');
+                activeCat = t.dataset.cat;
+                filterByCat();
+            }
+        })
+
+        let blockHtml = "";
+        Object.keys(symData).forEach(k => {
+            const d = symData[k];
+            let grid = "";
+            if (d.singleItem) {
+                d.list.forEach(s=>grid += `<div class="sym-item">${s}</div>`);
+                blockHtml += `<div class="sym-block" data-block="${k}"><h3>${d.title}</h3><div class="sym-grid wide-item">${grid}</div><div class="block-tip">提示: 点击符号即可复制到剪贴板并追加到结果区。</div></div>`;
+            } else {
+                [...d.list].forEach(c=>grid += `<div class="sym-item">${c}</div>`);
+                blockHtml += `<div class="sym-block" data-block="${k}"><h3>${d.title}</h3><div class="sym-grid">${grid}</div><div class="block-tip">提示: 点击符号即可复制到剪贴板并追加到结果区。</div></div>`;
+            }
+        })
+        allSymBlocks.innerHTML = blockHtml;
+        bindSymClick();
+        filterByCat();
+    }
     renderAll();
 </script>
 </body>
