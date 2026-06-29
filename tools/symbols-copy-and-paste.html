@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <title>特殊符号大全</title>
+    <title>特殊符号大全2</title>
     <style>
         /* ===================== 全局变量 ===================== */
         :root {
@@ -76,12 +76,12 @@
             --key-text: #f1f5f9;
         }
         html {
-            font-family: system-ui,-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI Symbol","Apple Color Emoji","Segoe UI Emoji",sans-serif;
-            -webkit-font-smoothing: antialiased;
-        }
-        .sym-item {
-            font-family: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI Symbol","Apple Color Emoji","Segoe UI Emoji",sans-serif;
-        }
+    font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "PingFang SC", "Segoe UI Symbol", "Apple Color Emoji", sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+.sym-item {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI Symbol", "Apple Color Emoji", sans-serif;
+}
         body {
             min-height: 100%;
             background: var(--bg-page);
@@ -409,7 +409,7 @@
         html[data-theme="dark"] .toast-text {
             color: #4ade80;
         }
-        /* 隐藏复制缓冲框，display:none 不会触发滚动 */
+        /* 复制缓冲框 display:none 不会触发页面滚动跳顶 */
         #copyTemp {
             display: none;
         }
@@ -558,7 +558,7 @@
     <span class="toast-text" id="toastChar"></span>
 </div>
 
-<!-- 备用复制缓冲框，display:none 不触发滚动 -->
+<!-- 备用复制缓冲框，display:none 不会触发滚动跳转 -->
 <textarea id="copyTemp"></textarea>
 
 <script>
@@ -614,7 +614,7 @@
     const copyTemp = document.getElementById('copyTemp');
     let activeCat = "all";
 
-    // 弹窗显示函数（极简稳定）
+    // 弹窗显示函数
     function showCopyToast(text) {
         toastChar.textContent = text;
         copyToast.classList.remove('show');
@@ -622,31 +622,21 @@
         setTimeout(() => copyToast.classList.remove('show'), 2000);
     }
 
-    // 双兼容复制函数：优先Clipboard，失败自动切传统方案，缓存滚动位置防跳顶
-    async function copyText(text) {
-        const scrollY = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop;
-        try {
-            // 现代API优先，无DOM滚动
-            await navigator.clipboard.writeText(text);
-            return true;
-        } catch (err) {
-            // 电脑端浏览器拦截Clipboard时降级传统复制
-            copyTemp.value = text;
-            copyTemp.select();
-            document.execCommand('copy');
-            // 恢复滚动位置，防止跳顶
-            setTimeout(() => window.scrollTo(0, scrollY), 10);
-            return true;
-        }
+    // 完全对齐toolsjy极简复制函数，无异步、无Clipboard、无滚动缓存
+    function copyText(text) {
+        copyTemp.value = text;
+        copyTemp.select();
+        document.execCommand('copy');
+        return true;
     }
 
-    // 符号点击复制
+    // 符号点击复制（移除async）
     function bindSymClick() {
         const items = document.querySelectorAll('.sym-item');
         items.forEach(item => {
-            item.onclick = async function() {
+            item.onclick = function() {
                 const txt = this.innerText;
-                const ok = await copyText(txt);
+                const ok = copyText(txt);
                 resultOutput.value += txt;
                 resultOutput.scrollTop = resultOutput.scrollHeight;
                 if (ok) showCopyToast(txt);
@@ -659,14 +649,14 @@
         resultOutput.value = "";
     }
 
-    // 批量复制按钮
-    copyResultBtn.onclick = async () => {
+    // 批量复制按钮（移除async）
+    copyResultBtn.onclick = () => {
         const txt = resultOutput.value.trim();
         if (!txt) {
             alert("暂无拼接内容");
             return;
         }
-        const ok = await copyText(txt);
+        const ok = copyText(txt);
         if (ok) showCopyToast("全部拼接内容");
     }
 
