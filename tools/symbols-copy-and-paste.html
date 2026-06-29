@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <!-- 移动端强制标准配置，解决字符方块、缩放异常 -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <title>特殊符号大全1</title>
+    <title>特殊符号大全</title>
     <style>
         /* ===================== 全局变量 ===================== */
         :root {
@@ -76,13 +75,12 @@
             --key-bg: #334155;
             --key-text: #f1f5f9;
         }
-        /* 强制符号渲染字体，解决移动端方块乱码 */
         html {
-            font-family: "Noto Sans Math","STIX Two Text","Noto Sans Symbols 2","Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji",system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+            font-family: system-ui,-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI Symbol","Apple Color Emoji","Segoe UI Emoji",sans-serif;
             -webkit-font-smoothing: antialiased;
         }
         .sym-item {
-            font-family: "Noto Sans Math","STIX Two Text","Noto Sans Symbols 2","Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji",sans-serif;
+            font-family: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI Symbol","Apple Color Emoji","Segoe UI Emoji",sans-serif;
         }
         body {
             min-height: 100%;
@@ -411,15 +409,9 @@
         html[data-theme="dark"] .toast-text {
             color: #4ade80;
         }
-        /* 【核心修复】复制缓冲框，不再负偏移，解决iOS滚动跳顶 */
+        /* 隐藏复制缓冲框，display:none 不会触发滚动 */
         #copyTemp {
-            position: fixed;
-            width: 1px;
-            height: 1px;
-            opacity: 0;
-            top: -1000px;
-            left: -1000px;
-            z-index: -999;
+            display: none;
         }
         @media (max-width: 640px) {
             body {
@@ -566,7 +558,7 @@
     <span class="toast-text" id="toastChar"></span>
 </div>
 
-<!-- 修复版隐藏复制缓冲框 -->
+<!-- 备用复制缓冲框，display:none 不触发滚动 -->
 <textarea id="copyTemp"></textarea>
 
 <script>
@@ -630,29 +622,34 @@
         setTimeout(() => copyToast.classList.remove('show'), 2000);
     }
 
-    // 【核心修复复制函数：缓存滚动位置，复制后强制恢复】
-    function copyText(text) {
-        // 记录当前页面滚动高度
-        const saveScrollY = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop;
-        copyTemp.value = text;
-        copyTemp.select();
-        document.execCommand('copy');
-        // 延时恢复滚动位置，兜底修复跳顶
-        setTimeout(() => {
-            window.scrollTo(0, saveScrollY);
-        }, 30);
+    // 双兼容复制函数：优先Clipboard，失败自动切传统方案，缓存滚动位置防跳顶
+    async function copyText(text) {
+        const scrollY = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop;
+        try {
+            // 现代API优先，无DOM滚动
+            await navigator.clipboard.writeText(text);
+            return true;
+        } catch (err) {
+            // 电脑端浏览器拦截Clipboard时降级传统复制
+            copyTemp.value = text;
+            copyTemp.select();
+            document.execCommand('copy');
+            // 恢复滚动位置，防止跳顶
+            setTimeout(() => window.scrollTo(0, scrollY), 10);
+            return true;
+        }
     }
 
     // 符号点击复制
     function bindSymClick() {
         const items = document.querySelectorAll('.sym-item');
         items.forEach(item => {
-            item.onclick = function() {
+            item.onclick = async function() {
                 const txt = this.innerText;
-                copyText(txt);
+                const ok = await copyText(txt);
                 resultOutput.value += txt;
                 resultOutput.scrollTop = resultOutput.scrollHeight;
-                showCopyToast(txt);
+                if (ok) showCopyToast(txt);
             }
         })
     }
@@ -663,14 +660,14 @@
     }
 
     // 批量复制按钮
-    copyResultBtn.onclick = () => {
+    copyResultBtn.onclick = async () => {
         const txt = resultOutput.value.trim();
         if (!txt) {
             alert("暂无拼接内容");
             return;
         }
-        copyText(txt);
-        showCopyToast("全部拼接内容");
+        const ok = await copyText(txt);
+        if (ok) showCopyToast("全部拼接内容");
     }
 
     // 分类筛选
