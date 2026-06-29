@@ -7,8 +7,7 @@
   <!-- 站点标题修改为 cytools-html -->
   <title>cytools-html</title>
   <style>
-    /* ===================== 全局变量定义区 ===================== */
-    /* 统一管理颜色、间距、圆角、过渡、字体尺寸，全局一处修改全页面生效 */
+    /* ===================== 【1.全局色彩主题变量区】统一配色/圆角/间距，明暗主题切换在这里控制 ===================== */
     :root {
       --primary: #10b981;                 /* 主色-青绿色 */
       --primary-light: #dcfce7;           /* 主色浅背景 */
@@ -27,7 +26,7 @@
       --bg-btn: #ffffff;                  /* 按钮亮色背景 */
       --bg-footer: #f0fdf4;               /* 页脚亮色背景 */
       --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);    /* 轻微阴影 */
-      --shadow-lg: 0 6px 16px rgba(0,0,0.1);      /* 卡片悬浮大阴影 */
+      --shadow-lg: 0 6px 16px rgba(0,0,0,0.1);      /* 卡片悬浮大阴影 */
       --radius-xs: 4px;    /* 极小圆角 */
       --radius-sm: 6px;    /* 小圆角 */
       --radius-md: 8px;    /* 中等圆角 */
@@ -42,7 +41,7 @@
       --key-bg: #e5e7eb;    /* 快捷键提示底色 */
       --key-text: #222;
       --key-radius: 6px;
-      --key-shadow: 0 1px 2px rgba(0,0,0.15);
+      --key-shadow: 0 1px 2px rgba(0,0,0,0.15);
       --body-font-size: 16px;
       --body-line-height: 1.6;
       --title-line-height: 1.2;
@@ -56,7 +55,7 @@
       --theme-btn-width: 36px;     /* 主题切换按钮宽度 */
     }
 
-    /* ===================== 暗黑模式变量覆盖 ===================== */
+    /* ===================== 【暗黑模式色彩覆盖】切换深色主题时自动覆盖上方变量 ===================== */
     html[data-theme="dark"] {
       --primary: #10b981;
       --primary-light: rgba(16, 185, 129, 0.15);
@@ -172,7 +171,8 @@
       margin-top: 4px;
       color: var(--text-secondary);
     }
-    /* 右侧导航按钮组 */
+
+    /* ===================== 【2.导航按键样式区域】顶部右侧全部功能按钮样式在这里 ===================== */
     .nav-link-group {
       flex: 1;
       display: flex;
@@ -210,13 +210,34 @@
       top: 14px;
       right: 0;
     }
-    .header-btn.theme-switch {
+    /* 圆形纯图标明暗切换按钮，与工具页统一 */
+    .header-btn-circle {
       width: var(--theme-btn-width);
-      min-width: var(--theme-btn-width);
-      height: 32px;
+      height: var(--theme-btn-width);
       padding: 0;
-      justify-content: center;
-      font-size: 14px;
+      border: 1px solid var(--nav-btn-border);
+      border-radius: 50%; /* 正圆形 */
+      font-size: 16px;
+      cursor: pointer;
+      display: grid;
+      place-items: center; /* 图标垂直水平居中 */
+      background: var(--nav-btn-bg);
+      color: var(--nav-btn-text);
+      flex-shrink: 0;
+      transition: var(--transition);
+    }
+    .header-btn-circle:hover {
+      border-color: var(--primary);
+      background: var(--primary-light);
+      color: var(--primary);
+    }
+    /* 手机竖屏适配缩小圆形按钮 */
+    @media screen and (max-width:767px) and (orientation:portrait){
+      .header-btn-circle{
+        width:34px;
+        height:34px;
+        font-size:14px;
+      }
     }
 
     /* 头部占位块，抵消fixed头部高度，防止内容被遮挡 */
@@ -431,7 +452,7 @@
       }
     }
 
-    /* ===================== 单张工具卡片样式 ===================== */
+    /* ===================== 【3.大卡片单张样式区域】所有工具卡片外观、角标、收藏星标、文字布局在这里 ===================== */
     .tool-card {
       display: flex;
       flex-direction: column;
@@ -649,7 +670,7 @@
         <p>开源HTML工具集-大道至简！</p>
       </div>
     </a>
-    <!-- 顶部右侧功能导航按钮 -->
+    <!-- 顶部右侧功能导航按钮容器 -->
     <div class="nav-link-group">
       <a href="https://cycy.fun" target="_blank" class="header-btn">
         <span>💬</span> 问题反馈
@@ -671,7 +692,7 @@
     </div>
     <!-- 主题切换按钮容器 -->
     <div class="theme-switch-wrap">
-      <button id="themeToggle" class="header-btn theme-switch">🌙</button>
+      <button id="themeToggle" class="header-btn-circle">🌙</button>
     </div>
   </div>
 </header>
@@ -715,518 +736,455 @@
 </footer>
 
 <script>
-/*
-============================== 脚本全局功能存档备注 ==============================
-功能总览：
-1. 主题模式持久化逻辑
-   - 首次进入无本地存储：自动跟随系统明暗时间
-   - 用户手动切换亮色/暗色：存入localStorage永久记忆，刷新不重置
-   - 仅无手动记录时，系统明暗切换页面同步更新
-2. 收藏功能
-   - 收藏ID存入localStorage持久保存
-   - 点击收藏星标实时更新分类栏右侧收藏数量，无需刷新页面
-   - 切换分类、搜索、缩放窗口自动重算收藏计数
-3. 分类自动折叠逻辑
-   - 自动计算单行可容纳标签宽度，溢出分类放入折叠面板
-   - 「更多/收起」切换面板展开状态，文字同步变化
-4. 搜索过滤
-   - 输入实时过滤卡片，匹配标题/描述/分类/标签
-   - Ctrl+K快捷键快速聚焦搜索框，回车刷新结果
-5. 排序功能
-   - 按创建时间正序/倒序切换
-6. 自适应布局
-   - 窗口resize自动重算头部高度、重新排版分类标签
-7. 卡片渲染
-   - 循环工具列表生成卡片HTML，自动生成精选/置顶角标
-   - 角标内置图标右上角、向外偏移8px、透明度70%
-   - 卡片描述文字缩小13px
-8. 响应式网格
-   大屏3列 / 平板2列 / 手机1列
-=====================================================================================
-*/
-
-  // ===================== 主题持久化模块（独立优先执行） =====================
-  const htmlRoot = document.documentElement;
-  const themeBtn = document.getElementById("themeToggle");
-  const mediaDark = window.matchMedia('(prefers-color-scheme: dark)');
-  const STORAGE_KEY = "site_theme_mode"; // 本地存储key，存储light/dark
-
-  /**
-   * 应用指定主题
-   * @param {string} mode light / dark
-   */
-  function applyTheme(mode) {
-    if (mode === "dark") {
-      htmlRoot.setAttribute("data-theme", "dark");
-      themeBtn.innerHTML = "☀️"; // 暗色显示太阳，切换亮色
-    } else {
-      htmlRoot.removeAttribute("data-theme");
-      themeBtn.innerHTML = "🌙"; // 亮色显示月亮，切换暗色
-    }
-  }
-
-  /**
-   * 页面初始化主题
-   * 逻辑：有本地手动记录 → 读取记录；无记录 → 跟随系统明暗
-   */
-  function initTheme() {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      applyTheme(saved);
-    } else {
-      applyTheme(mediaDark.matches ? "dark" : "light");
-    }
-  }
-
-  /**
-   * 切换主题并保存到本地存储
-   */
-  function toggleTheme() {
-    const current = htmlRoot.hasAttribute("data-theme") ? "dark" : "light";
-    const next = current === "dark" ? "light" : "dark";
-    localStorage.setItem(STORAGE_KEY, next);
-    applyTheme(next);
-  }
-
-  /**
-   * 监听系统明暗自动切换
-   * 限制：仅用户从未手动切换主题时生效
-   */
-  mediaDark.addEventListener("change", (e) => {
-    if (!localStorage.getItem(STORAGE_KEY)) {
-      applyTheme(e.matches ? "dark" : "light");
-    }
-  });
-
-  // 页面加载最先初始化主题
-  initTheme();
-  themeBtn.onclick = toggleTheme;
-
-  // ===================== 工具数据源（可自行增删工具） =====================
-  const toolList = [
-  {
-  id: "totp-generator",
-  icon: "🔐",
-  title: "TOTP / 2FA 验证码生成器",
-  desc: "本地离线两步验证生成，兼容谷歌验证器、Authy、Bitwarden等所有TOTP密钥，支持自定义算法、位数、时钟偏移",
-  cat: "DEV",
-  catName: "开发工具",
-  catIcon: "⚡",
-  date: "2026-06-28",
-  featured: false,
-  top: true,
-  url: "./totp.html",
-  tags: ["totp","2fa","两步验证","密钥","验证码"]
-},
-    {
-      id: "curl",
-      icon: "🧭",
-      title: "CURL 转代码工具",
-      desc: "将 curl 命令转换成 JavaScript / Python / Java / Go 请求代码，快速生成后端请求模板",
-      cat: "DEV",
-      catName: "开发工具",
-      catIcon: "⚡",
-      date: "2026-01-24",
-      featured: true,
-      top: false,
-      url: "#",
-      tags: ["curl", "http", "接口", "后端"]
-    },
-    {
-      id: "json",
-      icon: "{}",
-      title: "JSON 格式化",
-      desc: "JSON 格式化、压缩、校验，支持错误定位和语法高亮，一键美化杂乱JSON文本",
-      cat: "DEV",
-      catName: "开发工具",
-      catIcon: "⚡",
-      date: "2026-01-20",
-      featured: false,
-      top: true,
-      url: "#",
-      tags: ["json", "格式化", "校验"]
-    },
-    {
-      id: "timestamp",
-      icon: "⏱",
-      title: "时间戳转换",
-      desc: "时间戳与日期互转，支持多种格式与时区，毫秒/秒级时间戳双向解析",
-      cat: "TIME",
-      catName: "时间工具",
-      catIcon: "⏰",
-      date: "2026-01-18",
-      featured: true,
-      top: true,
-      url: "#",
-      tags: ["时间戳", "日期", "时区"]
-    },
-    {
-      id: "base64-text",
-      icon: "🔤",
-      title: "Base64 编解码",
-      desc: "Base64 编码与解码，支持文本与文件，兼容中文、二进制内容转换",
-      cat: "TEXT",
-      catName: "文本工具",
-      catIcon: "📄",
-      date: "2026-01-15",
-      featured: false,
-      top: false,
-      url: "#",
-      tags: ["base64", "编码", "加密"]
-    },
-    {
-      id: "url",
-      icon: "%",
-      title: "URL 编解码",
-      desc: "URL 编码与解码，支持完整链接与参数，自动处理特殊符号转义",
-      cat: "DEV",
-      catName: "开发工具",
-      catIcon: "⚡",
-      date: "2026-01-12",
-      featured: false,
-      top: false,
-      url: "#",
-      tags: ["url", "参数", "转义"]
-    },
-    {
-      id: "qrcode",
-      icon: "▣",
-      title: "二维码生成器",
-      desc: "自定义颜色、尺寸生成二维码，支持文本、链接、联系方式批量生成",
-      cat: "GENERATOR",
-      catName: "生成器",
-      catIcon: "🎲",
-      date: "2026-01-10",
-      featured: true,
-      top: true,
-      url: "#",
-      tags: ["二维码", "生成", "扫码"]
-    },
-    {
-      id: "jwt",
-      icon: "🔐",
-      title: "JWT 解码器",
-      desc: "解析JWT，查看Header、Payload与签名信息，无需密钥即可读取载荷",
-      cat: "DEV",
-      catName: "开发工具",
-      catIcon: "⚡",
-      date: "2026-01-08",
-      featured: false,
-      top: false,
-      url: "#",
-      tags: ["jwt", "token", "登录"]
-    },
-    {
-      id: "regex",
-      icon: ".*",
-      title: "正则测试器",
-      desc: "正则表达式实时匹配、捕获组预览，支持多修饰符在线调试正则规则",
-      cat: "TEXT",
-      catName: "文本工具",
-      catIcon: "📄",
-      date: "2026-01-05",
-      featured: false,
-      top: false,
-      url: "#",
-      tags: ["正则", "匹配", "文本处理"]
-    },
-    {
-      id: "json-yaml",
-      icon: "🔄",
-      title: "JSON 转 YAML",
-      desc: "JSON与YAML双向转换工具，适配配置文件、容器编排文件快速互转",
-      cat: "CONVERT",
-      catName: "格式转换",
-      catIcon: "🔄",
-      date: "2025-12-22",
-      featured: true,
-      top: false,
-      url: "#",
-      tags: ["json", "yaml", "配置"]
-    }
-  ];
-
-  // ===================== DOM元素缓存（全局复用，减少重复查询DOM） =====================
-  const visibleTagBox = document.getElementById("visibleTagBox");
-  const overflowPanel = document.getElementById("overflowPanel");
-  const moreToggle = document.getElementById("moreToggle");
-  const cardContainer = document.getElementById("cardContainer");
-  const searchInput = document.getElementById("searchInput");
-  const sortBtn = document.getElementById('sortBtn');
-  const headerDom = document.getElementById('headerDom');
-  const headerSpacer = document.getElementById('headerSpacer');
-
-  // 全局状态变量
-  let currentCat = "all";          // 当前选中分类
-  let panelOpen = false;            // 分类折叠面板展开状态
-  let visibleCategories = [];      // 单行可放下的分类数组
-  let overflowCategories = [];     // 溢出需要折叠的分类数组
-  let sortMode = "date-desc";      // 排序模式：date-desc 新→旧 / date-asc 旧→新
-  let favList = JSON.parse(localStorage.getItem("toolFav")) || []; // 收藏ID数组
-
-  // ===================== 收藏核心逻辑 =====================
-  /**
-   * 保存收藏到本地存储 + 刷新分类右侧计数
-   */
-  function saveFavAndRefreshCount() {
-    localStorage.setItem("toolFav", JSON.stringify(favList));
-    refreshAllCategoryUI();
-  }
-
-  /**
-   * 切换工具收藏状态
-   * @param {string} toolId 工具唯一ID
-   */
-  function toggleFav(toolId) {
-    const idx = favList.indexOf(toolId);
-    if (idx > -1) {
-      favList.splice(idx, 1); // 已收藏 → 取消
-    } else {
-      favList.push(toolId);   // 未收藏 → 加入收藏
-    }
-    saveFavAndRefreshCount();
-    filterTools(); // 重新渲染卡片，更新星星图标
-  }
-
-  // ===================== 分类数据处理 =====================
-  /**
-   * 自动提取所有不重复工具分类
-   * @returns 分类对象数组 {cat, name, icon}
-   */
-  function getAutoCategoryList() {
-    const catMap = new Map();
-    toolList.forEach(item => {
-      if (!catMap.has(item.cat)) catMap.set(item.cat, { cat: item.cat, name: item.catName, icon: item.catIcon });
-    });
-    return Array.from(catMap.values());
-  }
-
-  /**
-   * 拼接完整分类列表：固定分类(全部、收藏) + 自动工具分类
-   */
-  function buildFullCategoryConfig() {
-    const fixedBase = [{ cat: "all", icon: "🏠", name: "全部" }, { cat: "star", icon: "⭐", name: "收藏" }];
-    const autoCats = getAutoCategoryList();
-    return [...fixedBase, ...autoCats];
-  }
-
-  /**
-   * 获取指定分类下工具总数
-   * @param {string} catKey 分类标识 all/star/DEV/TIME等
-   * @returns 数量数字
-   */
-  function getCatCount(catKey) {
-    if (catKey === "all") return toolList.length;
-    if (catKey === "star") return favList.length;
-    return toolList.filter(i => i.cat === catKey).length;
-  }
-
-  /**
-   * 重新渲染全部分类标签，自动区分可见/溢出，刷新右侧数字
-   * 窗口缩放、收藏变更、切换分类都会调用
-   */
-  function refreshAllCategoryUI() {
-    const cats = buildFullCategoryConfig();
-    visibleTagBox.innerHTML = "";
-    overflowPanel.innerHTML = "";
-    visibleCategories = [];
-    overflowCategories = [];
-
-    // 临时隐藏容器计算每个标签宽度，判断是否溢出
-    const tempWrap = document.createElement("div");
-    tempWrap.style.cssText = "position:absolute;visibility:hidden;display:flex;gap:8px;white-space:nowrap;";
-    document.body.appendChild(tempWrap);
-    const boxWidth = visibleTagBox.clientWidth;
-    let usedW = 0;
-
-    cats.forEach(cat => {
-      const count = getCatCount(cat.cat);
-      const tag = document.createElement("div");
-      tag.className = "category-tag";
-      tag.innerHTML = `${cat.icon} ${cat.name}(${count})`;
-      tempWrap.appendChild(tag);
-      const w = tag.offsetWidth + 8;
-      if (usedW + w <= boxWidth) {
-        visibleCategories.push(cat);
-        usedW += w;
+  /*
+  ============================== 脚本全局功能存档备注 ==============================
+  功能总览：
+  1. 主题模式持久化逻辑
+     - 首次进入无本地存储：自动跟随系统明暗时间
+     - 用户手动切换亮色/暗色：存入localStorage永久记忆，刷新不重置
+     - 仅无手动记录时，系统明暗切换页面同步更新
+  2. 收藏功能
+     - 收藏ID存入localStorage持久保存
+     - 点击收藏星标实时更新分类栏右侧收藏数量，无需刷新页面
+     - 切换分类、搜索、缩放窗口自动重算收藏计数
+  3. 分类自动折叠逻辑
+     - 自动计算单行可容纳标签宽度，溢出分类放入折叠面板
+     - 「更多/收起」切换面板展开状态，文字同步变化
+  4. 搜索过滤
+     - 输入实时过滤卡片，匹配标题/描述/分类/标签
+     - Ctrl+K快捷键快速聚焦搜索框，回车刷新结果
+  5. 排序功能（核心修复）
+     - 置顶top:true永久排在最前，置顶内部固定date日期新→旧
+     - 非置顶卡片仅受顶部时间排序按钮控制切换新旧
+     - 排序数据源：每条工具内 date:"xxxx-xx-xx" 字段
+  6. 自适应布局
+     - 窗口resize自动重算头部高度、重新排版分类标签
+  7. 卡片角标修复
+     - 调整判断优先级：top置顶 > featured精选，同时存在只显示置顶角标
+  8. 响应式网格
+     大屏3列 / 平板2列 / 手机1列
+  =====================================================================================
+  */
+  
+    // ===================== 主题持久化模块（独立优先执行） =====================
+    const htmlRoot = document.documentElement;
+    const themeBtn = document.getElementById("themeToggle");
+    const mediaDark = window.matchMedia('(prefers-color-scheme: dark)');
+    const STORAGE_KEY = "site_theme_mode"; // 本地存储key，存储light/dark
+  
+    /**
+     * 应用指定主题
+     * @param {string} mode light / dark
+     */
+    function applyTheme(mode) {
+      if (mode === "dark") {
+        htmlRoot.setAttribute("data-theme", "dark");
+        themeBtn.innerHTML = "☀️"; // 暗色显示太阳，切换亮色
       } else {
-        overflowCategories.push(cat);
+        htmlRoot.removeAttribute("data-theme");
+        themeBtn.innerHTML = "🌙"; // 亮色显示月亮，切换暗色
       }
-      tempWrap.removeChild(tag);
-    });
-    document.body.removeChild(tempWrap);
-
-    // 渲染可见行分类
-    visibleCategories.forEach(cat => {
-      const count = getCatCount(cat.cat);
-      const div = document.createElement("div");
-      div.className = `category-tag ${currentCat === cat.cat ? "active" : ""}`;
-      div.innerHTML = `${cat.icon} ${cat.name}(${count})`;
-      div.dataset.cat = cat.cat;
-      div.onclick = () => setActiveCat(cat.cat);
-      visibleTagBox.appendChild(div);
-    });
-
-    // 渲染折叠面板内溢出分类
-    overflowCategories.forEach(item => {
-      const count = getCatCount(item.cat);
-      const div = document.createElement("div");
-      div.className = "category-tag";
-      div.innerHTML = `${item.icon} ${item.name}(${count})`;
-      div.dataset.cat = item.cat;
-      div.onclick = () => setActiveCat(item.cat);
-      overflowPanel.appendChild(div);
-    });
-
-    // 有无溢出控制更多按钮显隐
-    if (overflowCategories.length > 0) {
-      moreToggle.style.display = "flex";
-    } else {
-      moreToggle.style.display = "none";
     }
-    moreToggle.innerHTML = panelOpen ? "▲ 收起" : "▼ 更多";
-  }
-
-  /**
-   * 切换选中分类，刷新UI并重过滤卡片
-   * @param {string} cat 分类key
-   */
-  function setActiveCat(cat) {
-    currentCat = cat;
-    refreshAllCategoryUI();
-    filterTools();
-  }
-
-  // 更多/收起按钮点击事件
-  moreToggle.onclick = () => {
-    panelOpen = !panelOpen;
-    overflowPanel.classList.toggle("open", panelOpen);
-    moreToggle.innerHTML = panelOpen ? "▲ 收起" : "▼ 更多";
-  };
-
-  // ===================== 搜索、过滤、排序、卡片渲染 =====================
-  /**
-   * 根据当前分类+搜索关键词+排序规则过滤工具列表
-   */
-  function filterTools() {
-    let arr = [...toolList];
-    const kw = searchInput.value.toLowerCase().trim();
-
-    // 分类过滤
-    if (currentCat === "star") {
-      arr = arr.filter(i => favList.includes(i.id));
-    } else if (currentCat !== "all") {
-      arr = arr.filter(i => i.cat === currentCat);
+  
+    /**
+     * 页面初始化主题
+     * 逻辑：有本地手动记录 → 读取记录；无记录 → 跟随系统明暗
+     */
+    function initTheme() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        applyTheme(saved);
+      } else {
+        applyTheme(mediaDark.matches ? "dark" : "light");
+      }
     }
-
-    // 搜索关键词模糊匹配
-    if (kw) {
-      arr = arr.filter(item => {
-        const title = item.title.toLowerCase();
-        const desc = item.desc.toLowerCase();
-        const catName = item.catName.toLowerCase();
-        const tagStr = item.tags.join(" ").toLowerCase();
-        return title.includes(kw) || desc.includes(kw) || catName.includes(kw) || tagStr.includes(kw);
+  
+    /**
+     * 切换主题并保存到本地存储
+     */
+    function toggleTheme() {
+      const current = htmlRoot.hasAttribute("data-theme") ? "dark" : "light";
+      const next = current === "dark" ? "light" : "dark";
+      localStorage.setItem(STORAGE_KEY, next);
+      applyTheme(next);
+    }
+  
+    /**
+     * 监听系统明暗自动切换
+     * 限制：仅用户从未手动切换主题时生效
+     */
+    mediaDark.addEventListener("change", (e) => {
+      if (!localStorage.getItem(STORAGE_KEY)) {
+        applyTheme(e.matches ? "dark" : "light");
+      }
+    });
+  
+    // 页面加载最先初始化主题
+    initTheme();
+    themeBtn.onclick = toggleTheme;
+  
+    // ===================== 工具数据源（可自行增加删改工具） =====================
+    const toolList = [
+    {
+    id: "password-generator",
+    icon: "🔐",
+    title: "安全密码生成器",
+    desc: "创建强大且安全的密码，保护您的数字生活",
+    cat: "DEV",
+    catName: "实用工具",
+    catIcon: "🧰",
+    date: "2026-06-28",
+    featured: true,
+    top: false,
+    url: "./password-generator.html",
+    tags: ["totp","随机","密钥"]
+  },
+    {
+    id: "totp-generator",
+    icon: "🔐",
+    title: "TOTP / 2FA 验证码生成器",
+    desc: "本地离线两步验证生成，兼容谷歌验证器、Authy、Bitwarden等所有TOTP密钥。",
+    cat: "DEV",
+    catName: "实用工具",
+    catIcon: "🧰",
+    date: "2026-06-28",
+    featured: false,
+    top: true,
+    url: "./totp.html",
+    tags: ["totp","2fa","两步验证","密钥","验证码"]
+  },
+      {
+        id: "curl",
+        icon: "🧭",
+        title: "CURL 转代码工具",
+        desc: "将 curl 命令转换成 JavaScript / Python / Java / Go 请求代码，快速生成后端请求模板",
+        cat: "DEV",
+        catName: "开发工具",
+        catIcon: "⚡",
+        date: "2026-01-24",
+        featured: true,
+        top: false,
+        url: "#",
+        tags: ["curl", "http", "接口", "后端"]
+      },
+      {
+        id: "json",
+        icon: "{}",
+        title: "JSON 格式化",
+        desc: "JSON 格式化、压缩、校验，支持错误定位和语法高亮，一键美化杂乱JSON文本",
+        cat: "DEV",
+        catName: "开发工具",
+        catIcon: "⚡",
+        date: "2026-01-20",
+        featured: false,
+        top: false,
+        url: "#",
+        tags: ["json", "格式化false", "校验"]
+      },
+      {
+        id: "timestamp",
+        icon: "⏱",
+        title: "时间戳转换",
+        desc: "时间戳与日期互转，支持多种格式与时区，毫秒/秒级时间戳双向解析",
+        cat: "TIME",
+        catName: "时间工具",
+        catIcon: "⏰",
+        date: "2026-01-18",
+        featured: false,
+        top: false,
+        url: "#",
+        tags: ["时间戳", "日期", "时区"]
+      },
+      {
+        id: "base64-text",
+        icon: "🔤",
+        title: "Base64 编解码",
+        desc: "Base64 编码与解码，支持文本与文件，兼容中文、二进制内容转换",
+        cat: "TEXT",
+        catName: "文本工具",
+        catIcon: "📄",
+        date: "2026-01-15",
+        featured: false,
+        top: false,
+        url: "#",
+        tags: ["base64", "编码", "加密"]
+      },
+      {
+        id: "url",
+        icon: "%",
+        title: "URL 编解码",
+        desc: "URL 编码与解码，支持完整链接与参数，自动处理特殊符号转义",
+        cat: "DEV",
+        catName: "开发工具",
+        catIcon: "⚡",
+        date: "2026-01-12",
+        featured: false,
+        top: false,
+        url: "#",
+        tags: ["url", "参数", "转义"]
+      },
+      {
+        id: "qrcode",
+        icon: "▣",
+        title: "二维码生成器",
+        desc: "自定义颜色、尺寸生成二维码，支持文本、链接、联系方式批量生成",
+        cat: "GENERATOR",
+        catName: "生成器",
+        catIcon: "🎲",
+        date: "2026-01-10",
+        featured: false,
+        top: false,
+        url: "#",
+        tags: ["二维码", "生成", "扫码"]
+      },
+      {
+        id: "jwt",
+        icon: "🔐",
+        title: "JWT 解码器",
+        desc: "解析JWT，查看Header、Payload与签名信息，无需密钥即可读取载荷",
+        cat: "DEV",
+        catName: "开发工具",
+        catIcon: "⚡",
+        date: "2026-01-08",
+        featured: false,
+        top: false,
+        url: "#",
+        tags: ["jwt", "token", "登录"]
+      },
+      {
+        id: "regex",
+        icon: ".*",
+        title: "正则测试器",
+        desc: "正则表达式实时匹配、捕获组预览，支持多修饰符在线调试正则规则",
+        cat: "TEXT",
+        catName: "文本工具",
+        catIcon: "📄",
+        date: "2026-01-05",
+        featured: false,
+        top: false,
+        url: "#",
+        tags: ["正则", "匹配", "文本处理"]
+      },
+      {
+        id: "json-yaml",
+        icon: "🔄",
+        title: "JSON 转 YAML",
+        desc: "JSON与YAML双向转换工具，适配配置文件、容器编排文件快速互转",
+        cat: "CONVERT",
+        catName: "格式转换",
+        catIcon: "🔄",
+        date: "2025-12-22",
+        featured: true,
+        top: false,
+        url: "#",
+        tags: ["json", "yaml", "配置"]
+      }
+    ];
+  
+    // ===================== DOM元素缓存（全局复用，减少重复查询DOM） =====================
+    const visibleTagBox = document.getElementById("visibleTagBox");
+    const overflowPanel = document.getElementById("overflowPanel");
+    const moreToggle = document.getElementById("moreToggle");
+    const cardContainer = document.getElementById("cardContainer");
+    const searchInput = document.getElementById("searchInput");
+    const sortBtn = document.getElementById('sortBtn');
+    const headerDom = document.getElementById('headerDom');
+    const headerSpacer = document.getElementById('headerSpacer');
+  
+    // 全局状态变量
+    let currentCat = "all";          // 当前选中分类
+    let panelOpen = false;            // 分类折叠面板展开状态
+    let visibleCategories = [];      // 单行可放下的分类数组
+    let overflowCategories = [];     // 溢出需要折叠的分类数组
+    let sortMode = "date-desc";      // 排序模式：date-desc 新→旧 / date-asc 旧→新
+    let favList = JSON.parse(localStorage.getItem("toolFav")) || []; // 收藏ID数组
+  
+    // ===================== 收藏核心逻辑 =====================
+    function saveFavAndRefreshCount() {
+      localStorage.setItem("toolFav", JSON.stringify(favList));
+      refreshAllCategoryUI();
+    }
+    function toggleFav(toolId) {
+      const idx = favList.indexOf(toolId);
+      if (idx > -1) favList.splice(idx, 1);
+      else favList.push(toolId);
+      saveFavAndRefreshCount();
+      filterTools();
+    }
+  
+    // ===================== 分类数据处理 =====================
+    function getAutoCategoryList() {
+      const catMap = new Map();
+      toolList.forEach(item => {
+        if (!catMap.has(item.cat)) catMap.set(item.cat, { cat: item.cat, name: item.catName, icon: item.catIcon });
       });
+      return Array.from(catMap.values());
     }
-
-    // 时间排序
-    arr.sort((a, b) => {
-      const da = new Date(a.date).getTime();
-      const db = new Date(b.date).getTime();
-      return sortMode === "date-desc" ? db - da : da - db;
-    });
-
-    renderTools(arr);
-  }
-
-  /**
-   * 渲染工具卡片到页面
-   * @param {array} list 过滤后的工具数组
-   */
-  function renderTools(list) {
-    cardContainer.innerHTML = "";
-    if (!list.length) {
-      cardContainer.innerHTML = `<div class="empty-tip">未找到匹配的工具，请更换关键词/分类</div>`;
-      return;
+    function buildFullCategoryConfig() {
+      const fixedBase = [{ cat: "all", icon: "🏠", name: "全部" }, { cat: "star", icon: "⭐", name: "收藏" }];
+      const autoCats = getAutoCategoryList();
+      return [...fixedBase, ...autoCats];
     }
-    list.forEach(item => {
-      const isFav = favList.includes(item.id);
-      const star = isFav ? "★" : "☆";
-      // 生成角标HTML：精选/置顶二选一
-      let labelHtml = "";
-      if (item.featured) labelHtml = `<span class="card-label label-featured">精选</span>`;
-      else if (item.top) labelHtml = `<span class="card-label label-top">置顶</span>`;
-      // 生成标签行HTML
-      const tagHtml = item.tags.map(t => `<span class="card-tag">${t}</span>`).join("");
-      // 单张卡片完整HTML
-      const html = `
-          <a href="${item.url}" class="tool-card" data-id="${item.id}">
-            <button class="fav-star-fixed ${isFav ? "fav" : ""}" onclick="toggleFav('${item.id}');event.preventDefault();">${star}</button>
-            <div class="card-header">
-              <div class="card-icon">
-                ${item.icon}
-                ${labelHtml}
-              </div>
-              <div class="card-title-wrap">
-                <div class="card-title">${item.title}</div>
-                <div class="card-meta">
-                  <div class="card-meta-item">📂 ${item.catName}</div>
-                  <div class="card-meta-item">🕒 ${item.date}</div>
+    function getCatCount(catKey) {
+      if (catKey === "all") return toolList.length;
+      if (catKey === "star") return favList.length;
+      return toolList.filter(i => i.cat === catKey).length;
+    }
+    function refreshAllCategoryUI() {
+      const cats = buildFullCategoryConfig();
+      visibleTagBox.innerHTML = "";
+      overflowPanel.innerHTML = "";
+      visibleCategories = [];
+      overflowCategories = [];
+      const tempWrap = document.createElement("div");
+      tempWrap.style.cssText = "position:absolute;visibility:hidden;display:flex;gap:8px;white-space:nowrap;";
+      document.body.appendChild(tempWrap);
+      const boxWidth = visibleTagBox.clientWidth;
+      let usedW = 0;
+      cats.forEach(cat => {
+        const count = getCatCount(cat.cat);
+        const tag = document.createElement("div");
+        tag.className = "category-tag";
+        tag.innerHTML = `${cat.icon} ${cat.name}(${count})`;
+        tempWrap.appendChild(tag);
+        const w = tag.offsetWidth + 8;
+        if (usedW + w <= boxWidth) {
+          visibleCategories.push(cat);
+          usedW += w;
+        } else {
+          overflowCategories.push(cat);
+        }
+        tempWrap.removeChild(tag);
+      });
+      document.body.removeChild(tempWrap);
+      visibleCategories.forEach(cat => {
+        const count = getCatCount(cat.cat);
+        const div = document.createElement("div");
+        div.className = `category-tag ${currentCat === cat.cat ? "active" : ""}`;
+        div.innerHTML = `${cat.icon} ${cat.name}(${count})`;
+        div.dataset.cat = cat.cat;
+        div.onclick = () => setActiveCat(cat.cat);
+        visibleTagBox.appendChild(div);
+      });
+      overflowCategories.forEach(item => {
+        const count = getCatCount(item.cat);
+        const div = document.createElement("div");
+        div.className = "category-tag";
+        div.innerHTML = `${item.icon} ${item.name}(${count})`;
+        div.dataset.cat = item.cat;
+        div.onclick = () => setActiveCat(item.cat);
+        overflowPanel.appendChild(div);
+      });
+      moreToggle.style.display = overflowCategories.length > 0 ? "flex" : "none";
+      moreToggle.innerHTML = panelOpen ? "▲ 收起" : "▼ 更多";
+    }
+    function setActiveCat(cat) {
+      currentCat = cat;
+      refreshAllCategoryUI();
+      filterTools();
+    }
+    moreToggle.onclick = () => {
+      panelOpen = !panelOpen;
+      overflowPanel.classList.toggle("open", panelOpen);
+      moreToggle.innerHTML = panelOpen ? "▲ 收起" : "▼ 更多";
+    };
+  
+    // ===================== 搜索、过滤、排序、卡片渲染 =====================
+    function filterTools() {
+      let arr = [...toolList];
+      const kw = searchInput.value.toLowerCase().trim();
+      if (currentCat === "star") arr = arr.filter(i => favList.includes(i.id));
+      else if (currentCat !== "all") arr = arr.filter(i => i.cat === currentCat);
+      if (kw) {
+        arr = arr.filter(item => {
+          const title = item.title.toLowerCase();
+          const desc = item.desc.toLowerCase();
+          const catName = item.catName.toLowerCase();
+          const tagStr = item.tags.join(" ").toLowerCase();
+          return title.includes(kw) || desc.includes(kw) || catName.includes(kw) || tagStr.includes(kw);
+        });
+      }
+      arr.sort((a, b) => {
+        const topA = a.top ? 1 : 0;
+        const topB = b.top ? 1 : 0;
+        const topDiff = topB - topA;
+        if (topDiff !== 0) return topDiff;
+        const timeA = new Date(a.date).getTime();
+        const timeB = new Date(b.date).getTime();
+        if (a.top && b.top) return timeB - timeA;
+        return sortMode === "date-desc" ? timeB - timeA : timeA - timeB;
+      });
+      renderTools(arr);
+    }
+    function renderTools(list) {
+      cardContainer.innerHTML = "";
+      if (!list.length) {
+        cardContainer.innerHTML = `<div class="empty-tip">未找到匹配的工具，请更换关键词/分类</div>`;
+        return;
+      }
+      list.forEach(item => {
+        const isFav = favList.includes(item.id);
+        const star = isFav ? "★" : "☆";
+        // 修复角标：置顶优先级高于精选
+        let labelHtml = "";
+        if (item.top) {
+          labelHtml = `<span class="card-label label-top">置顶</span>`;
+        } else if (item.featured) {
+          labelHtml = `<span class="card-label label-featured">精选</span>`;
+        }
+        const tagHtml = item.tags.map(t => `<span class="card-tag">${t}</span>`).join("");
+        const html = `
+            <a href="${item.url}" class="tool-card" data-id="${item.id}">
+              <button class="fav-star-fixed ${isFav ? "fav" : ""}" onclick="toggleFav('${item.id}');event.preventDefault();">${star}</button>
+              <div class="card-header">
+                <div class="card-icon">
+                  ${item.icon}
+                  ${labelHtml}
+                </div>
+                <div class="card-title-wrap">
+                  <div class="card-title">${item.title}</div>
+                  <div class="card-meta">
+                    <div class="card-meta-item">📂 ${item.catName}</div>
+                    <div class="card-meta-item">🕒 ${item.date}</div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="card-desc">${item.desc}</div>
-            <div class="card-bottom">
-              <div class="card-tags">${tagHtml}</div>
-            </div>
-          </a>
-        `;
-      cardContainer.innerHTML += html;
-    });
-  }
-
-  // 排序按钮切换时间升降序
-  sortBtn.onclick = () => {
-    sortMode = sortMode === "date-desc" ? "date-asc" : "date-desc";
-    sortBtn.innerText = sortMode === "date-desc" ? "时间排序 ⬇️" : "时间排序 ⬆️";
-    filterTools();
-  };
-
-  // 搜索框输入实时过滤
-  searchInput.addEventListener("input", filterTools);
-  searchInput.addEventListener("keydown", e => {
-    if (e.key === "Enter") filterTools();
-  });
-
-  // 全局快捷键 Ctrl/Cmd + K 聚焦搜索框
-  document.addEventListener("keydown", e => {
-    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
-      e.preventDefault();
-      searchInput.focus();
+              <div class="card-desc">${item.desc}</div>
+              <div class="card-bottom">
+                <div class="card-tags">${tagHtml}</div>
+              </div>
+            </a>
+          `;
+        cardContainer.innerHTML += html;
+      });
     }
-  });
-
-  // ===================== 窗口自适应监听 =====================
-  window.addEventListener("resize", () => {
-    syncHeaderSpacerHeight();
-    refreshAllCategoryUI();
-  });
-
-  // 页面加载完成初始化全部渲染
-  window.addEventListener("load", () => {
-    syncHeaderSpacerHeight();
-    refreshAllCategoryUI();
-    filterTools();
-  });
-
-  /**
-   * 动态同步头部高度到占位块，防止页面顶部内容被fixed导航遮挡
-   */
-  function syncHeaderSpacerHeight() {
-    const h = headerDom.offsetHeight;
-    headerSpacer.style.height = `${h}px`;
-  }
+    sortBtn.onclick = () => {
+      sortMode = sortMode === "date-desc" ? "date-asc" : "date-desc";
+      sortBtn.innerText = sortMode === "date-desc" ? "时间排序 ⬇️" : "时间排序 ⬆️";
+      filterTools();
+    };
+    searchInput.addEventListener("input", filterTools);
+    searchInput.addEventListener("keydown", e => {
+      if (e.key === "Enter") filterTools();
+    });
+    document.addEventListener("keydown", e => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        searchInput.focus();
+      }
+    });
+    window.addEventListener("resize", () => {
+      syncHeaderSpacerHeight();
+      refreshAllCategoryUI();
+    });
+    window.addEventListener("load", () => {
+      syncHeaderSpacerHeight();
+      refreshAllCategoryUI();
+      filterTools();
+    });
+    function syncHeaderSpacerHeight() {
+      headerSpacer.style.height = headerDom.offsetHeight + "px";
+    }
 </script>
 </body>
 </html>
