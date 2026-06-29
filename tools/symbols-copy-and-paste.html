@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <title>特殊符号大全2</title>
+    <title>特殊符号大全</title>
     <style>
         /* ===================== 全局变量 ===================== */
         :root {
@@ -75,13 +75,14 @@
             --key-bg: #334155;
             --key-text: #f1f5f9;
         }
+        /* 完全对齐toolsjy字体栈，无任何自定义字体 */
         html {
-    font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "PingFang SC", "Segoe UI Symbol", "Apple Color Emoji", sans-serif;
-    -webkit-font-smoothing: antialiased;
-}
-.sym-item {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI Symbol", "Apple Color Emoji", sans-serif;
-}
+            font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "PingFang SC", "Segoe UI Symbol", "Apple Color Emoji", sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .sym-item {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI Symbol", "Apple Color Emoji", sans-serif;
+        }
         body {
             min-height: 100%;
             background: var(--bg-page);
@@ -359,7 +360,7 @@
             font-size: calc(15px * var(--desktop-font-ratio));
             color: var(--text-weak);
         }
-        /* 复制弹窗 原版尺寸 */
+        /* 复制弹窗 */
         .toast-copy {
             position: fixed;
             top: 80px;
@@ -408,10 +409,6 @@
         }
         html[data-theme="dark"] .toast-text {
             color: #4ade80;
-        }
-        /* 复制缓冲框 display:none 不会触发页面滚动跳顶 */
-        #copyTemp {
-            display: none;
         }
         @media (max-width: 640px) {
             body {
@@ -558,8 +555,7 @@
     <span class="toast-text" id="toastChar"></span>
 </div>
 
-<!-- 备用复制缓冲框，display:none 不会触发滚动跳转 -->
-<textarea id="copyTemp"></textarea>
+<!-- 重点修改：彻底删除静态常驻textarea，改用JS动态临时创建 -->
 
 <script>
     // 主题切换
@@ -611,7 +607,6 @@
     const allSymBlocks = document.getElementById('allSymBlocks');
     const copyToast = document.getElementById('copyToast');
     const toastChar = document.getElementById('toastChar');
-    const copyTemp = document.getElementById('copyTemp');
     let activeCat = "all";
 
     // 弹窗显示函数
@@ -622,15 +617,21 @@
         setTimeout(() => copyToast.classList.remove('show'), 2000);
     }
 
-    // 完全对齐toolsjy极简复制函数，无异步、无Clipboard、无滚动缓存
+    // 核心修改：动态创建临时textarea，页面无常驻隐藏DOM，对齐toolsjy逻辑
     function copyText(text) {
-        copyTemp.value = text;
-        copyTemp.select();
+        const tempTextarea = document.createElement('textarea');
+        tempTextarea.style.position = 'fixed';
+        tempTextarea.style.left = '-9999px';
+        tempTextarea.style.top = '-9999px';
+        tempTextarea.value = text;
+        document.body.appendChild(tempTextarea);
+        tempTextarea.select();
         document.execCommand('copy');
+        document.body.removeChild(tempTextarea);
         return true;
     }
 
-    // 符号点击复制（移除async）
+    // 符号点击复制（移除async，纯同步）
     function bindSymClick() {
         const items = document.querySelectorAll('.sym-item');
         items.forEach(item => {
@@ -683,11 +684,11 @@
         })
     }
 
-    // 符号数据源
+    // 数据源升级：Unicode字符 + HTML实体双重兜底，大幅减少方块
     const symData = {
         math: {
             title: "数学符号",
-            list: "≥≮≠≢^∽≌≯≈＜＞≥≤⩾⩽⋘⋙=≈≝≞‖∠∡∢≡+-×÷＋－±/㏑∨⊙㏒‖∑∈⌒∶∴∵∷&%∩∪∝∞Ω∏∐∫∮∟⊿∀∁∃∅∆∇⊥∧∨⊂⊃⊄⊅⊆⊇⊈⊉∈∋∉∌√∛∜℅‰‱∫∬∭∮∯∰∱∲∳v̄"
+            list: "≥ &ge; ≮ &lt;≠ &ne;≢^∽≌≯≈＜ &lt;＞ &gt;≥ &ge;≤ &le;⩾⩽⋘⋙=≈≝≞‖∠∡∢≡+&plus;-&minus;×÷＋－±/㏑∨⊙㏒‖∑∈⌒∶∴∵∷&%∩∪∝∞Ω∏∐∫∮∟⊿∀∁∃∅∆∇⊥∧∨⊂⊃⊄⊅⊆⊇⊈⊉∈∋∉∌√∛∜℅‰‱∫∬∭∮∯∰∱∲∳v̄"
         },
         emoticon: {
             title: "颜文字",
@@ -711,7 +712,7 @@
         },
         num: {title:"数字符号",list:"⓪①②③④⑤⑥⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳⓵⓶⓷⓸⓹⓺⓻⓼⓽⓾⓿❶❷❸❹❺❻❼❽❾❿⓫⓬⓭⓮⓯⓰⓱⓲⓳⓴㊀㊁㊂㊃㊄㊅㊆㊇㊈㊉㈠㈡㈢㈣㈤㈥㈦㈧㈨㈩⑴⑵⑶⑷⑸⑹⑺⑻⑼⑽⑾⑿⒀⒁⒂⒃⒄⒅⒆⒇⒈⒉⒊⒋⒌⒍⒎⒏⒐⒑⒒⒓⒔⒕⒖⒗⒘⒙⒚⒛〇一二三四五六七八九十百千万亿零壹贰叁肆伍陆柒捌玖拾佰仟萬億0️⃣1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣🔟ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩⅪⅫⅰⅱⅲⅳⅴⅵⅶⅷⅸⅹ½⅓⅔¼¾⅛⅜⅝⅞⅟⅕⅙⅖⅚⅗⅘"},
         date: {title:"时间日期",list:"㋀㋁㋂㋃㋄㋅㋆㋇㋈㋉㋊㋋㏠㏡㏢㏣㏤㏥㏦㏧㏨㏩㏪㏫㏬㏭㏮㏯㏰㏱㏲㏳㏴㏵㏶㏷㏸㏹㏺㏻㏼㏽㏾㍙㍚㍛㍜㍝㍞㍟㍠㍡㍢㍣㍤㍥㍦㍧㍨㍩㍪㍫㍬㍭㍮㍯㍰㍘"},
-        supsub: {title:"上标下标",list:"⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ⁿᵐᵒᵖ₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎ₙₘₒₚ"},
+        supsub: {title:"上标下标",list:"⁰ &sup0; ¹ &sup1; ² &sup2; ³ &sup3; ⁴ &sup4; ⁵ &sup5; ⁶ &sup6; ⁷ &sup7; ⁸ &sup8; ⁹ &sup9; ⁺ &plus; ⁻ &minus; ⁼ ⁽ ⁾ ⁿ &supn; ᵐ ᵒ ᵖ ₀ &sub0; ₁ &sub1; ₂ &sub2; ₃ &sub3; ₄ &sub4; ₅ &sub5; ₆ &sub6; ₇ &sub7; ₈ &sub8; ₉ &sub9; ₊ ₋ ₌ ₍ ₎ ₙ ₘ ₒ ₚ"},
         unit: {title:"单位符号",list:"㎎㎏㎜㎝㎞㎡㎥㏄㏊㏈㏋㏌㏍㏎㏏㏐㏑㏒㏓㏔㏕㏖㏗㏘㏙㏚㏛㏜㏝㏞㏟℃℉°′″‰‱"},
         punct: {title:"标点符号",list:"。，、：∶；‘’“”〝〞ˆˇ﹕︰﹔﹖﹑·•¨.¸;´？！～—｜‖＂〃｀@﹫¡¿﹏﹋︴々﹟#﹩$﹠&﹪%﹡﹢×﹦‐￣¯―﹨˜﹍﹎＿-~（）〈〉‹›﹛﹜『』〖〗［］《》〔〕{}「」⎡⎦⎣⎤【】︵︷︿︹︽_︶︸﹀︺︾ˉ﹂﹄︼﹁﹃︻▲●□…→"},
         shape: {title:"图形符号",list:"○●□■△▲▽▼◇◆☆★◎◐◑◒◓◔◕"},
@@ -728,7 +729,12 @@
         kr: {title:"韩语符号",list:"ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎㅏㅑㅓㅕㅗㅛㅜㅠㅡㅣㅐㅒㅔㅖㅘㅙㅚㅝㅞㅟㅢㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎㄲㅆᄀᄁᄂᄃᄄᄅᄆᄇᄈᄉᄊᄋᄌᄍᄎᄏᄐᄑ하ᅣᅢᅤᅥᅧᅦᅨᅩᅭᅪᅫᅬᅮᅲᅯᅰᅱᅳᅴᅵᆨᆫᆮᆯᆷᆸᆺᆼᆽᆾᆿᇀᇁᇂㆍ〃「」『』・★☆♡♢♧♤일이삼사오육칠팔구십일월이월삼월사월오월육월칠월팔월구월십월십일월십이월"}
     };
 
-    // 渲染页面
+    // 渲染页面，优先渲染符号区块减少JS阻塞字体预加载
+    document.addEventListener('DOMContentLoaded', () => {
+        renderAll();
+        syncHeaderHeight();
+    });
+
     function renderAll() {
         let tagHtml = "";
         Object.keys(symData).forEach(k => {
@@ -761,7 +767,6 @@
         bindSymClick();
         filterByCat();
     }
-    renderAll();
 </script>
 </body>
 </html>
