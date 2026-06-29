@@ -49,7 +49,7 @@
         :root {
             --primary: #10b981;
             --primary-light: #dcfce7;
-            --header-bg: #f0fdf4;
+            --header-bg: transparent; /* 导航栏透明，移除绿色底色 */
             --warn: #f97316;
             --nav-btn-bg: #ffffff;
             --nav-btn-border: #e5e7eb;
@@ -81,7 +81,7 @@
             --key-radius: 6px;
             --key-shadow: 0 1px 2px rgba(0,0,0,0.15);
             --body-font-size: 16px;
-            --body-line-height: 1.6;
+            --desktop-font-ratio: 0.85; /* 仅桌面端字体缩放比例，手机不生效 */
             --title-line-height: 1.2;
             --sub-title-line-height: 1.25;
             --content-max-width: 1200px;
@@ -95,7 +95,7 @@
         html[data-theme="dark"] {
             --primary: #10b981;
             --primary-light: rgba(16, 185, 129, 0.15);
-            --header-bg: #111827;
+            --header-bg: transparent;
             --nav-btn-bg: #1f2937;
             --nav-btn-border: #374151;
             --nav-btn-text: #f3f4f6;
@@ -114,25 +114,41 @@
             --key-bg: #334155;
             --key-text: #f1f5f9;
         }
+        /* 修复页面背景不铺满 + 【核心修复：全局兼容符号字体栈】 */
+html {
+    font-family: 
+        "Apple Color Emoji", 
+        "Segoe UI Emoji", 
+        "Segoe UI Symbol", 
+        "Noto Color Emoji", 
+        "Noto Sans Symbols 2",
+        "Noto Sans Math",
+        "STIX Two Text",
+        system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+.sym-item {
+    font-family: 
+        "Noto Sans Math",
+        "STIX Two Text",
+        "Noto Sans Symbols 2",
+        "Apple Color Emoji", 
+        "Segoe UI Emoji", 
+        "Segoe UI Symbol", 
+        "Noto Color Emoji", sans-serif;
+}
+        body {
+            min-height: 100%;
+            background: var(--bg-page);
+            display: flex;
+            flex-direction: column;
+            line-height: var(--body-line-height);
+            font-size: calc(var(--body-font-size) * var(--desktop-font-ratio));
+        }
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             transition: var(--transition);
-        }
-        html {
-            font-size: var(--body-font-size);
-        }
-        html, body {
-            min-height: 100vh;
-            background: var(--bg-page);
-            color: var(--text-main);
-        }
-        body {
-            display: flex;
-            flex-direction: column;
-            font-family: system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
-            line-height: var(--body-line-height);
         }
         a {
             text-decoration: none;
@@ -150,7 +166,7 @@
             width: calc(100% - 48px);
             margin: 0 auto;
         }
-        /* ===================== 【2.顶部固定导航栏 统一cytools头部、返回、明暗按钮】 ===================== */
+        /* ===================== 【2.顶部悬浮导航栏 无背景色块】 ===================== */
         header {
             position: fixed;
             top: 0;
@@ -158,12 +174,13 @@
             width: 100%;
             z-index: 99;
             background: var(--header-bg);
-            border-bottom: 1px solid var(--border-base);
+            border-bottom: none; /* 移除分割线 */
         }
         .header-inner {
             position: relative;
             display: flex;
             align-items: center;
+            justify-content: space-between;
             gap: 12px;
             padding: 14px 0;
             padding-right: calc(var(--theme-btn-width) + 16px);
@@ -174,7 +191,7 @@
             gap: 6px;
             color: var(--nav-btn-text);
             text-decoration: none;
-            font-size: 12px;
+            font-size: 12px; /* 固定原始字号，不再缩放 */
             font-weight: 500;
             padding: 7px 10px;
             border-radius: var(--radius-lg);
@@ -188,15 +205,12 @@
             background: var(--primary-light);
             color: var(--primary);
         }
+        /* 页面标题文字直接删除，隐藏占位 */
         .page-title {
-            flex: 1;
-            font-size: 20px;
-            font-weight: 600;
+            display: none;
         }
         .theme-switch-wrap {
-            position: absolute;
-            top: 14px;
-            right: 0;
+            position: relative;
         }
         .header-btn-circle {
             width: var(--theme-btn-width);
@@ -204,7 +218,7 @@
             padding: 0;
             border: 1px solid var(--nav-btn-border);
             border-radius: 50%;
-            font-size: 16px;
+            font-size: calc(16px * var(--desktop-font-ratio));
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -217,13 +231,6 @@
             border-color: var(--primary);
             background: var(--primary-light);
             color: var(--primary);
-        }
-        @media screen and (max-width:767px) and (orientation:portrait){
-            .header-btn-circle{
-                width:34px;
-                height:34px;
-                font-size:14px;
-            }
         }
         .header-spacer {
             width: 100%;
@@ -241,18 +248,18 @@
             margin: 20px 0 30px;
         }
         .page-head h1 {
-            font-size: 36px;
+            font-size: calc(36px * var(--desktop-font-ratio));
             margin-bottom: 12px;
             color: var(--text-main);
         }
         .page-head .blue-tip {
             color: #3b82f6;
-            font-size: 18px;
+            font-size: calc(18px * var(--desktop-font-ratio));
             margin-bottom: 10px;
         }
         .page-head .desc-text {
             color: var(--text-weak);
-            font-size: 15px;
+            font-size: calc(15px * var(--desktop-font-ratio));
         }
         /* ===================== 页面说明信息卡片区域（移至页面底部） ===================== */
         .info-card-section {
@@ -269,25 +276,16 @@
             box-shadow: var(--shadow-sm);
         }
         .info-card h3 {
-            font-size: 32px;
+            font-size: calc(32px * var(--desktop-font-ratio));
             font-weight: bold;
             color: var(--text-main);
             margin-bottom: 16px;
             line-height: 1.3;
         }
         .info-card p {
-            font-size: 17px;
+            font-size: calc(17px * var(--desktop-font-ratio));
             line-height: 1.8;
             color: var(--text-secondary);
-        }
-        /* 移动端三列变单列 */
-        @media (max-width: 860px) {
-            .info-card-section {
-                grid-template-columns: 1fr;
-            }
-            .info-card h3 {
-                font-size: 26px;
-            }
         }
         /* ===================== 搜索栏 + 操作按钮行 ===================== */
         .search-bar-row {
@@ -304,7 +302,7 @@
             border-radius: var(--radius-sm);
             background: var(--bg-btn);
             color: var(--text-main);
-            font-size: 15px;
+            font-size: calc(15px * var(--desktop-font-ratio));
         }
         #searchSym::placeholder {
             color: var(--text-weak);
@@ -316,7 +314,7 @@
             border-radius: var(--radius-sm);
             background: var(--bg-btn);
             color: var(--text-main);
-            font-size: 15px;
+            font-size: calc(15px * var(--desktop-font-ratio));
             white-space: nowrap;
         }
         .op-btn.warn {
@@ -342,7 +340,7 @@
             border-radius: var(--radius-sm);
             background: var(--bg-btn);
             color: var(--text-main);
-            font-size: 16px;
+            font-size: calc(16px * var(--desktop-font-ratio));
             resize: vertical;
             margin-bottom: 24px;
         }
@@ -362,7 +360,7 @@
             border-radius: var(--radius-xs);
             background: var(--bg-btn);
             color: var(--text-main);
-            font-size: 14px;
+            font-size: calc(14px * var(--desktop-font-ratio));
             cursor: pointer;
             white-space: nowrap;
         }
@@ -381,7 +379,7 @@
             margin-bottom: 32px;
         }
         .sym-block h3 {
-            font-size: 20px;
+            font-size: calc(20px * var(--desktop-font-ratio));
             margin-bottom: 16px;
             color: var(--text-main);
             border-bottom: 1px dashed var(--border-base);
@@ -392,23 +390,35 @@
             grid-template-columns: repeat(auto-fill, minmax(52px, 1fr));
             gap: 8px;
         }
-        /* 颜文字分类加宽格子 */
+        /* 【修复】颜文字加宽格子，避免长字符挤压换行 */
         .sym-grid.wide-item {
-            grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+            gap: 12px;
         }
-        .sym-item {
-            height: 48px;
-            display: grid;
-            place-items: center;
-            border: 1px solid var(--border-base);
-            border-radius: var(--radius-xs);
-            background: var(--bg-btn);
-            font-size: 20px;
-            cursor: pointer;
-            user-select: none;
-            text-align: center;
-            padding: 0 4px;
-        }
+        /* 【核心修复】符号格子单独强制符号字体，彻底解决方块空白 */
+.sym-item {
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--border-base);
+    border-radius: var(--radius-xs);
+    background: var(--bg-btn);
+    font-size: calc(20px * var(--desktop-font-ratio));
+    color: var(--text-main);
+    cursor: pointer;
+    user-select: none;
+    text-align: center;
+    padding: 0 8px;
+    /* 数学字体前置，优先渲染分数、罗马数字 */
+    font-family: 
+        "Noto Sans Math",
+        "STIX Two Text",
+        "Apple Color Emoji", 
+        "Segoe UI Emoji", 
+        "Segoe UI Symbol", 
+        "Noto Color Emoji", 
+        "Noto Sans Symbols 2", sans-serif;
+}
         .sym-item:hover {
             border-color: var(--primary);
             background: var(--primary-light);
@@ -416,7 +426,7 @@
         }
         .block-tip {
             margin-top: 10px;
-            font-size: 13px;
+            font-size: calc(13px * var(--desktop-font-ratio));
             color: var(--text-weak);
         }
         /* ===================== 顶部复制成功Toast弹窗样式 ===================== */
@@ -450,11 +460,11 @@
             color: #fff;
             display: grid;
             place-items: center;
-            font-size: 22px;
+            font-size: calc(22px * var(--desktop-font-ratio));
             font-weight: bold;
         }
         .toast-text {
-            font-size: 28px;
+            font-size: calc(28px * var(--desktop-font-ratio));
             color: #16a34a;
             font-weight: 500;
         }
@@ -466,8 +476,60 @@
         html[data-theme="dark"] .toast-text {
             color: #4ade80;
         }
-        /* 移动端适配 */
+        /* ===================== 移动端：取消字体缩放，恢复原始字号 ===================== */
         @media (max-width: 640px) {
+            body {
+                font-size: var(--body-font-size);
+            }
+            .back-btn {
+                font-size: 12px;
+            }
+            .page-title {
+                font-size: 20px;
+            }
+            .header-btn-circle {
+                font-size: 16px;
+            }
+            .page-head h1 {
+                font-size: 28px;
+            }
+            .page-head .blue-tip {
+                font-size: 18px;
+            }
+            .page-head .desc-text {
+                font-size: 15px;
+            }
+            .info-card h3 {
+                font-size: 26px;
+            }
+            .info-card p {
+                font-size: 17px;
+            }
+            #searchSym {
+                font-size: 15px;
+            }
+            .op-btn {
+                font-size: 15px;
+            }
+            .sym-cat-tag {
+                font-size: 14px;
+            }
+            .sym-block h3 {
+                font-size: 20px;
+            }
+            .sym-item {
+                font-size: 20px;
+            }
+            .block-tip {
+                font-size: 13px;
+            }
+            .toast-icon {
+                font-size: 16px;
+            }
+            .toast-text {
+                font-size: 20px;
+            }
+            /* 布局适配不变 */
             .search-bar-row {
                 flex-wrap: wrap;
             }
@@ -484,30 +546,35 @@
             .sym-grid.wide-item {
                 grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
             }
-            .page-head h1 {
-                font-size: 28px;
-            }
             .toast-copy {
                 width: calc(100% - 40px);
                 padding: 12px 20px;
             }
-            .toast-text {
-                font-size: 20px;
-            }
             .toast-icon {
                 width: 32px;
                 height: 32px;
-                font-size: 16px;
+            }
+        }
+        @media screen and (max-width:767px) and (orientation:portrait){
+            .header-btn-circle{
+                width:34px;
+                height:34px;
+                font-size: 14px;
+            }
+        }
+        @media (max-width: 860px) {
+            .info-card-section {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-<!-- 顶部导航 -->
+<!-- 顶部悬浮导航栏：无背景、无中间标题文字 -->
 <header id="headerDom">
     <div class="container header-inner">
         <a href="index.html" class="back-btn">← 返回首页</a>
-        <div class="page-title">特殊符号大全</div>
+        <!-- 中间标题文字已删除 -->
         <div class="theme-switch-wrap">
             <button id="themeToggle" class="header-btn-circle">🌙</button>
         </div>
@@ -631,31 +698,114 @@
         math: {
             title: "数学符号",
             list: [
-                "≥≮≠≢^∽≌≯≈＜＞≥≤⩾⩽⋘⋙=≈≝≞‖∠∡∢≡+-×÷＋－±/㏑∨⊙㏒‖∑∈⌒∶∴∵∷&%∩∪∝∞Ω∏∐∫∮∟⊿∀∁∃∅∆∇⊥∧∨⊂⊃⊄⊅⊆⊇⊈⊉∈∋∉∌√∛∜℅‱∫∬∭∮∯∰∱∲∳v̄"
+                "≥≮≠≢^∽≌≯≈＜＞≥≤⩾⩽⋘⋙=≈≝≞‖∠∡∢≡+-×÷＋－±/㏑∨⊙㏒‖∑∈⌒∶∴∵∷&%∩∪∝∞Ω∏∐∫∮∟⊿∀∁∃∅∆∇⊥∧∨⊂⊃⊄⊅⊆⊇⊈⊉∈∋∉∌√∛∜℅‰‱∫∬∭∮∯∰∱∲∳v̄"
             ]
         },
-        emoticon: {
-            title: "颜文字",
-            singleItem: true, // 开启单条完整一格，不拆分字符
-            list: [
-                "(≧∇≦)ﾉ",
-                "(｡•́ω•̀｡)",
-                "╮(╯▽╰)╭",
-                "ヽ(✿ﾟ▽ﾟ)ノ",
-                "(´･ω･`)",
-                "(๑•̀ㅂ•́)و✧",
-                "QAQ",
-                "T_T",
-                "╰(*°▽°*)╯"
-            ]
-        },
+emoticon: {
+    title: "颜文字",
+    singleItem: true,
+    list: [
+        // 开心/欢呼
+        "(≧∇≦)ﾉ",
+        "ヽ(✿ﾟ▽ﾟ)ノ",
+        "╰(*°▽°*)╯",
+        "(๑•̀ㅂ•́)و✧",
+        "٩(๑>◡<๑)۶",
+        "ヽ(๑ˊ▿ˋ๑)ﾉ",
+        "(๑˃̵ᴗ˂̵)و",
+        "٩(ˊᗜˋ*)و",
+        "ヽ(•̀ω•́ )ゝ",
+        "ヽ(≧Д≦)ノ",
+        "(≧∀≦)♪",
+        "ヽ(｡◕ω◕｡)ﾉ",
+        // 害羞/脸红
+        "(｡•́ω•̀｡)",
+        "(⁄ ⁄>⁄ ▽ ⁄<⁄ ⁄)",
+        "(//∇//)",
+        "(⁄ ⁄•⁄ω⁄•⁄ ⁄)",
+        "(๑•́ω•̀๑)",
+        "(*/ω＼*)",
+        "(⁄ ⁄˃ᴗ˂⁄ ⁄)",
+        // 委屈/难过/哭泣
+        "QAQ",
+        "T_T",
+        "(T_T)",
+        "(っ╥╯﹏╰╥c)",
+        "(｡•́︿•̀｡)",
+        "(╥﹏╥)",
+        "｡･ﾟﾟ･(>д<)･ﾟﾟ･｡",
+        "(´;︵;`)",
+        // 无奈/摊手
+        "╮(╯▽╰)╭",
+        "╮(￣▽￣)╭",
+        "╮(︶﹏︶)╭",
+        "╮(╯_╰)╭",
+        "╮(︶︿︶)╭",
+        // 平淡/慵懒
+        "(´･ω･`)",
+        "(´-ω-`)",
+        "(・ω・)",
+        "(･ω･)",
+        "(´･_･`)",
+        "(・ω・｀)",
+        // 生气/烦躁
+        "(╬◣д◢)",
+        "(｡•ˇ‸ˇ•｡)",
+        "(╯°□°）╯︵ ┻━┻",
+        "(¬_¬)",
+        "(ー_ー゛)",
+        // 可爱/卖萌
+        "(๑˃̵ᴗ˂̵)",
+        "(◍˃ᵕ˂◍)",
+        "(｡･ω･｡)",
+        "(๑•̀ㅂ•́)و✧",
+        "(≧∇≦)",
+        "(ฅ•ω•ฅ)",
+        "ฅ՞•ﻌ•՞ฅ",
+        "(๑•̀ω•́๑)",
+        // 星星眼/花痴
+        "(✧ω✧)",
+        "(≧∇≦)ﾟ",
+        "(✧∇✧)",
+        "(๑˃̶͈̀௰˂̶͈́)",
+        // 困/打哈欠
+        "(´-ω-`)zzz",
+        "(。-ω-)zzz",
+        "(｡-ω-)",
+        "(´｡-ω-｀)",
+        // 坏笑/狡黠
+        "(￣▽￣)",
+        "(¬ω¬)",
+        "(￣∇￣)",
+        "(･ω･¬)",
+        // 惊吓/慌张
+        "(°ー°〃)",
+        "(°ー°)",
+        "(・ω・。)",
+        "(｡•́ω•̀｡)！",
+        // 爱心/心动
+        "(♡ω♡)",
+        "(≧∇≦)♡",
+        "(♡´･ᴗ｀♡)",
+        "(๑♡ω♡๑)",
+        // 拜拜/挥手
+        "(´･ω･`)ノ",
+        "ヽ(・∀・)ノ",
+        "( ´ ▽ ` )ﾉ",
+        // 发呆/放空
+        "(・_・)",
+        "(ー_ー)",
+        "(･_･;)",
+        "(・ω・？)"
+    ]
+},
         num: {
             title: "数字符号",
-            list: ["①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳","⑴⑵⑶⑷⑸⑹⑺⑻⑼⑽","⒈⌍⌎⌏⌐⌑⌒⌓⌔⌕","❶❷❸❹❺❻❼❽❾❿","𝟘𝟙𝟚𝟛𝟜𝟝𝟞𝟟𝟠𝟡","ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩⅪⅫ","ⅰⅱⅲⅳⅴⅵⅶⅷⅸⅹⅺⅻ"]
+            list: ["⓪①②③④⑤⑥⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳⓵⓶⓷⓸⓹⓺⓻⓼⓽⓾⓿❶❷❸❹❺❻❼❽❾❿⓫⓬⓭⓮⓯⓰⓱⓲⓳⓴㊀㊁㊂㊃㊄㊅㊆㊇㊈㊉㈠㈡㈢㈣㈤㈥㈦㈧㈨㈩⑴⑵⑶⑷⑸⑹⑺⑻⑼⑽⑾⑿⒀⒁⒂⒃⒄⒅⒆⒇⒈⒉⒊⒋⒌⒍⒎⒏⒐⒑⒒⒓⒔⒕⒖⒗⒘⒙⒚⒛〇一二三四五六七八九十百千万亿零壹贰叁肆伍陆柒捌玖拾佰仟萬億0️⃣1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣🔟ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩⅪⅫⅰⅱⅲⅳⅴⅵⅶⅷⅸⅹ½⅓⅔¼¾⅛⅜⅝⅞⅟⅕⅙⅖⅚⅗⅘"]
         },
         date: {
             title: "时间日期",
-            list: ["㏠㏡㏢㏣㏤㏥㏦㏧㏨㏩㏪㏫㏬㏭㏮㏯㏰㏱㏲㏳㏴㏵㏶㏷㏸㏹㏺㏻㏼㏽㏾㏿","日月年时分秒周"]
+            list: ["㋀㋁㋂㋃㋄㋅㋆㋇㋈㋉㋊㋋㏠㏡㏢㏣㏤㏥㏦㏧㏨㏩㏪㏫㏬㏭㏮㏯㏰㏱㏲㏳㏴㏵㏶㏷㏸㏹㏺㏻㏼㏽㏾㍙㍚㍛㍜㍝㍞㍟㍠㍡㍢㍣㍤㍥㍦㍧㍨㍩㍪㍫㍬㍭㍮㍯㍰㍘"]
         },
         supsub: {
             title: "上标下标",
@@ -667,7 +817,7 @@
         },
         punct: {
             title: "标点符号",
-            list: ["。，、；：？！“”‘’（）【】《》…—·～"]
+            list: ["。，、：∶；‘’“”〝〞ˆˇ﹕︰﹔﹖﹑·•¨.¸;´？！～—｜‖＂〃｀@﹫¡¿﹏﹋︴々﹟#﹩$﹠&﹪%﹡﹢×﹦‐￣¯―﹨˜﹍﹎＿-~（）〈〉‹›﹛﹜『』〖〗［］《》〔〕{}「」⎡⎦⎣⎤【】︵︷︿︹︽_︶︸﹀︺︾ˉ﹂﹄︼﹁﹃︻▲●□…→"]
         },
         shape: {
             title: "图形符号",
