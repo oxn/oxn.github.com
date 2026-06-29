@@ -60,7 +60,7 @@ const toolList = [
     catIcon: "分类标签图标emoji",
     date: "创建日期 格式YYYY-MM-DD，用于时间排序",
     featured: true/false, // true=卡片显示「精选」角标
-    top: true/false,      // true=卡片显示「置顶」角标，featured优先于top
+    top: true/false,      // true=卡片显示「置顶」角标，`top`优先于`featured`
     url: "工具跳转地址",
     tags: ["标签1","标签2","标签3"] // 底部多标签数组
   }
