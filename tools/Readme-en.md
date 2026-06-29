@@ -1,0 +1,1 @@
+Sorry, I’m not good at English. All detailed documentation and instructions inside this repository are written in Chinese. If you cannot understand Chinese, please use online translation tools to convert the Chinese content into your native language for reference. Thank you very much for your understanding.
