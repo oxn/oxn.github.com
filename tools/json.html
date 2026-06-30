@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>JSON格式化工具</title>
+    <style>
+        :root {
+            --primary: #10b981;
+            --primary-light: #dcfce7;
+            --header-bg: transparent;
+            --warn: #f97316;
+            --nav-btn-bg: #ffffff;
+            --nav-btn-border: #e5e7eb;
+            --nav-btn-text: #222222;
+            --text-main: #222222;
+            --text-secondary: #555555;
+            --text-weak: #888888;
+            --border-base: #e5e7eb;
+            --border-light: #f3f4f6;
+            --bg-page: #ffffff;
+            --bg-card: #ffffff;
+            --bg-btn: #ffffff;
+            --bg-footer: #f0fdf4;
+            --shadow-sm: 0 1px 3px rgba(0,0,0.06);
+            --shadow-lg: 0 6px 16px rgba(0,0,0.1);
+            --radius-xs: 4px;
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-full: 999px;
+            --space-xs: 6px;
+            --space-sm: 10px;
+            --space-md: 14px;
+            --space-lg: 16px;
+            --space-xl: 28px;
+            --transition: all 0.22s ease;
+            --key-bg: #e5e7eb;
+            --key-text: #222;
+            --key-radius: 6px;
+            --key-shadow: 0 1px 2px rgba(0,0,0.15);
+            --body-font-size: 16px;
+            --desktop-font-ratio: 0.85;
+            --title-line-height: 1.2;
+            --sub-title-line-height: 1.25;
+            --content-max-width: 1200px;
+            --card-gap: 16px;
+            --card-min-width: 300px;
+            --header-safe-gap: 16px;
+            --nav-line-height: 38px;
+            --theme-btn-width: 36px;
+        }
+        html[data-theme="dark"] {
+            --primary: #10b981;
+            --primary-light: rgba(16, 185, 129, 0.15);
+            --header-bg: transparent;
+            --nav-btn-bg: #1f2937;
+            --nav-btn-border: #374151;
+            --nav-btn-text: #f3f4f6;
+            --warn: #f97316;
+            --text-main: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-weak: #94a3b8;
+            --border-base: #334155;
+            --border-light: #334155;
+            --bg-page: #0f172a;
+            --bg-card: #1e293b;
+            --bg-btn: #1e293b;
+            --bg-footer: #111827;
+            --shadow-sm: 0 1px 3px rgba(0,0,0.2);
+            --shadow-lg: 0 6px 16px rgba(0,0.35);
+            --key-bg: #334155;
+            --key-text: #f1f5f9;
+        }
+        html {
+            font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "PingFang SC", sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        body {
+            min-height: 100%;
+            background: var(--bg-page);
+            display: flex;
+            flex-direction: column;
+            line-height: 1.5;
+            font-size: calc(var(--body-font-size));
+            overflow-x: hidden;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: var(--transition);
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        button {
+            font-family: inherit;
+            font-size: inherit;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+        }
+        .container {
+            max-width: var(--content-max-width);
+            width: calc(100% - 48px);
+            margin: 0 auto;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 99;
+            background: var(--header-bg);
+            border-bottom: none;
+        }
+        .header-inner {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 14px 0;
+        }
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--nav-btn-text);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 7px 10px;
+            border-radius: var(--radius-lg);
+            background: var(--nav-btn-bg);
+            border: 1px solid var(--nav-btn-border);
+            height: var(--nav-line-height);
+            flex-shrink: 0;
+        }
+        .back-btn:hover {
+            border-color: var(--primary);
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+        .page-title {
+            display: none;
+        }
+        .theme-switch-wrap {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .header-btn-circle {
+            width: var(--theme-btn-width);
+            height: var(--theme-btn-width);
+            padding: 0;
+            border: 1px solid var(--nav-btn-border);
+            border-radius: 50%;
+            font-size: calc(16px * var(--desktop-font-ratio));
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--nav-btn-bg);
+            color: var(--nav-btn-text);
+            flex-shrink: 0;
+        }
+        .header-btn-circle:hover {
+            border-color: var(--primary);
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+        .header-spacer {
+            width: 100%;
+            height: 60px;
+            flex-shrink: 0;
+        }
+        main.container {
+            margin-top: 12px;
+            flex: 1;
+            padding-bottom: 60px;
+        }
+        .page-head {
+            text-align: center;
+            margin: 20px 0 30px;
+        }
+        .page-head h1 {
+            font-size: calc(36px * var(--desktop-font-ratio));
+            margin-bottom: 12px;
+            color: var(--text-main);
+        }
+        .page-head .blue-tip {
+            color: #3b82f6;
+            font-size: calc(18px * var(--desktop-font-ratio));
+            margin-bottom: 10px;
+        }
+        .page-head .desc-text {
+            color: var(--text-weak);
+            font-size: calc(15px * var(--desktop-font-ratio));
+        }
+        .card-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-base);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 24px;
+        }
+        .card-title {
+            font-size: calc(22px * var(--desktop-font-ratio));
+            font-weight: bold;
+            color: var(--text-main);
+            margin-bottom: 16px;
+        }
+        .input-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+            align-items: center;
+        }
+        .input-row label {
+            white-space: nowrap;
+            color: var(--text-main);
+        }
+        .input-row input[type="text"] {
+            flex: 1;
+        }
+        textarea, input[type="text"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-base);
+            border-radius: var(--radius-sm);
+            background: var(--bg-btn);
+            color: var(--text-main);
+            font-size: 15px;
+            resize: vertical;
+            outline: none;
+            transition: var(--transition);
+            font-family: Consolas, monospace;
+        }
+        textarea:focus, input[type="text"]:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(16,185,129,0.15);
+        }
+        .input-block {
+            margin-bottom: 16px;
+        }
+        .input-label {
+            display: block;
+            color: var(--text-main);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        .btn-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .op-btn {
+            height: 44px;
+            padding: 0 18px;
+            border: 1px solid var(--border-base);
+            border-radius: var(--radius-sm);
+            background: var(--bg-btn);
+            color: var(--text-main);
+            font-size: 15px;
+            white-space: nowrap;
+        }
+        .op-btn.primary {
+            border-color: var(--primary);
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+        .op-btn.warn {
+            color: #ef4444;
+            border-color: #fecdd3;
+        }
+        .op-btn:hover {
+            border-color: var(--primary);
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+        .op-btn.warn:hover {
+            border-color: #ef4444;
+            background: #fef2f2;
+            color: #ef4444;
+        }
+        .info-card-section {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-top: 40px;
+        }
+        .info-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-base);
+            border-radius: var(--radius-lg);
+            padding: 18px 20px;
+            box-shadow: var(--shadow-sm);
+        }
+        .info-card h3 {
+            font-size: calc(32px * var(--desktop-font-ratio));
+            font-weight: bold;
+            color: var(--text-main);
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+        .info-card p {
+            font-size: calc(17px * var(--desktop-font-ratio));
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+        /* 复制弹窗 */
+        .toast-copy {
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-20px);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 32px;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+            z-index: 99999;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            min-height: 72px;
+        }
+        .toast-copy.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+        }
+        .toast-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #22c55e;
+            color: #fff;
+            display: grid;
+            place-items: center;
+            font-size: 22px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .toast-text {
+            font-size: 28px;
+            color: #16a34a;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        html[data-theme="dark"] .toast-copy {
+            background: rgba(34, 197, 94, 0.12);
+            border-color: rgba(34, 197, 94, 0.3);
+        }
+        html[data-theme="dark"] .toast-text {
+            color: #4ade80;
+        }
+        .err-tip {
+            color: #ef4444;
+            margin: 8px 0;
+            font-size: 14px;
+        }
+        @media (max-width: 640px) {
+            body {
+                font-size: var(--body-font-size);
+            }
+            .back-btn {
+                font-size: 12px;
+            }
+            .header-btn-circle {
+                font-size: 16px;
+            }
+            .page-head h1 {
+                font-size: 28px;
+            }
+            .page-head .blue-tip {
+                font-size: 18px;
+            }
+            .page-head .desc-text {
+                font-size: 15px;
+            }
+            .info-card h3 {
+                font-size: 26px;
+            }
+            .info-card p {
+                font-size: 17px;
+            }
+            .op-btn {
+                font-size: 15px;
+            }
+            .toast-icon {
+                font-size: 16px;
+            }
+            .toast-text {
+                font-size: 20px;
+            }
+            .btn-row {
+                flex-wrap: wrap;
+            }
+            .input-row {
+                flex-wrap: wrap;
+            }
+            .info-card-section {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media screen and (max-width:767px) and (orientation:portrait){
+            .header-btn-circle{
+                width:34px;
+                height:34px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+<header id="headerDom">
+    <div class="container header-inner">
+        <a href="index.html" class="back-btn">← 返回首页</a>
+        <div class="theme-switch-wrap">
+            <button id="themeToggle" class="header-btn-circle">🌙</button>
+        </div>
+    </div>
+</header>
+<div class="header-spacer" id="headerSpacer"></div>
+
+<main class="container">
+    <div class="page-head">
+        <h1>JSON格式化工具</h1>
+        <div class="blue-tip">格式化/压缩/校验JSON，支持JSONPath查询，本地安全处理</div>
+        <div class="desc-text">接口调试、配置文件、日志JSON一键美化压缩</div>
+    </div>
+
+    <div class="card-box">
+        <div class="btn-row">
+            <button class="op-btn primary" id="formatBtn">格式化(2空格缩进)</button>
+            <button class="op-btn primary" id="minifyBtn">压缩JSON</button>
+            <button class="op-btn primary" id="validateBtn">校验JSON</button>
+            <button class="op-btn warn" id="clearAll">清空全部</button>
+        </div>
+        <div class="input-row">
+            <label>JSONPath查询：</label>
+            <input type="text" id="jsonPathInput" placeholder="示例 $.list[0].name">
+            <button class="op-btn primary" id="jsonPathBtn">查询</button>
+        </div>
+        <div class="input-block">
+            <label class="input-label">原始JSON</label>
+            <textarea id="rawJson" rows="8" placeholder="粘贴压缩/杂乱JSON字符串"></textarea>
+        </div>
+        <div class="err-tip" id="errorTip"></div>
+        <div class="input-block">
+            <label class="input-label">处理结果</label>
+            <textarea id="resultJson" rows="8" readonly></textarea>
+        </div>
+        <div class="btn-row">
+            <button class="op-btn primary" id="copyResult">复制结果</button>
+        </div>
+    </div>
+
+    <div class="info-card-section">
+        <div class="info-card">
+            <h3>什么是JSON</h3>
+            <p>JSON是轻量文本数据格式，独立于编程语言，用于前后端接口、配置、消息传输，由对象、数组、字符串、数字等组成。</p>
+        </div>
+        <div class="info-card">
+            <h3>工具功能</h3>
+            <p>JSON美化格式化、压缩去空格、语法校验、JSONPath字段提取，所有运算在浏览器本地，数据不上传服务器。</p>
+        </div>
+        <div class="info-card">
+            <h3>使用提示</h3>
+            <p>校验功能可定位JSON语法逗号、引号错误；JSONPath适合快速提取数组/对象指定字段。</p>
+        </div>
+    </main>
+
+<div class="toast-copy" id="copyToast">
+    <div class="toast-icon">✓</div>
+    <span class="toast-text">复制成功</span>
+</div>
+
+<script>
+    // 明暗主题统一逻辑
+    const htmlRoot = document.documentElement;
+    const themeBtn = document.getElementById("themeToggle");
+    const mediaDark = window.matchMedia('(prefers-color-scheme: dark)');
+    const STORAGE_KEY = "site_theme_mode";
+    function applyTheme(mode) {
+        if (mode === "dark") {
+            htmlRoot.setAttribute("data-theme", "dark");
+            themeBtn.innerHTML = "☀️";
+        } else {
+            htmlRoot.removeAttribute("data-theme");
+            themeBtn.innerHTML = "🌙";
+        }
+    }
+    function initTheme() {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) applyTheme(saved);
+        else applyTheme(mediaDark.matches ? "dark" : "light");
+    }
+    function toggleTheme() {
+        const current = htmlRoot.hasAttribute("data-theme") ? "dark" : "light";
+        const next = current === "dark" ? "light" : "dark";
+        localStorage.setItem(STORAGE_KEY, next);
+        apply(next);
+    }
+    mediaDark.addEventListener("change", e => {
+        if (!localStorage.getItem(STORAGE_KEY)) applyTheme(e.matches ? "dark" : "light");
+    });
+    initTheme();
+    themeBtn.onclick = toggleTheme;
+
+    // 头部自适应高度
+    const headerDom = document.getElementById('headerDom');
+    const headerSpacer = document.getElementById('headerSpacer');
+    function syncHeaderHeight() {
+        headerSpacer.style.height = headerDom.offsetHeight + "px";
+    }
+    window.addEventListener('resize', syncHeaderHeight);
+    syncHeaderHeight();
+
+    // 复制弹窗
+    const copyToast = document.getElementById('copyToast');
+    function showToast() {
+        copyToast.classList.remove('show');
+        setTimeout(() => copyToast.classList.add('show'), 10);
+        setTimeout(() => copyToast.classList.remove('show'), 1800);
+    }
+    function copyStr(text) {
+        const temp = document.createElement('textarea');
+        temp.style.position = 'fixed';
+        temp.style.left = '-9999px';
+        temp.style.top = '-9999px';
+        temp.value = text;
+        document.body.appendChild(temp);
+        temp.select();
+        document.execCommand('copy');
+        document.body.removeChild(temp);
+    }
+
+    // DOM元素
+    const rawJson = document.getElementById('rawJson');
+    const resultJson = document.getElementById('resultJson');
+    const errorTip = document.getElementById('errorTip');
+    const formatBtn = document.getElementById('formatBtn');
+    const minifyBtn = document.getElementById('minifyBtn');
+    const validateBtn = document.getElementById('clearAll');
+    const clearAll = document.getElementById('clearAll');
+    const copyResult = document.getElementById('copyResult');
+    const jsonPathInput = document.getElementById('jsonPathInput');
+    const jsonPathBtn = document.getElementById('jsonPathBtn');
+
+    // 清空
+    clearAll.onclick = () => {
+        rawJson.value = "";
+        resultJson.value = "";
+        errorTip.textContent = "";
+    }
+    // 格式化2空格
+    formatBtn.onclick = () => {
+        errorTip.textContent = "";
+        const text = rawJson.value.trim();
+        if (!text) return;
+        try {
+            const obj = JSON.parse(text);
+            resultJson.value = JSON.stringify(obj, null, 2);
+        } catch (e) {
+            errorTip.textContent = "JSON语法错误：" + e.message;
+            resultJson.value = "";
+        }
+    }
+    // 压缩
+    minifyBtn.onclick = () => {
+        errorTip.textContent = "";
+        const text = rawJson.value.trim();
+        if (!text) return;
+        try {
+            const obj = JSON.parse(text);
+            resultJson.value = JSON.stringify(obj);
+        } catch (e) {
+            errorTip.textContent = "JSON语法错误：" + e.message;
+            resultJson.value = "";
+        }
+    }
+    // 校验
+    validateBtn.onclick = () => {
+        errorTip.textContent = "";
+        const text = rawJson.value.trim();
+        if (!text) return;
+        try {
+            JSON.parse(text);
+            errorTip.textContent = "✅ JSON格式合法";
+        } catch (e) {
+            errorTip.textContent = "❌ JSON语法错误：" + e.message;
+        }
+    }
+    // 复制结果
+    copyResult.onclick = () => {
+        const val = resultJson.value.trim();
+        if (!val) return;
+        copyStr(val);
+        showToast();
+    }
+    // 简易JSONPath实现（基础匹配 $.key / $.arr[0]）
+    function jsonPathQuery(obj, path) {
+        try {
+            let data = structuredClone(obj);
+            const paths = path.replace(/^\$/, '').split('.').filter(p=>p);
+            for(let p of paths) {
+                const arrMatch = p.match(/(\w+)\[(\d+)\]/);
+                if(arrMatch) {
+                    const key = arrMatch[1];
+                    const idx = Number(arrMatch[2]);
+                    data = data[key][idx];
+                } else {
+                    data = data[p];
+                }
+            }
+            return JSON.stringify(data,null,2);
+        } catch(err) {
+            return "JSONPath匹配失败："+err.message;
+        }
+    }
+    // JSONPath查询
+    jsonPathBtn.onclick = () => {
+        errorTip.textContent = "";
+        const jsonTxt = rawJson.value.trim();
+        const path = jsonPathInput.value.trim();
+        if(!jsonTxt || !path) return;
+        try {
+            const obj = JSON.parse(jsonTxt);
+            resultJson.value = jsonPathQuery(obj, path);
+        } catch(e) {
+            errorTip.textContent = "JSON解析失败："+e.message;
+        }
+    }
+</script>
+</body>
+</html>
