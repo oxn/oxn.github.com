@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>MD5 在线加密工具</title>
+    <style>
+        :root {
+            --primary: #10b981;
+            --primary-light: #dcfce7;
+            --header-bg: transparent;
+            --warn: #f97316;
+            --nav-btn-bg: #ffffff;
+            --nav-btn-border: #e5e7eb;
+            --nav-btn-text: #222222;
+            --text-main: #222222;
+            --text-secondary: #555555;
+            --text-weak: #888888;
+            --border-base: #e5e7eb;
+            --border-light: #f3f4f6;
+            --bg-page: #ffffff;
+            --bg-card: #ffffff;
+            --bg-btn: #ffffff;
+            --bg-footer: #f0fdf4;
+            --shadow-sm: 0 1px 3px rgba(0,0,0.06);
+            --shadow-lg: 0 6px 16px rgba(0,0,0.1);
+            --radius-xs: 4px;
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-full: 999px;
+            --space-xs: 6px;
+            --space-sm: 10px;
+            --space-md: 14px;
+            --space-lg: 16px;
+            --space-xl: 28px;
+            --transition: all 0.22s ease;
+            --key-bg: #e5e7eb;
+            --key-text: #222;
+            --key-radius: 6px;
+            --key-shadow: 0 1px 2px rgba(0,0,0.15);
+            --body-font-size: 16px;
+            --desktop-font-ratio: 0.85;
+            --title-line-height: 1.2;
+            --sub-title-line-height: 1.25;
+            --content-max-width: 1200px;
+            --card-gap: 16px;
+            --card-min-width: 300px;
+            --header-safe-gap: 16px;
+            --nav-line-height: 38px;
+            --theme-btn-width: 36px;
+        }
+        html[data-theme="dark"] {
+            --primary: #10b981;
+            --primary-light: rgba(16, 185, 129, 0.15);
+            --header-bg: transparent;
+            --nav-btn-bg: #1f2937;
+            --nav-btn-border: #374151;
+            --nav-btn-text: #f3f4f6;
+            --warn: #f97316;
+            --text-main: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-weak: #94a3b8;
+            --border-base: #334155;
+            --border-light: #334155;
+            --bg-page: #0f172a;
+            --bg-card: #1e293b;
+            --bg-btn: #1e293b;
+            --bg-footer: #111827;
+            --shadow-sm: 0 1px 3px rgba(0,0,0.2);
+            --shadow-lg: 0 6px 16px rgba(0,0,0.35);
+            --key-bg: #334155;
+            --key-text: #f1f5f9;
+        }
+        html {
+            font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "PingFang SC", sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        body {
+            min-height: 100%;
+            background: var(--bg-page);
+            display: flex;
+            flex-direction: column;
+            line-height: 1.5;
+            font-size: calc(var(--body-font-size) * var(--desktop-font-ratio));
+            overflow-x: hidden;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: var(--transition);
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        button {
+            font-family: inherit;
+            font-size: inherit;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+        }
+        .container {
+            max-width: var(--content-max-width);
+            width: calc(100% - 48px);
+            margin: 0 auto;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 99;
+            background: var(--header-bg);
+            border-bottom: none;
+        }
+        .header-inner {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 14px 0;
+        }
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--nav-btn-text);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 7px 10px;
+            border-radius: var(--radius-lg);
+            background: var(--nav-btn-bg);
+            border: 1px solid var(--nav-btn-border);
+            height: var(--nav-line-height);
+            flex-shrink: 0;
+        }
+        .back-btn:hover {
+            border-color: var(--primary);
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+        .page-title {
+            display: none;
+        }
+        .theme-switch-wrap {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .header-btn-circle {
+            width: var(--theme-btn-width);
+            height: var(--theme-btn-width);
+            padding: 0;
+            border: 1px solid var(--nav-btn-border);
+            border-radius: 50%;
+            font-size: calc(16px * var(--desktop-font-ratio));
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--nav-btn-bg);
+            color: var(--nav-btn-text);
+            flex-shrink: 0;
+        }
+        .header-btn-circle:hover {
+            border-color: var(--primary);
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+        .header-spacer {
+            width: 100%;
+            height: 60px;
+            flex-shrink: 0;
+        }
+        main.container {
+            margin-top: 12px;
+            flex: 1;
+            padding-bottom: 60px;
+        }
+        .page-head {
+            text-align: center;
+            margin: 20px 0 30px;
+        }
+        .page-head h1 {
+            font-size: calc(36px * var(--desktop-font-ratio));
+            margin-bottom: 12px;
+            color: var(--text-main);
+        }
+        .page-head .blue-tip {
+            color: #3b82f6;
+            font-size: calc(18px * var(--desktop-font-ratio));
+            margin-bottom: 10px;
+        }
+        .page-head .desc-text {
+            color: var(--text-weak);
+            font-size: calc(15px * var(--desktop-font-ratio));
+        }
+        .card-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-base);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 24px;
+        }
+        .card-title {
+            font-size: calc(22px * var(--desktop-font-ratio));
+            font-weight: bold;
+            color: var(--text-main);
+            margin-bottom: 16px;
+        }
+        textarea, input[type="text"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-base);
+            border-radius: var(--radius-sm);
+            background: var(--bg-btn);
+            color: var(--text-main);
+            font-size: calc(15px * var(--desktop-font-ratio));
+            resize: vertical;
+            outline: none;
+            transition: var(--transition);
+        }
+        textarea:focus, input[type="text"]:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(16,185,129,0.15);
+        }
+        .input-block {
+            margin-bottom: 16px;
+        }
+        .input-label {
+            display: block;
+            color: var(--text-main);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        .btn-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .op-btn {
+            height: 44px;
+            padding: 0 18px;
+            border: 1px solid var(--border-base);
+            border-radius: var(--radius-sm);
+            background: var(--bg-btn);
+            color: var(--text-main);
+            font-size: calc(15px * var(--desktop-font-ratio));
+            white-space: nowrap;
+        }
+        .op-btn.primary {
+            border-color: var(--primary);
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+        .op-btn.warn {
+            color: #ef4444;
+            border-color: #fecdd3;
+        }
+        .op-btn:hover {
+            border-color: var(--primary);
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+        .op-btn.warn:hover {
+            border-color: #ef4444;
+            background: #fef2f2;
+            color: #ef4444;
+        }
+        .result-item {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .result-item input {
+            flex: 1;
+        }
+        .info-card-section {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-top: 40px;
+        }
+        .info-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-base);
+            border-radius: var(--radius-lg);
+            padding: 18px 20px;
+            box-shadow: var(--shadow-sm);
+        }
+        .info-card h3 {
+            font-size: calc(32px * var(--desktop-font-ratio));
+            font-weight: bold;
+            color: var(--text-main);
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+        .info-card p {
+            font-size: calc(17px * var(--desktop-font-ratio));
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+        /* 复制弹窗 */
+        .toast-copy {
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-20px);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 32px;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+            z-index: 99999;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            min-height: 72px;
+        }
+        .toast-copy.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+        }
+        .toast-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #22c55e;
+            color: #fff;
+            display: grid;
+            place-items: center;
+            font-size: calc(22px * var(--desktop-font-ratio));
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .toast-text {
+            font-size: calc(28px * var(--desktop-font-ratio));
+            color: #16a34a;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        html[data-theme="dark"] .toast-copy {
+            background: rgba(34, 197, 94, 0.12);
+            border-color: rgba(34, 197, 94, 0.3);
+        }
+        html[data-theme="dark"] .toast-text {
+            color: #4ade80;
+        }
+        @media (max-width: 640px) {
+            body {
+                font-size: var(--body-font-size);
+            }
+            .back-btn {
+                font-size: 12px;
+            }
+            .header-btn-circle {
+                font-size: 16px;
+            }
+            .page-head h1 {
+                font-size: 28px;
+            }
+            .page-head .blue-tip {
+                font-size: 18px;
+            }
+            .page-head .desc-text {
+                font-size: 15px;
+            }
+            .info-card h3 {
+                font-size: 26px;
+            }
+            .info-card p {
+                font-size: 17px;
+            }
+            .op-btn {
+                font-size: 15px;
+            }
+            .block-tip {
+                font-size: 15px;
+            }
+            .toast-icon {
+                font-size: 16px;
+            }
+            .toast-text {
+                font-size: 20px;
+            }
+            .btn-row {
+                flex-wrap: wrap;
+            }
+            .result-item {
+                flex-wrap: wrap;
+            }
+            .info-card-section {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media screen and (max-width:767px) and (orientation:portrait){
+            .header-btn-circle{
+                width:34px;
+                height:34px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+<header id="headerDom">
+    <div class="container header-inner">
+        <a href="index.html" class="back-btn">← 返回首页</a>
+        <div class="theme-switch-wrap">
+            <button id="themeToggle" class="header-btn-circle">🌙</button>
+        </div>
+    </div>
+</header>
+<div class="header-spacer" id="headerSpacer"></div>
+
+<main class="container">
+    <div class="page-head">
+        <h1>MD5 在线加密工具</h1>
+        <div class="blue-tip">输入明文，实时生成4种格式MD5哈希值，一键复制</div>
+        <div class="desc-text">完全复刻 toolsjy.com/md5 功能，支持32位/16位大小写MD5</div>
+    </div>
+
+    <div class="card-box">
+        <h2 class="card-title">明文输入</h2>
+        <div class="input-block">
+            <label class="input-label">待加密文本</label>
+            <textarea id="rawInput" rows="5" placeholder="请输入需要加密的文字，例如：123456"></textarea>
+        </div>
+        <div class="btn-row">
+            <button class="op-btn warn" id="clearAll">清空全部</button>
+        </div>
+
+        <h2 class="card-title">MD5 加密结果</h2>
+        <div class="result-item">
+            <input type="text" id="md532Lower" readonly placeholder="32位小写MD5">
+            <button class="op-btn primary copyBtn" data-target="md532Lower">复制</button>
+        </div>
+        <div class="result-item">
+            <input type="text" id="md532Upper" readonly placeholder="32位大写MD5">
+            <button class="op-btn primary copyBtn" data-target="md532Upper">复制</button>
+        </div>
+        <div class="result-item">
+            <input type="text" id="md516Lower" readonly placeholder="16位小写MD5">
+            <button class="op-btn primary copyBtn" data-target="md516Lower">复制</button>
+        </div>
+        <div class="result-item">
+            <input type="text" id="md516Upper" readonly placeholder="16位大写MD5">
+            <button class="op-btn primary copyBtn" data-target="md516Upper">复制</button>
+        </div>
+    </div>
+
+    <div class="info-card-section">
+        <div class="info-card">
+            <h3>什么是 MD5</h3>
+            <p>MD5 是一种不可逆哈希算法，将任意长度文本固定输出128比特哈希值，常用于密码存储、文件校验、数据防篡改。</p>
+        </div>
+        <div class="info-card">
+            <h3>格式说明</h3>
+            <p>32位为完整MD5；16位是截取32位第9~24位字符，多数老旧系统密码库使用16位MD5。</p>
+        </div>
+        <div class="info-card">
+            <h3>安全提示</h3>
+            <p>MD5已被证明不安全，敏感密码建议使用 SHA256、bcrypt、Argon2 等更强加密算法。</p>
+        </div>
+    </div>
+</main>
+
+<div class="toast-copy" id="copyToast">
+    <div class="toast-icon">✓</div>
+    <span class="toast-text">复制成功</span>
+</div>
+
+<script>
+    // 主题切换 统一沿用站点稳定逻辑
+    const htmlRoot = document.documentElement;
+    const themeBtn = document.getElementById("themeToggle");
+    const mediaDark = window.matchMedia('(prefers-color-scheme: dark)');
+    const STORAGE_KEY = "site_theme_mode";
+    function applyTheme(mode) {
+        if (mode === "dark") {
+            htmlRoot.setAttribute("data-theme", "dark");
+            themeBtn.innerHTML = "☀️";
+        } else {
+            htmlRoot.removeAttribute("data-theme");
+            themeBtn.innerHTML = "🌙";
+        }
+    }
+    function initTheme() {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) applyTheme(saved);
+        else applyTheme(mediaDark.matches ? "dark" : "light");
+    }
+    function toggleTheme() {
+        const current = htmlRoot.hasAttribute("data-theme") ? "dark" : "light";
+        const next = current === "dark" ? "light" : "dark";
+        localStorage.setItem(STORAGE_KEY, next);
+        applyTheme(next);
+    }
+    mediaDark.addEventListener("change", e => {
+        if (!localStorage.getItem(STORAGE_KEY)) applyTheme(e.matches ? "dark" : "light");
+    });
+    initTheme();
+    themeBtn.onclick = toggleTheme;
+
+    // 顶部导航高度自适应
+    const headerDom = document.getElementById('headerDom');
+    const headerSpacer = document.getElementById('headerSpacer');
+    function syncHeaderHeight() {
+        headerSpacer.style.height = headerDom.offsetHeight + "px";
+    }
+    window.addEventListener('resize', syncHeaderHeight);
+    syncHeaderHeight();
+
+    // 弹窗提示
+    const copyToast = document.getElementById('copyToast');
+    function showToast() {
+        copyToast.classList.remove('show');
+        setTimeout(() => copyToast.classList.add('show'), 10);
+        setTimeout(() => copyToast.classList.remove('show'), 1800);
+    }
+
+    // MD5 核心加密算法（纯JS内置，无外部依赖）
+    function md5(str) {
+        function rotateLeft(x, c) {
+            return (x << c) | (x >>> (32 - c));
+        }
+        function addUnsigned(x, y) {
+            const x8 = (x & 0x80000000);
+            const y8 = (y & 0x80000000);
+            const x4 = (x & 0x40000000);
+            const y4 = (y & 0x40000000);
+            const res = (x & 0x3FFFFFFF) + (y & 0x3FFFFFFF);
+            if (x4 & y4) return res ^ 0x80000000;
+            if (x4 | y4) {
+                if (res & 0x40000000) return res ^ 0xC0000000;
+                else return res ^ 0x40000000;
+            } else return res;
+        }
+        function F(x, y, z) { return (x & y) | (~x & z); }
+        function G(x, y, z) { return (x & z) | (y & ~z); }
+        function H(x, y, z) { return x ^ y ^ z; }
+        function I(x, y, z) { return y ^ (x | ~z); }
+        function FF(a, b, c, d, x, s, ac) {
+            a = addUnsigned(a, addUnsigned(addUnsigned(F(b, c, d), x), ac));
+            return addUnsigned(rotateLeft(a, s), b);
+        }
+        function GG(a, b, c, d, x, s, ac) {
+            a = addUnsigned(a, addUnsigned(addUnsigned(G(b, c, d), x), ac));
+            return addUnsigned(rotateLeft(a, s), b);
+        }
+        function HH(a, b, c, d, x, s, ac) {
+            a = addUnsigned(a, addUnsigned(addUnsigned(H(b, c, d), x), ac));
+            return addUnsigned(rotateLeft(a, s), b);
+        }
+        function II(a, b, c, d, x, s, ac) {
+            a = addUnsigned(a, addUnsigned(addUnsigned(I(b, c, d), x), ac));
+            return addUnsigned(rotateLeft(a, s), b);
+        }
+        function strToWordArray(s) {
+            let w = [];
+            let b = 0;
+            let mask = (1 << 8) - 1;
+            for (let i = 0; i < s.length; i += 1) {
+                const code = s.charCodeAt(i);
+                const byte1 = code & mask;
+                const byte2 = (code >> 8) & mask;
+                w[b >> 2] |= byte1 << ((b % 4) * 8);
+                b += 1;
+                w[b >> 2] |= byte2 << ((b % 4) * 8);
+                b += 1;
+            }
+            const wordCount = b >> 2;
+            const bytePos = b % 4;
+            w[wordCount] |= 0x80 << (bytePos * 8);
+            const totalBits = b * 8;
+            const wordMax = (((wordCount + 8) >> 4) << 4) + 14;
+            while (w.length <= wordMax) w.push(0);
+            w[wordMax] = totalBits;
+            return w;
+        }
+        function wordToHex(w) {
+            let hex = "";
+            const mask = (1 << 8) - 1;
+            for (let i = 0; i < w.length * 4; i += 1) {
+                const byte = (w[i >> 2] >> ((i % 4) * 8)) & mask;
+                hex += ("0" + byte.toString(16)).slice(-2);
+            }
+            return hex;
+        }
+        const x = strToWordArray(str);
+        let a = 0x67452301;
+        let b = 0xEFCDAB89;
+        let c = 0x98BADCFE;
+        let d = 0x10325476;
+        const S11 = 7, S12 = 12, S13 = 17, S14 = 22;
+        const S21 = 5, S22 = 9, S23 = 14, S24 = 20;
+        const S31 = 4, S32 = 11, S33 = 16, S34 = 23;
+        const S41 = 6, S42 = 10, S43 = 15, S44 = 21;
+        for (let k = 0; k < x.length; k += 16) {
+            const oldA = a, oldB = b, oldC = c, oldD = d;
+            a = FF(a, b, c, d, x[k + 0], S11, 0xD76AA478);
+            d = FF(d, a, b, c, x[k + 1], S12, 0xE8C7B756);
+            c = FF(c, d, a, b, x[k + 2], S13, 0x242070DB);
+            b = FF(b, c, d, a, x[k + 3], S14, 0xC1BDCEEE);
+            a = FF(a, b, c, d, x[k + 4], S11, 0xF57C0FAF);
+            d = FF(d, a, b, c, x[k + 5], S12, 0x4787C62A);
+            c = FF(c, d, a, b, x[k + 6], S13, 0xA8304613);
+            b = FF(b, c, d, a, x[k + 7], S14, 0xFD469501);
+            a = FF(a, b, c, d, x[k + 8], S11, 0x698098D8);
+            d = FF(d, a, b, c, x[k + 9], S12, 0x8B44F7AF);
+            c = FF(c, d, a, b, x[k + 10], S13, 0xFFFF5BB1);
+            b = FF(b, c, d, a, x[k + 11], S14, 0x895CD7BE);
+            a = FF(a, b, c, d, x[k + 12], S11, 0x6B901122);
+            d = FF(d, a, b, c, x[k + 13], S12, 0xFD987193);
+            c = FF(c, d, a, b, x[k + 14], S13, 0xA679438E);
+            b = FF(b, c, d, a, x[k + 15], S14, 0x49B40821);
+            a = GG(a, b, c, d, x[k + 1], S21, 0xF61E2562);
+            d = GG(d, a, b, c, x[k + 6], S22, 0xC040B340);
+            c = GG(c, d, a, b, x[k + 11], S23, 0x265E5A51);
+            b = GG(b, c, d, a, x[k + 0], S24, 0xE9B6C7AA);
+            a = GG(a, b, c, d, x[k + 5], S21, 0xD62F105D);
+            d = GG(d, a, b, c, x[k + 10], S22, 0x02441453);
+            c = GG(c, d, a, b, x[k + 15], S23, 0xD8A1E681);
+            b = GG(b, c, d, a, x[k + 4], S24, 0xE7D3FBC8);
+            a = GG(a, b, c, d, x[k + 9], S21, 0x21E1CDE6);
+            d = GG(d, a, b, c, x[k + 14], S22, 0xC33707D6);
+            c = GG(c, d, a, b, x[k + 3], S23, 0xF4D50D87);
+            b = GG(b, c, d, a, x[k + 8], S24, 0x455A14ED);
+            a = GG(a, b, c, d, x[k + 13], S21, 0xA9E3E905);
+            d = GG(d, a, b, c, x[k + 2], S22, 0xFCEFA3F8);
+            c = GG(c, d, a, b, x[k + 7], S23, 0x676F02D9);
+            b = GG(b, c, d, a, x[k + 12], S24, 0x8D2A4C8A);
+            a = HH(a, b, c, d, x[k + 5], S31, 0xFFFA3942);
+            d = HH(d, a, b, c, x[k + 8], S32, 0x8771F681);
+            c = HH(c, d, a, b, x[k + 11], S33, 0x6D9D6122);
+            b = HH(b, c, d, a, x[k + 14], S34, 0xFDE5380C);
+            a = HH(a, b, c, d, x[k + 1], S31, 0xA4BEEA44);
+            d = HH(d, a, b, c, x[k + 4], S32, 0x4BDECFA9);
+            c = HH(c, d, a, b, x[k + 7], S33, 0xF6BB4B60);
+            b = HH(b, c, d, a, x[k + 10], S34, 0xBEBFBC70);
+            a = HH(a, b, c, d, x[k + 13], S31, 0x289B7EC6);
+            d = HH(d, a, b, c, x[k + 0], S32, 0xEAA127FA);
+            c = HH(c, d, a, b, x[k + 3], S33, 0xD4EF3085);
+            b = HH(b, c, d, a, x[k + 6], S34, 0x04881D05);
+            a = HH(a, b, c, d, x[k + 9], S31, 0xD9D4D039);
+            d = HH(d, a, b, c, x[k + 12], S32, 0xE6DB99E5);
+            c = HH(c, d, a, b, x[k + 15], S33, 0x1FA27CF8);
+            b = HH(b, c, d, a, x[k + 2], S34, 0xC4AC5665);
+            a = II(a, b, c, d, x[k + 0], S41, 0xF4292244);
+            d = II(d, a, b, c, x[k + 7], S42, 0x432AFF97);
+            c = II(c, d, a, b, x[k + 14], S43, 0xAB9423A7);
+            b = II(b, c, d, a, x[k + 5], S44, 0xFC93A039);
+            a = II(a, b, c, d, x[k + 12], S41, 0x655B59C3);
+            d = II(d, a, b, c, x[k + 3], S42, 0x8F0CCC92);
+            c = II(c, d, a, b, x[k + 10], S43, 0xFFEFF47D);
+            b = II(b, c, d, a, x[k + 1], S44, 0x85845DD1);
+            a = II(a, b, c, d, x[k + 8], S41, 0x6FA87E4F);
+            d = II(d, a, b, c, x[k + 15], S42, 0xFE2CE6E0);
+            c = II(c, d, a, b, x[k + 6], S43, 0xA3014314);
+            b = II(b, c, d, a, x[k + 13], S44, 0x4E0811A1);
+            a = II(a, b, c, d, x[k + 4], S41, 0xF7537E82);
+            d = II(d, a, b, c, x[k + 11], S42, 0xBD3AF235);
+            c = II(c, d, a, b, x[k + 2], S43, 0x2AD7D2BB);
+            b = II(b, c, d, a, x[k + 9], S44, 0xEB86D391);
+            a = addUnsigned(a, oldA);
+            b = addUnsigned(b, oldB);
+            c = addUnsigned(c, oldC);
+            d = addUnsigned(d, oldD);
+        }
+        const finalWordArray = [a, b, c, d];
+        return wordToHex(finalWordArray);
+    }
+
+    // DOM元素
+    const rawInput = document.getElementById('rawInput');
+    const md532Lower = document.getElementById('md532Lower');
+    const md532Upper = document.getElementById('md532Upper');
+    const md516Lower = document.getElementById('md516Lower');
+    const md516Upper = document.getElementById('md516Upper');
+    const clearAll = document.getElementById('clearAll');
+    const copyBtns = document.querySelectorAll('.copyBtn');
+
+    // 实时计算MD5
+    function calcMD5() {
+        const text = rawInput.value;
+        if (!text) {
+            md532Lower.value = "";
+            md532Upper.value = "";
+            md516Lower.value = "";
+            md516Upper.value = "";
+            return;
+        }
+        const full32 = md5(text);
+        const full32Upper = full32.toUpperCase();
+        const mid16 = full32.slice(8, 24);
+        const mid16Upper = mid16.toUpperCase();
+        md532Lower.value = full32;
+        md532Upper.value = full32Upper;
+        md516Lower.value = mid16;
+        md516Upper.value = mid16Upper;
+    }
+    rawInput.addEventListener('input', calcMD5);
+
+    // 清空全部
+    clearAll.onclick = () => {
+        rawInput.value = "";
+        calcMD5();
+    };
+
+    // 复制按钮事件
+    copyBtns.forEach(btn => {
+        btn.onclick = () => {
+            const targetId = btn.dataset.target;
+            const input = document.getElementById(targetId);
+            if (!input.value) return;
+            input.select();
+            document.execCommand('copy');
+            showToast();
+        }
+    })
+</script>
+</body>
+</html>
