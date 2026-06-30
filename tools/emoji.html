@@ -75,14 +75,11 @@
             --key-text: #f1f5f9;
         }
         html {
-            font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "PingFang SC", "Segoe UI Symbol", "Apple Color Emoji", sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "PingFang SC", sans-serif;
             -webkit-font-smoothing: antialiased;
         }
+        /* Emoji核心修复：强制彩色渲染 */
         .sym-item {
-            font-family: "Apple Color Emoji", "Segoe UI Symbol", -apple-system, BlinkMacSystemFont, sans-serif;
-            font-variation-settings: "COLR" 1;
-            color: inherit;
-            -webkit-font-smoothing: antialiased;
             height: 48px;
             display: grid;
             place-items: center;
@@ -95,10 +92,20 @@
             text-align: center;
             padding: 0 8px;
             transition: var(--transition);
+            /* 彩色Emoji字体优先级，Windows/macOS/安卓全兜底 */
+            font-family: "Segoe UI Emoji", "Segoe UI Symbol", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+            /* 强制开启彩色图层 */
+            font-variation-settings: "COLR" 1;
+            font-feature-settings: "colr" 1;
+            text-rendering: optimizeSpeed;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            color: inherit;
         }
-        /* 深色模式专属修复：给黑色emoji增加细微白色外发光，保证可见，不破坏彩色emoji */
+        /* 暗黑模式专属修复：黑色图标增加双层白色柔光，提升对比度 */
         html[data-theme="dark"] .sym-item {
-            filter: drop-shadow(0 0 0.5px rgba(255,255,255,0.6));
+            filter: drop-shadow(0 0 0.4px rgba(255,255,255,0.7))
+                    drop-shadow(0 0 0.8px rgba(255,255,255,0.35));
         }
         .sym-item:hover {
             border-color: var(--primary);
@@ -674,7 +681,7 @@
         })
     }
 
-    // Emoji数据源
+    // Emoji完整数据源
     const symData = {
         face: {
             title: "表情",
@@ -770,7 +777,7 @@
         }
     };
 
-    // 渲染自动清洗空格
+    // 渲染自动清洗多余空格，无空白格子
     document.addEventListener('DOMContentLoaded', () => {
         renderAll();
         syncHeaderHeight();
