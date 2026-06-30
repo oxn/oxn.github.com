@@ -749,6 +749,20 @@
   // 工具数据源
     const toolList = [
 {
+  "id": "uuid-generator",
+  "icon": "🆔",
+  "title": "UUID 生成器",
+  "desc": "批量生成标准UUID，单行卡片展示，每条独立复制，支持多种大小写/横线格式，本地离线生成",
+  "cat": "DEV",
+  "catName": "开发工具",
+  "catIcon": "🧰",
+  "date": "2026-06-30",
+  "featured": false,
+  "top": false,
+  "url": "./uuid-generator.html",
+  "tags": ["uuid", "唯一ID", "主键生成", "批量生成", "本地离线"]
+},
+    {
   "id": "curl-convert",
   "icon": "🔗",
   "title": "CURL 转代码工具",
@@ -915,133 +929,8 @@
       top: false,
       url: "./totp.html",
       tags: ["totp","2fa","两步验证","密钥","验证码"]
-    },
-    {
-      id: "curl",
-      icon: "🧭",
-      title: "CURL 转代码工具",
-      desc: "将 curl 命令转换成 JavaScript / Python / Java / Go 请求代码，快速生成后端请求模板",
-      cat: "DEV",
-      catName: "开发工具",
-      catIcon: "⚡",
-      date: "2026-01-24",
-      featured: false,
-      top: false,
-      url: "#",
-      tags: ["curl", "http", "接口", "后端"]
-    },
-    {
-      id: "json",
-      icon: "{}",
-      title: "JSON 格式化",
-      desc: "JSON 格式化、压缩、校验，支持错误定位和语法高亮，一键美化杂乱JSON文本",
-      cat: "DEV",
-      catName: "开发工具",
-      catIcon: "⚡",
-      date: "2026-01-20",
-      featured: false,
-      top: false,
-      url: "#",
-      tags: ["json", "格式化", "校验"]
-    },
-    {
-      id: "timestamp",
-      icon: "⏱",
-      title: "时间戳转换",
-      desc: "时间戳与日期互转，支持多种格式与时区，毫秒/秒级时间戳双向解析",
-      cat: "TIME",
-      catName: "时间工具",
-      catIcon: "⏰",
-      date: "2026-01-18",
-      featured: false,
-      top: false,
-      url: "#",
-      tags: ["时间戳", "日期", "时区"]
-    },
-    {
-      id: "base64-text",
-      icon: "🔤",
-      title: "Base64 编解码",
-      desc: "Base64 编码与解码，支持文本与文件，兼容中文、二进制内容转换",
-      cat: "TEXT",
-      catName: "文本工具",
-      catIcon: "📄",
-      date: "2026-01-15",
-      featured: false,
-      top: false,
-      url: "#",
-      tags: ["base64", "编码", "加密"]
-    },
-    {
-      id: "url",
-      icon: "%",
-      title: "URL 编解码",
-      desc: "URL 编码与解码，支持完整链接与参数，自动处理特殊符号转义",
-      cat: "DEV",
-      catName: "开发工具",
-      catIcon: "⚡",
-      date: "2026-01-12",
-      featured: false,
-      top: false,
-      url: "#",
-      tags: ["url", "参数", "转义"]
-    },
-    {
-      id: "qrcode",
-      icon: "▣",
-      title: "二维码生成器",
-      desc: "自定义颜色、尺寸生成二维码，支持文本、链接、联系方式批量生成",
-      cat: "GENERATOR",
-      catName: "生成器",
-      catIcon: "🎲",
-      date: "2026-01-10",
-      featured: false,
-      top: false,
-      url: "#",
-      tags: ["二维码", "生成", "扫码"]
-    },
-    {
-      id: "jwt",
-      icon: "🔐",
-      title: "JWT 解码器",
-      desc: "解析JWT，查看Header、Payload与签名信息，无需密钥即可读取载荷",
-      cat: "DEV",
-      catName: "开发工具",
-      catIcon: "⚡",
-      date: "2026-01-08",
-      featured: false,
-      top: false,
-      url: "#",
-      tags: ["jwt", "token", "登录"]
-    },
-    {
-      id: "regex",
-      icon: ".*",
-      title: "正则测试器",
-      desc: "正则表达式实时匹配、捕获组预览，支持多修饰符在线调试正则规则",
-      cat: "TEXT",
-      catName: "文本工具",
-      catIcon: "📄",
-      date: "2026-01-05",
-      featured: false,
-      top: false,
-      url: "#",
-      tags: ["正则", "匹配", "文本处理"]
-    },
-    {
-      id: "json-yaml",
-      icon: "🔄",
-      title: "JSON 转 YAML",
-      desc: "JSON与YAML双向转换工具，适配配置文件、容器编排文件快速互转",
-      cat: "CONVERT",
-      catName: "格式转换",
-      catIcon: "🔄",
-      date: "2025-12-22",
-      featured: false,
-      top: false,
-      url: "#",
-      tags: ["json", "yaml", "配置"]
     }
+
   ];
 
   const visibleTagBox = document.getElementById("visibleTagBox");
