@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>cytools-html</title>
-  <style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>cytools-html</title>
+<style>
 :root {
   --primary: #3b82f6;
   --primary-light: rgba(59, 130, 246, 0.08);
@@ -51,17 +51,21 @@
   --content-max-width: 1100px;
   --card-gap: 20px;
   --card-min-width: 300px;
-  --header-safe-gap: 28px;
+  --header-safe-gap: 100px;
   --nav-line-height: 34px;
   --theme-btn-width: 32px;
   --hover-white-border: #ffffff;
-
-  /* 新增：激活标签白色外框 */
   --tag-active-border: #ffffff;
   --tag-active-text: #1f2937;
+
+  --bg-gradient-1: rgba(167, 218, 240, 0.50);
+  --bg-gradient-2: rgba(150, 200, 230, 0.50);
+  --bg-gradient-3: rgba(255, 210, 150, 0.40);
+  --bg-gradient-4: rgba(190, 230, 210, 0.40);
+  --bg-gradient-base: linear-gradient(180deg, #e8f6ff 0%, #faffe8 50%, #fff9d9 100%);
 }
 
-html[data-theme="dark"] {
+.dark {
   --primary: #60a5fa;
   --primary-light: rgba(96, 165, 250, 0.12);
   --header-bg: rgba(22, 30, 48, 0.82);
@@ -86,10 +90,14 @@ html[data-theme="dark"] {
   --shadow-float: 0 10px 30px rgba(0, 0, 0, 0.3);
   --key-bg: rgba(58, 65, 90, 0.88);
   --key-text: #e5e7eb;
-
-  /* 深色模式下激活标签仍用白框，文字保持浅色体系 */
   --tag-active-border: #ffffff;
   --tag-active-text: #e5e7eb;
+
+  --bg-gradient-1: rgba(71, 85, 105, 0.55);
+  --bg-gradient-2: rgba(71, 85, 105, 0.55);
+  --bg-gradient-3: rgba(60, 65, 80, 0.45);
+  --bg-gradient-4: rgba(60, 80, 70, 0.45);
+  --bg-gradient-base: linear-gradient(180deg, #0f1318 0%, #111827 50%, #0f1318 100%);
 }
 
 * {
@@ -116,23 +124,14 @@ body {
   font-size: var(--body-font-size);
   line-height: var(--body-line-height);
   background-image:
-    radial-gradient(circle at 12% 8%, rgba(167, 218, 240, 0.50) 0%, transparent 30%),
-    radial-gradient(circle at 88% 10%, rgba(150, 200, 230, 0.50) 0%, transparent 32%),
-    radial-gradient(circle at 50% 86%, rgba(255, 210, 150, 0.40) 0%, transparent 30%),
-    radial-gradient(circle at 6% 80%, rgba(190, 230, 210, 0.40) 0%, transparent 32%),
-    linear-gradient(180deg, #e8f6ff 0%, #faffe8 50%, #fff9d9 100%);
+    radial-gradient(circle at 78% 65%, var(--bg-gradient-1) 0%, transparent 26%),
+    radial-gradient(circle at 86% 78%, var(--bg-gradient-2) 0%, transparent 28%),
+    radial-gradient(circle at 90% 85%, var(--bg-gradient-3) 0%, transparent 24%),
+    radial-gradient(circle at 82% 90%, var(--bg-gradient-4) 0%, transparent 26%),
+    var(--bg-gradient-base);
   background-attachment: fixed;
   background-size: cover;
   background-position: center;
-}
-
-html[data-theme="dark"] body {
-  background-image:
-    radial-gradient(circle at 12% 8%, rgba(71, 85, 105, 0.55) 0%, transparent 30%),
-    radial-gradient(circle at 88% 10%, rgba(71, 85, 105, 0.55) 0%, transparent 32%),
-    radial-gradient(circle at 50% 86%, rgba(60, 65, 80, 0.45) 0%, transparent 30%),
-    radial-gradient(circle at 6% 80%, rgba(60, 80, 70, 0.45) 0%, transparent 32%),
-    linear-gradient(180deg, #0f1318 0%, #111827 50%, #0f1318 100%);
 }
 
 a {
@@ -224,7 +223,6 @@ header {
   min-width: 220px;
 }
 
-/* 顶部导航按钮更紧凑 */
 .header-btn {
   padding: 4px 8px;
   border: 1px solid var(--nav-btn-border);
@@ -290,14 +288,7 @@ header {
   }
 }
 
-.header-spacer {
-  width: 100%;
-  height: 0;
-  flex-shrink: 0;
-}
-
 main.container {
-  margin-top: var(--header-safe-gap);
   flex: 1;
   padding-top: 10px;
 }
@@ -414,7 +405,7 @@ main.container {
   gap: 8px;
   flex: 1;
   min-width: 0;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .category-tag,
@@ -436,7 +427,6 @@ main.container {
   transform-origin: center;
 }
 
-/* 中建标签激活态：白框、文字黑色不变、加粗 */
 .category-tag.active {
   border-color: var(--tag-active-border);
   color: var(--tag-active-text);
@@ -551,7 +541,7 @@ main.container {
 }
 
 .tool-card::after {
-  content: "→";
+  content: "⮕";
   position: absolute;
   right: var(--space-lg);
   bottom: var(--space-lg);
@@ -748,7 +738,7 @@ footer {
   -webkit-backdrop-filter: blur(var(--nav-blur)) saturate(145%);
   box-shadow: var(--shadow-float);
 }
-  </style>
+</style>
 </head>
 <body>
 <header id="headerDom">
@@ -785,8 +775,6 @@ footer {
   </div>
 </header>
 
-<div class="header-spacer" id="headerSpacer"></div>
-
 <main class="container">
   <div class="search-wrap">
     <div class="search-box">
@@ -821,481 +809,266 @@ footer {
 </footer>
 
 <script>
-  const htmlRoot = document.documentElement;
-  const themeBtn = document.getElementById("themeToggle");
-  const mediaDark = window.matchMedia('(prefers-color-scheme: dark)');
-  const STORAGE_KEY = "site_theme_mode";
+const htmlRoot = document.documentElement;
+const bodyDom = document.body;
+const themeBtn = document.getElementById("themeToggle");
+const mediaDark = window.matchMedia('(prefers-color-scheme: dark)');
+const STORAGE_KEY = "site_theme_mode";
+const headerDom = document.getElementById("headerDom");
+const mainDom = document.querySelector("main.container");
 
-  function applyTheme(mode) {
-    if (mode === "dark") {
-      htmlRoot.setAttribute("data-theme", "dark");
-      themeBtn.innerHTML = "☀️";
-    } else {
-      htmlRoot.removeAttribute("data-theme");
-      themeBtn.innerHTML = "🌙";
-    }
+function setMainTopOffset() {
+  const headerH = headerDom.getBoundingClientRect().height + 24;
+  mainDom.style.marginTop = headerH + "px";
+}
+
+function applyTheme(mode) {
+  if (mode === "dark") {
+    bodyDom.classList.add("dark");
+    themeBtn.innerHTML = "☀️";
+  } else {
+    bodyDom.classList.remove("dark");
+    themeBtn.innerHTML = "🌙";
   }
+}
 
-  function initTheme() {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      applyTheme(saved);
-    } else {
-      applyTheme(mediaDark.matches ? "dark" : "light");
-    }
+function initTheme() {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved) {
+    applyTheme(saved);
+  } else {
+    applyTheme(mediaDark.matches ? "dark" : "light");
   }
+}
 
-  function toggleTheme() {
-    const current = htmlRoot.hasAttribute("data-theme") ? "dark" : "light";
-    const next = current === "dark" ? "light" : "dark";
-    localStorage.setItem(STORAGE_KEY, next);
-    applyTheme(next);
+function toggleTheme() {
+  const isDark = bodyDom.classList.contains("dark");
+  const next = isDark ? "light" : "dark";
+  localStorage.setItem(STORAGE_KEY, next);
+  applyTheme(next);
+}
+
+mediaDark.addEventListener("change", e => {
+  if (!localStorage.getItem(STORAGE_KEY)) {
+    applyTheme(e.matches ? "dark" : "light");
   }
+});
 
-  mediaDark.addEventListener("change", (e) => {
-    if (!localStorage.getItem(STORAGE_KEY)) {
-      applyTheme(e.matches ? "dark" : "light");
-    }
+const toolList = [
+{"id":"uuid-generator","icon":"🆔","title":"UUID 生成器","desc":"批量生成标准UUID，单行卡片展示，每条独立复制，支持多种大小写/横线格式，本地离线生成","cat":"DEV","catName":"开发工具","catIcon":"🧰","date":"2026-06-30","featured":false,"top":false,"url":"./uuid-generator.html","tags":["uuid","唯一ID","主键生成","批量生成","本地离线"]},
+{"id":"curl-convert","icon":"🔗","title":"CURL 转代码工具","desc":"粘贴浏览器复制的 CURL 命令，一键生成 JavaScript / Python / Java / Go 网络请求代码，本地解析不上传数据","cat":"DEV","catName":"开发工具","catIcon":"🧰","date":"2026-06-30","featured":false,"top":false,"url":"./curl-convert.html","tags":["curl","接口调试","http请求","代码生成","后端开发"]},
+{"id":"json-xml-yaml-converter","icon":"🔄","title":"JSON XML YAML 互转工具","desc":"三种数据格式双向一键转换，自动格式化，接口/配置文件调试专用","cat":"CONVERT","catName":"格式转换","catIcon":"🔄","date":"2026-06-30","featured":false,"top":false,"url":"./format-convert.html","tags":["JSON","XML","YAML","格式转换","配置文件"]},
+{"id":"case-converter","icon":"🔤","title":"字符串命名格式转换工具","desc":"驼峰/空格/连字符/下划线四格式互转，自动识别原始命名，接口字段调试专用","cat":"DEV","catName":"实用工具","catIcon":"🧰","date":"2026-06-30","featured":false,"top":false,"url":"./case.html","tags":["驼峰","下划线","kebab","命名转换","变量字段"]},
+{"id":"string-split-two","icon":"📑","title":"两组字符串分割对照工具","desc":"双文本同步分割，顺序左右对齐，处理SQL键值、字段配对、批量对照文本","cat":"DEV","catName":"实用工具","catIcon":"🧰","date":"2026-06-30","featured":false,"top":false,"url":"./string2.html","tags":["字符串","分割对照","键值对","双列文本","SQL字段"]},
+{"id":"string-splitter","icon":"✂️","title":"字符串分割/连接工具","desc":"自定义分隔符拆分、多行文本拼接，自动过滤空行，批量处理ID标签CSV","cat":"DEV","catName":"实用工具","catIcon":"🧰","date":"2026-06-30","featured":false,"top":false,"url":"./string.html","tags":["字符串","分割","连接","文本处理","CSV批量"]},
+{"id":"json-formatter","icon":"📋","title":"JSON格式化工具","desc":"JSON美化压缩语法校验，支持JSONPath提取字段，接口调试专用","cat":"DEV","catName":"实用工具","catIcon":"🧰","date":"2026-06-30","featured":false,"top":false,"url":"./json.html","tags":["JSON","格式化","压缩","JSONPath","接口调试"]},
+{"id":"base64-encode-decode","icon":"🔡","title":"Base64 编码解码工具","desc":"文本一键转Base64、Base64解密，完美支持中文UTF8","cat":"DEV","catName":"实用工具","catIcon":"🧰","date":"2026-06-30","featured":false,"top":false,"url":"./base64.html","tags":["Base64","编码","解码","二进制转换"]},
+{"id":"md5-encrypt","icon":"🔐","title":"MD5 在线加密工具","desc":"输入明文实时生成32位/16位大小写MD5哈希值，一键复制结果","cat":"DEV","catName":"实用工具","catIcon":"🧰","date":"2026-06-30","featured":false,"top":false,"url":"./md5.html","tags":["MD5","加密","哈希","校验"]},
+{"id":"emoji","icon":"📄","title":"emoji表情大全","desc":"Emoji 表情大全是按分类整理的符号集合页面，方便快速查找、复制和组合常用表情符号。","cat":"TEXT","catName":"文本工具","catIcon":"📄","date":"2026-06-30","featured":false,"top":false,"url":"./emoji.html","tags":["特殊","符号","Unicode","emoji"]},
+{"id":"symbols-copy-and-paster","icon":"📄","title":"特殊符号大全","desc":"特殊符号大全用于集中查找和复制常见 Unicode 符号，包含数学符号、箭头、货币、希腊字母、上标下标等","cat":"TEXT","catName":"文本工具","catIcon":"📄","date":"2026-06-29","featured":false,"top":false,"url":"./symbols-copy-and-paste.html","tags":["特殊","符号","Unicode"]},
+{"id":"password-generator","icon":"🔐","title":"安全密码生成器","desc":"创建强大且安全的密码，保护您的数字生活","cat":"DEV","catName":"实用工具","catIcon":"🧰","date":"2026-06-28","featured":false,"top":false,"url":"./password-generator.html","tags":["密码","随机","生成"]},
+{"id":"totp-generator","icon":"🔐","title":"TOTP / 2FA 验证码生成器","desc":"本地离线两步验证生成，兼容谷歌验证器、Authy、Bitwarden等所有TOTP密钥。","cat":"DEV","catName":"实用工具","catIcon":"🧰","date":"2026-06-28","featured":false,"top":false,"url":"./totp.html","tags":["totp","2fa","两步验证","密钥","验证码"]}
+];
+
+const visibleTagBox = document.getElementById("visibleTagBox");
+const overflowPanel = document.getElementById("overflowPanel");
+const moreToggle = document.getElementById("moreToggle");
+const cardContainer = document.getElementById("cardContainer");
+const searchInput = document.getElementById("searchInput");
+const sortBtn = document.getElementById('sortBtn');
+
+let currentCat = "all";
+let panelOpen = false;
+let sortMode = "date-desc";
+let favList = JSON.parse(localStorage.getItem("toolFav")) || [];
+
+function saveFavAndRefreshCount() {
+  localStorage.setItem("toolFav", JSON.stringify(favList));
+  refreshAllCategoryUI();
+}
+
+function toggleFav(toolId) {
+  const idx = favList.indexOf(toolId);
+  if (idx > -1) favList.splice(idx,1);
+  else favList.push(toolId);
+  saveFavAndRefreshCount();
+}
+
+function getAutoCategoryList() {
+  const map = new Map();
+  toolList.forEach(i=>{
+    if(!map.has(i.cat)) map.set(i.cat, {cat:i.cat, name:i.catName, icon:i.catIcon});
   });
+  return Array.from(map.values());
+}
 
-  initTheme();
-  themeBtn.onclick = toggleTheme;
-
-  const toolList = [
-    {
-      "id": "uuid-generator",
-      "icon": "🆔",
-      "title": "UUID 生成器",
-      "desc": "批量生成标准UUID，单行卡片展示，每条独立复制，支持多种大小写/横线格式，本地离线生成",
-      "cat": "DEV",
-      "catName": "开发工具",
-      "catIcon": "🧰",
-      "date": "2026-06-30",
-      "featured": false,
-      "top": false,
-      "url": "./uuid-generator.html",
-      "tags": ["uuid", "唯一ID", "主键生成", "批量生成", "本地离线"]
-    },
-    {
-      "id": "curl-convert",
-      "icon": "🔗",
-      "title": "CURL 转代码工具",
-      "desc": "粘贴浏览器复制的 CURL 命令，一键生成 JavaScript / Python / Java / Go 网络请求代码，本地解析不上传数据",
-      "cat": "DEV",
-      "catName": "开发工具",
-      "catIcon": "🧰",
-      "date": "2026-06-30",
-      "featured": false,
-      "top": false,
-      "url": "./curl-convert.html",
-      "tags": ["curl", "接口调试", "http请求", "代码生成", "后端开发"]
-    },
-    {
-      "id": "json-xml-yaml-converter",
-      "icon": "🔄",
-      "title": "JSON XML YAML 互转工具",
-      "desc": "三种数据格式双向一键转换，自动格式化，接口/配置文件调试专用",
-      "cat": "CONVERT",
-      "catName": "格式转换",
-      "catIcon": "🔄",
-      "date": "2026-06-30",
-      "featured": false,
-      "top": false,
-      "url": "./format-convert.html",
-      "tags": ["JSON", "XML", "YAML", "格式转换", "配置文件"]
-    },
-    {
-      "id": "case-converter",
-      "icon": "🔤",
-      "title": "字符串命名格式转换工具",
-      "desc": "驼峰/空格/连字符/下划线四格式互转，自动识别原始命名，接口字段调试专用",
-      "cat": "DEV",
-      "catName": "实用工具",
-      "catIcon": "🧰",
-      "date": "2026-06-30",
-      "featured": false,
-      "top": false,
-      "url": "./case.html",
-      "tags": ["驼峰", "下划线", "kebab", "命名转换", "变量字段"]
-    },
-    {
-      "id": "string-split-two",
-      "icon": "📑",
-      "title": "两组字符串分割对照工具",
-      "desc": "双文本同步分割，顺序左右对齐，处理SQL键值、字段配对、批量对照文本",
-      "cat": "DEV",
-      "catName": "实用工具",
-      "catIcon": "🧰",
-      "date": "2026-06-30",
-      "featured": false,
-      "top": false,
-      "url": "./string2.html",
-      "tags": ["字符串", "分割对照", "键值对", "双列文本", "SQL字段"]
-    },
-    {
-      "id": "string-splitter",
-      "icon": "✂️",
-      "title": "字符串分割/连接工具",
-      "desc": "自定义分隔符拆分、多行文本拼接，自动过滤空行，批量处理ID标签CSV",
-      "cat": "DEV",
-      "catName": "实用工具",
-      "catIcon": "🧰",
-      "date": "2026-06-30",
-      "featured": false,
-      "top": false,
-      "url": "./string.html",
-      "tags": ["字符串", "分割", "连接", "文本处理", "CSV批量"]
-    },
-    {
-      "id": "json-formatter",
-      "icon": "📋",
-      "title": "JSON格式化工具",
-      "desc": "JSON美化压缩语法校验，支持JSONPath提取字段，接口调试专用",
-      "cat": "DEV",
-      "catName": "实用工具",
-      "catIcon": "🧰",
-      "date": "2026-06-30",
-      "featured": false,
-      "top": false,
-      "url": "./json.html",
-      "tags": ["JSON", "格式化", "压缩", "JSONPath", "接口调试"]
-    },
-    {
-      "id": "base64-encode-decode",
-      "icon": "🔡",
-      "title": "Base64 编码解码工具",
-      "desc": "文本一键转Base64、Base64解密，完美支持中文UTF8",
-      "cat": "DEV",
-      "catName": "实用工具",
-      "catIcon": "🧰",
-      "date": "2026-06-30",
-      "featured": false,
-      "top": false,
-      "url": "./base64.html",
-      "tags": ["Base64", "编码", "解码", "二进制转换"]
-    },
-    {
-      "id": "md5-encrypt",
-      "icon": "🔐",
-      "title": "MD5 在线加密工具",
-      "desc": "输入明文实时生成32位/16位大小写MD5哈希值，一键复制结果",
-      "cat": "DEV",
-      "catName": "实用工具",
-      "catIcon": "🧰",
-      "date": "2026-06-30",
-      "featured": false,
-      "top": false,
-      "url": "./md5.html",
-      "tags": ["MD5", "加密", "哈希", "校验"]
-    },
-    {
-      "id": "emoji",
-      "icon": "📄",
-      "title": "emoji表情大全",
-      "desc": "Emoji 表情大全是按分类整理的符号集合页面，方便快速查找、复制和组合常用表情符号。",
-      "cat": "TEXT",
-      "catName": "文本工具",
-      "catIcon": "📄",
-      "date": "2026-06-30",
-      "featured": false,
-      "top": false,
-      "url": "./emoji.html",
-      "tags": ["特殊", "符号", "Unicode", "emoji"]
-    },
-    {
-      "id": "symbols-copy-and-paster",
-      "icon": "📄",
-      "title": "特殊符号大全",
-      "desc": "特殊符号大全用于集中查找和复制常见 Unicode 符号，包含数学符号、箭头、货币、希腊字母、上标下标等",
-      "cat": "TEXT",
-      "catName": "文本工具",
-      "catIcon": "📄",
-      "date": "2026-06-29",
-      "featured": false,
-      "top": false,
-      "url": "./symbols-copy-and-paste.html",
-      "tags": ["特殊", "符号", "Unicode"]
-    },
-    {
-      "id": "password-generator",
-      "icon": "🔐",
-      "title": "安全密码生成器",
-      "desc": "创建强大且安全的密码，保护您的数字生活",
-      "cat": "DEV",
-      "catName": "实用工具",
-      "catIcon": "🧰",
-      "date": "2026-06-28",
-      "featured": false,
-      "top": false,
-      "url": "./password-generator.html",
-      "tags": ["密码", "随机", "生成"]
-    },
-    {
-      "id": "totp-generator",
-      "icon": "🔐",
-      "title": "TOTP / 2FA 验证码生成器",
-      "desc": "本地离线两步验证生成，兼容谷歌验证器、Authy、Bitwarden等所有TOTP密钥。",
-      "cat": "DEV",
-      "catName": "实用工具",
-      "catIcon": "🧰",
-      "date": "2026-06-28",
-      "featured": false,
-      "top": false,
-      "url": "./totp.html",
-      "tags": ["totp", "2fa", "两步验证", "密钥", "验证码"]
-    }
+function buildFullCategoryConfig() {
+  const base = [
+    {cat:"all", icon:"🏠", name:"全部"},
+    {cat:"star", icon:`<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#fbbf24"/></svg>`, name:"收藏"}
   ];
+  return [...base, ...getAutoCategoryList()];
+}
 
-  const visibleTagBox = document.getElementById("visibleTagBox");
-  const overflowPanel = document.getElementById("overflowPanel");
-  const moreToggle = document.getElementById("moreToggle");
-  const cardContainer = document.getElementById("cardContainer");
-  const searchInput = document.getElementById("searchInput");
-  const sortBtn = document.getElementById('sortBtn');
-  const headerDom = document.getElementById('headerDom');
-  const headerSpacer = document.getElementById('headerSpacer');
+function getCatCount(key) {
+  if(key === "all") return toolList.length;
+  if(key === "star") return favList.length;
+  return toolList.filter(i=>i.cat === key).length;
+}
 
-  let currentCat = "all";
-  let panelOpen = false;
+function refreshAllCategoryUI() {
+  const cats = buildFullCategoryConfig();
+  visibleTagBox.innerHTML = "";
+  overflowPanel.innerHTML = "";
   let visibleCategories = [];
   let overflowCategories = [];
-  let sortMode = "date-desc";
-  let favList = JSON.parse(localStorage.getItem("toolFav")) || [];
 
-  function saveFavAndRefreshCount() {
-    localStorage.setItem("toolFav", JSON.stringify(favList));
-    refreshAllCategoryUI();
-  }
+  const tempWrap = document.createElement("div");
+  tempWrap.style.cssText = "position:absolute;visibility:hidden;display:flex;gap:8px;white-space:nowrap;";
+  document.body.appendChild(tempWrap);
+  const boxWidth = visibleTagBox.clientWidth || 600;
 
-  function toggleFav(toolId) {
-    const idx = favList.indexOf(toolId);
-    if (idx > -1) {
-      favList.splice(idx, 1);
-    } else {
-      favList.push(toolId);
+  let totalW = 0;
+  const tagArr = [];
+  cats.forEach(cat=>{
+    const div = document.createElement("div");
+    div.className = "category-tag";
+    div.innerHTML = `${cat.icon} ${cat.name}(0)`;
+    tempWrap.appendChild(div);
+    const w = div.offsetWidth + 8;
+    tagArr.push({cat, width: w});
+    tempWrap.removeChild(div);
+  });
+  document.body.removeChild(tempWrap);
+
+  for(let i=0;i<tagArr.length;i++){
+    const item = tagArr[i];
+    if(totalW + item.width <= boxWidth){
+      visibleCategories.push(item.cat);
+      totalW += item.width;
+    }else{
+      overflowCategories.push(item.cat);
     }
-    saveFavAndRefreshCount();
-    filterTools();
   }
 
-  function getAutoCategoryList() {
-    const catMap = new Map();
-    toolList.forEach(item => {
-      if (!catMap.has(item.cat)) {
-        catMap.set(item.cat, { cat: item.cat, name: item.catName, icon: item.catIcon });
-      }
-    });
-    return Array.from(catMap.values());
-  }
-
-  function buildFullCategoryConfig() {
-    const fixedBase = [
-      { cat: "all", icon: "🏠", name: "全部" },
-      {
-        cat: "star",
-        icon: `<svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#fbbf24"/></svg>`,
-        name: "收藏"
-      }
-    ];
-    const autoCats = getAutoCategoryList();
-    return [...fixedBase, ...autoCats];
-  }
-
-  function getCatCount(catKey) {
-    if (catKey === "all") return toolList.length;
-    if (catKey === "star") return favList.length;
-    return toolList.filter(i => i.cat === catKey).length;
-  }
-
-  function refreshAllCategoryUI() {
-    const cats = buildFullCategoryConfig();
-    visibleTagBox.innerHTML = "";
-    overflowPanel.innerHTML = "";
-    visibleCategories = [];
-    overflowCategories = [];
-
-    const tempWrap = document.createElement("div");
-    tempWrap.style.cssText = "position:absolute;visibility:hidden;display:flex;gap:8px;white-space:nowrap;";
-    document.body.appendChild(tempWrap);
-
-    const boxWidth = visibleTagBox.clientWidth;
-    let usedW = 0;
-
-    cats.forEach(cat => {
-      const count = getCatCount(cat.cat);
-      const tag = document.createElement("div");
-      tag.className = "category-tag";
-      tag.innerHTML = `${cat.icon} ${cat.name}(${count})`;
-      tempWrap.appendChild(tag);
-      const w = tag.offsetWidth + 8;
-
-      if (usedW + w <= boxWidth) {
-        visibleCategories.push(cat);
-        usedW += w;
-      } else {
-        overflowCategories.push(cat);
-      }
-
-      tempWrap.removeChild(tag);
-    });
-
-    document.body.removeChild(tempWrap);
-
-    visibleCategories.forEach(cat => {
-      const count = getCatCount(cat.cat);
-      const div = document.createElement("div");
-      div.className = `category-tag ${currentCat === cat.cat ? "active" : ""}`;
-      div.innerHTML = `${cat.icon} ${cat.name}(${count})`;
-      div.dataset.cat = cat.cat;
-      div.onclick = () => setActiveCat(cat.cat);
-      visibleTagBox.appendChild(div);
-    });
-
-    overflowCategories.forEach(item => {
-      const count = getCatCount(item.cat);
-      const div = document.createElement("div");
-      div.className = "category-tag";
-      div.innerHTML = `${item.icon} ${item.name}(${count})`;
-      div.dataset.cat = item.cat;
-      div.onclick = () => setActiveCat(item.cat);
-      overflowPanel.appendChild(div);
-    });
-
-    moreToggle.style.display = overflowCategories.length > 0 ? "flex" : "none";
-    moreToggle.innerHTML = panelOpen ? "▲ 收起" : "▼ 更多";
-  }
-
-  function setActiveCat(cat) {
-    currentCat = cat;
-    refreshAllCategoryUI();
-    filterTools();
-  }
-
-  moreToggle.onclick = () => {
-    panelOpen = !panelOpen;
-    overflowPanel.classList.toggle("open", panelOpen);
-    moreToggle.innerHTML = panelOpen ? "▲ 收起" : "▼ 更多";
-  };
-
-  function filterTools() {
-    let arr = [...toolList];
-    const kw = searchInput.value.toLowerCase().trim();
-
-    if (currentCat === "star") {
-      arr = arr.filter(i => favList.includes(i.id));
-    } else if (currentCat !== "all") {
-      arr = arr.filter(i => i.cat === currentCat);
-    }
-
-    if (kw) {
-      arr = arr.filter(item => {
-        const title = item.title.toLowerCase();
-        const desc = item.desc.toLowerCase();
-        const catName = item.catName.toLowerCase();
-        const tagStr = item.tags.join(" ").toLowerCase();
-        return title.includes(kw) || desc.includes(kw) || catName.includes(kw) || tagStr.includes(kw);
-      });
-    }
-
-    arr.sort((a, b) => {
-      const topA = a.top ? 1 : 0;
-      const topB = b.top ? 1 : 0;
-      const topDiff = topB - topA;
-      if (topDiff !== 0) return topDiff;
-
-      const timeA = new Date(a.date).getTime();
-      const timeB = new Date(b.date).getTime();
-
-      if (a.top && b.top) return timeB - timeA;
-      return sortMode === "date-desc" ? timeB - timeA : timeA - timeB;
-    });
-
-    renderTools(arr);
-  }
-
-  function renderTools(list) {
-    cardContainer.innerHTML = "";
-
-    if (!list.length) {
-      cardContainer.innerHTML = `<div class="empty-tip">未找到匹配的工具，请更换关键词/分类</div>`;
-      return;
-    }
-
-    const starFill = `<svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#fbbf24"/></svg>`;
-    const starEmpty = `<svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="#9ca3af" stroke-width="1.5"/></svg>`;
-
-    list.forEach(item => {
-      const isFav = favList.includes(item.id);
-      const star = isFav ? starFill : starEmpty;
-
-      let labelHtml = "";
-      if (item.top) {
-        labelHtml = `<span class="card-label label-top">置顶</span>`;
-      } else if (item.featured) {
-        labelHtml = `<span class="card-label label-featured">精选</span>`;
-      }
-
-      const tagHtml = item.tags.map(t => `<span class="card-tag">${t}</span>`).join("");
-
-      const html = `
-        <a href="${item.url}" class="tool-card" data-id="${item.id}">
-          <button class="fav-star-fixed ${isFav ? "fav" : ""}" onclick="toggleFav('${item.id}');event.preventDefault();">${star}</button>
-          <div class="card-header">
-            <div class="card-icon">
-              ${item.icon}
-              ${labelHtml}
-            </div>
-            <div class="card-title-wrap">
-              <div class="card-title">${item.title}</div>
-              <div class="card-meta">
-                <div class="card-meta-item">📂 ${item.catName}</div>
-                <div class="card-meta-item">🕒 ${item.date}</div>
-              </div>
-            </div>
-          </div>
-          <div class="card-desc">${item.desc}</div>
-          <div class="card-bottom">
-            <div class="card-tags">${tagHtml}</div>
-          </div>
-        </a>
-      `;
-
-      cardContainer.innerHTML += html;
-    });
-  }
-
-  sortBtn.onclick = () => {
-    sortMode = sortMode === "date-desc" ? "date-asc" : "date-desc";
-    sortBtn.innerText = sortMode === "date-desc" ? "时间排序 ⬇️" : "时间排序 ⬆️";
-    filterTools();
-  };
-
-  searchInput.addEventListener("input", filterTools);
-  searchInput.addEventListener("keydown", e => {
-    if (e.key === "Enter") filterTools();
+  visibleCategories.forEach(cat=>{
+    const cnt = getCatCount(cat.cat);
+    const div = document.createElement("div");
+    div.className = `category-tag ${currentCat === cat.cat ? "active" : ""}`;
+    div.innerHTML = `${cat.icon} ${cat.name}(${cnt})`;
+    div.dataset.cat = cat.cat;
+    div.onclick = ()=>setActiveCat(cat.cat);
+    visibleTagBox.appendChild(div);
   });
 
-  document.addEventListener("keydown", e => {
-    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
-      e.preventDefault();
-      searchInput.focus();
-    }
+  overflowCategories.forEach(cat=>{
+    const cnt = getCatCount(cat.cat);
+    const div = document.createElement("div");
+    div.className = `category-tag ${currentCat === cat.cat ? "active" : ""}`;
+    div.innerHTML = `${cat.icon} ${cat.name}(${cnt})`;
+    div.dataset.cat = cat.cat;
+    div.onclick = ()=>setActiveCat(cat.cat);
+    overflowPanel.appendChild(div);
   });
 
-  window.addEventListener("resize", () => {
-    syncHeaderSpacerHeight();
-    refreshAllCategoryUI();
-  });
+  moreToggle.style.display = overflowCategories.length > 0 ? "flex" : "none";
+}
 
-  window.addEventListener("load", () => {
-    syncHeaderSpacerHeight();
-    refreshAllCategoryUI();
-    filterTools();
-  });
+function setActiveCat(cat) {
+  currentCat = cat;
+  refreshAllCategoryUI();
+  filterTools();
+}
 
-  function syncHeaderSpacerHeight() {
-    headerSpacer.style.height = headerDom.offsetHeight + "px";
+moreToggle.onclick = ()=>{
+  panelOpen = !panelOpen;
+  overflowPanel.classList.toggle("open", panelOpen);
+  moreToggle.innerHTML = panelOpen ? "▲ 收起" : "▼ 更多";
+};
+
+function filterTools() {
+  let arr = [...toolList];
+  const kw = searchInput.value.toLowerCase().trim();
+  if(currentCat === "star") arr = arr.filter(i=>favList.includes(i.id));
+  else if(currentCat !== "all") arr = arr.filter(i=>i.cat === currentCat);
+  if(kw) arr = arr.filter(i=>i.title.toLowerCase().includes(kw) || i.desc.toLowerCase().includes(kw) || i.cat.toLowerCase().includes(kw) || i.tags.join("").toLowerCase().includes(kw));
+  arr.sort((a,b)=>{
+    const ta = a.top ? 1 : 0;
+    const tb = b.top ? 1 : 0;
+    if(tb - ta !== 0) return tb - ta;
+    const da = new Date(a.date).getTime();
+    const db = new Date(b.date).getTime();
+    return sortMode === "date-desc" ? db - da : da - db;
+  });
+  renderTools(arr);
+}
+
+function renderTools(list) {
+  cardContainer.innerHTML = "";
+  if(!list.length) {
+    cardContainer.innerHTML = `<div class="empty-tip">未找到匹配的工具，请更换关键词/分类</div>`;
+    return;
   }
+  const starFill = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#fbbf24"/></svg>`;
+  const starEmpty = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="#9ca3af" stroke-width="1.5"/></svg>`;
+  list.forEach(item=>{
+    const fav = favList.includes(item.id);
+    const star = fav ? starFill : starEmpty;
+    let topTag = "";
+    if(item.top) topTag = `<span class="card-label label-top">置顶</span>`;
+    else if(item.featured) topTag = `<span class="card-label label-featured">精选</span>`;
+    const tagHtml = item.tags.map(t=>`<span class="card-tag">${t}</span>`).join("");
+    const html = `
+    <a href="${item.url}" class="tool-card" data-id="${item.id}">
+      <button class="fav-star-fixed ${fav ? "fav" : ""}" onclick="toggleFav('${item.id}');event.preventDefault();">${star}</button>
+      <div class="card-header">
+        <div class="card-icon">${item.icon}${topTag}</div>
+        <div class="card-title-wrap">
+          <h3 class="card-title">${item.title}</h3>
+          <div class="card-meta">分类：${item.catName}</div>
+        </div>
+      </div>
+      <p class="card-desc">${item.desc}</p>
+      <div class="card-bottom">
+        <div class="card-tags">${tagHtml}</div>
+      </div>
+    </a>`;
+    cardContainer.insertAdjacentHTML("beforeend", html);
+  });
+}
+
+function debounce(fn, delay = 100) {
+  let timer = null;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(()=>fn(...args), delay);
+  }
+}
+
+const handleResize = debounce(()=>{
+  panelOpen = false;
+  overflowPanel.classList.remove("open");
+  moreToggle.innerHTML = "▼ 更多";
+  setMainTopOffset();
+  refreshAllCategoryUI();
+});
+
+window.addEventListener("resize", handleResize);
+
+window.addEventListener("DOMContentLoaded", ()=>{
+  initTheme();
+  setMainTopOffset();
+  refreshAllCategoryUI();
+  filterTools();
+});
+
+searchInput.addEventListener("input", filterTools);
+sortBtn.onclick = ()=>{
+  sortMode = sortMode === "date-desc" ? "date-asc" : "date-desc";
+  filterTools();
+};
+
+themeBtn.onclick = toggleTheme;
 </script>
 </body>
 </html>
