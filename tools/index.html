@@ -16,10 +16,10 @@
   --btn-text: #303133;
   --btn-radius: 14px;
   --btn-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-  --btn-hover-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  --btn-hover-shadow: 0 8px 18px rgba(0, 0, 0, 0.09);
   --btn-active-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
-  --btn-hover-scale: 1.04;
-  --btn-active-scale: 0.96;
+  --btn-hover-scale: 1;
+  --btn-active-scale: 1;
 
   --nav-btn-height: 28px;
   --nav-btn-font-size: 12px;
@@ -29,13 +29,13 @@
   --text-weak: #909399;
   --border-base: rgba(228, 231, 237, 0.88);
   --border-light: rgba(242, 243, 245, 0.85);
-  --bg-page: #e8f6ff;
+  --bg-page: #d6edf9;
   --bg-card: rgba(255, 255, 255, 0.72);
   --bg-card-strong: #ffffff;
   --bg-footer: var(--bg-card);
   --shadow-float: 0 10px 30px rgba(0, 0, 0, 0.07);
-  --tag-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
-  --tag-hover-shadow: 0 5px 16px rgba(0, 0, 0, 0.10);
+  --tag-shadow: none;
+  --tag-hover-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
   --radius-xs: 4px;
   --radius-sm: 6px;
   --radius-lg: 14px;
@@ -61,11 +61,8 @@
   --tag-active-border: rgba(228, 231, 237, 0.88);
   --tag-active-text: #1f2937;
 
-  --bg-gradient-1: rgba(167, 218, 240, 0.50);
-  --bg-gradient-2: rgba(150, 200, 230, 0.50);
-  --bg-gradient-3: rgba(255, 210, 150, 0.40);
-  --bg-gradient-4: rgba(190, 230, 210, 0.40);
-  --bg-gradient-base: linear-gradient(180deg, #e8f6ff 0%, #faffe8 50%, #fff9d9 100%);
+  /* 优化渐变：85%区域为浅蓝色，仅底部15%淡米黄，黄色范围极小，贴合参考站干净底色 */
+  --bg-gradient-base: linear-gradient(135deg, #d6edf9 0%, #eef6f8 85%, #f9f4d0 100%);
 }
 
 .dark {
@@ -75,7 +72,7 @@
   --btn-border: rgba(58, 65, 90, 0.88);
   --btn-text: #e5e7eb;
   --btn-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
-  --btn-hover-shadow: 0 6px 16px rgba(0, 0, 0, 0.28);
+  --btn-hover-shadow: 0 8px 18px rgba(0, 0, 0, 0.28);
   --btn-active-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
 
   --text-main: #e5e7eb;
@@ -88,17 +85,13 @@
   --bg-card-strong: #1a202c;
   --bg-footer: var(--bg-card);
   --shadow-float: 0 10px 30px rgba(0, 0, 0, 0.3);
-  --tag-shadow: 0 3px 10px rgba(0, 0, 0, 0.16);
-  --tag-hover-shadow: 0 5px 16px rgba(0, 0, 0, 0.24);
+  --tag-shadow: none;
+  --tag-hover-shadow: 0 6px 16px rgba(0, 0, 0, 0.10);
   --key-bg: rgba(58, 65, 90, 0.88);
   --key-text: #e5e7eb;
   --tag-active-border: rgba(58, 65, 90, 0.88);
   --tag-active-text: #e5e7eb;
 
-  --bg-gradient-1: rgba(71, 85, 105, 0.55);
-  --bg-gradient-2: rgba(71, 85, 105, 0.55);
-  --bg-gradient-3: rgba(60, 65, 80, 0.45);
-  --bg-gradient-4: rgba(60, 80, 70, 0.45);
   --bg-gradient-base: linear-gradient(180deg, #0f1318 0%, #111827 50%, #0f1318 100%);
 }
 
@@ -125,12 +118,7 @@ body {
   font-family: "Inter", system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", Roboto, sans-serif;
   font-size: var(--body-font-size);
   line-height: var(--body-line-height);
-  background-image:
-    radial-gradient(circle at 78% 65%, var(--bg-gradient-1) 0%, transparent 26%),
-    radial-gradient(circle at 86% 78%, var(--bg-gradient-2) 0%, transparent 28%),
-    radial-gradient(circle at 90% 85%, var(--bg-gradient-3) 0%, transparent 24%),
-    radial-gradient(circle at 82% 90%, var(--bg-gradient-4) 0%, transparent 26%),
-    var(--bg-gradient-base);
+  background-image: var(--bg-gradient-base);
   background-attachment: fixed;
   background-size: cover;
   background-position: center;
@@ -189,14 +177,14 @@ header {
 }
 
 .logo-icon {
-  width: 42px;
-  height: 42px;
+  width: 46px;
+  height: 46px;
   border-radius: var(--radius-sm);
   background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
+  font-size: 36px;
   flex-shrink: 0;
   color: var(--text-main);
 }
@@ -231,6 +219,7 @@ header {
   border: 1px solid var(--btn-border);
   border-radius: 6px;
   font-size: var(--nav-btn-font-size);
+  font-weight: 550;
   line-height: 1;
   cursor: pointer;
   display: flex;
@@ -250,12 +239,12 @@ header {
 
 .header-btn:hover {
   border-color: var(--hover-white-border);
-  transform: scale(var(--btn-hover-scale));
+  transform: translateY(-3px);
   box-shadow: var(--btn-hover-shadow);
 }
 
 .header-btn:active {
-  transform: scale(var(--btn-active-scale));
+  transform: translateY(0);
   box-shadow: var(--btn-active-shadow);
 }
 
@@ -288,12 +277,12 @@ header {
 
 .header-btn-circle:hover {
   border-color: var(--hover-white-border);
-  transform: scale(var(--btn-hover-scale));
+  transform: translateY(-3px);
   box-shadow: var(--btn-hover-shadow);
 }
 
 .header-btn-circle:active {
-  transform: scale(var(--btn-active-scale));
+  transform: translateY(0);
   box-shadow: var(--btn-active-shadow);
 }
 
@@ -393,6 +382,7 @@ main.container {
   border-radius: var(--btn-radius);
   background: var(--btn-bg);
   font-size: 14px;
+  font-weight: 550;
   line-height: 1;
   cursor: pointer;
   display: flex;
@@ -410,12 +400,12 @@ main.container {
 
 .sort-btn:hover {
   border-color: var(--hover-white-border);
-  transform: scale(var(--btn-hover-scale));
+  transform: translateY(-3px);
   box-shadow: var(--btn-hover-shadow);
 }
 
 .sort-btn:active {
-  transform: scale(var(--btn-active-scale));
+  transform: translateY(0);
   box-shadow: var(--btn-active-shadow);
 }
 
@@ -430,7 +420,7 @@ main.container {
   display: flex;
   align-items: center;
   gap: 8px;
-  overflow: visible;
+  overflow: hidden;
   position: relative;
 }
 
@@ -473,13 +463,13 @@ main.container {
 .category-tag:hover,
 .more-toggle-btn:hover {
   border-color: var(--hover-white-border);
-  transform: scale(var(--btn-hover-scale));
+  transform: translateY(-3px);
   box-shadow: var(--tag-hover-shadow);
 }
 
 .category-tag:active,
 .more-toggle-btn:active {
-  transform: scale(var(--btn-active-scale));
+  transform: translateY(0);
   box-shadow: var(--btn-active-shadow);
 }
 
@@ -568,13 +558,13 @@ main.container {
 }
 
 .tool-card:hover {
-  transform: translateY(-2px) scale(1.02);
+  transform: translateY(-4px);
   border-color: var(--hover-white-border);
   box-shadow: var(--btn-hover-shadow);
 }
 
 .tool-card:active {
-  transform: translateY(0) scale(var(--btn-active-scale));
+  transform: translateY(0);
   box-shadow: var(--btn-active-shadow);
 }
 
@@ -602,8 +592,8 @@ main.container {
 
 .card-label {
   position: absolute;
-  top: -8px;
-  right: -8px;
+  top: -12px;
+  right: -12px;
   height: 19px;
   padding: 0 7px;
   border-radius: var(--radius-xs);
@@ -614,8 +604,8 @@ main.container {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  z-index: 2;
-  opacity: 0.85;
+  z-index: 4;
+  opacity: 0.7;
 }
 
 .label-featured {
@@ -637,23 +627,23 @@ main.container {
   padding-left: 0;
 }
 
-/* 修改后卡片图标：放大尺寸+乳白色外框 */
+/* 卡片外框42px不变，仅内部图标字号控制大小，暗黑模式灰色边框 */
 .card-icon {
-  width: 48px;
-  height: 48px;
+  width: 42px;
+  height: 42px;
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
+  font-size: 28px;
   background: transparent;
   color: var(--text-main);
   flex-shrink: 0;
   position: relative;
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(180, 190, 200, 0.65);
 }
 .dark .card-icon {
-  border-color: rgba(255, 255, 255, 0.85);
+  border-color: rgba(110, 120, 135, 0.65);
 }
 
 .card-title-wrap {
@@ -664,7 +654,7 @@ main.container {
 }
 
 .card-title {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   line-height: var(--sub-title-line-height);
   overflow: hidden;
@@ -741,7 +731,7 @@ main.container {
   border: 1px solid var(--border-base);
   background: var(--bg-card);
   color: var(--text-weak);
-  transform: scale(1);
+  transform: translateY(0);
   transform-origin: center center;
   will-change: transform;
   transition: transform 0.18s ease, opacity 0.18s ease;
@@ -763,7 +753,7 @@ main.container {
 }
 
 .fav-star-fixed:hover {
-  transform: scale(1.1);
+  transform: translateY(-2px);
 }
 
 .fav-star-fixed svg {
@@ -849,10 +839,10 @@ footer {
 
 <footer>
   <div class="container">
-     © 2026 cytools-html | 开源HTML工具集 All Rights Reserved
+     © 2026 cytools-html | 开源HTML工具集
   </div>
     <div class="container">
-     最后更新2026.07.02-10:35
+     最后更新2026.07.02-23:32
   </div>
 </footer>
 
@@ -903,19 +893,195 @@ mediaDark.addEventListener("change", e => {
 });
 
 const toolList = [
-{"id":"uuid-generator","icon":"🆔","title":"UUID 生成器","desc":"批量生成标准UUID，单行卡片展示，每条独立复制，支持多种大小写/横线格式，本地离线生成","cat":"DEV","catName":"开发工具","catIcon":"🧰","date":"2026-06-30","featured":false,"top":false,"url":"./uuid-generator.html","tags":["uuid","唯一ID","主键生成","批量生成","本地离线"]},
-{"id":"curl-convert","icon":"🔗","title":"CURL 转代码工具","desc":"粘贴浏览器复制的 CURL 命令，一键生成 JavaScript / Python / Java / Go 网络请求代码，本地解析不上传数据","cat":"DEV","catName":"开发工具","catIcon":"🧰","date":"2026-06-30","featured":false,"top":false,"url":"./curl-convert.html","tags":["curl","接口调试","http请求","代码生成","后端开发"]},
-{"id":"json-xml-yaml-converter","icon":"🔄","title":"JSON XML YAML 互转工具","desc":"三种数据格式双向一键转换，自动格式化，接口/配置文件调试专用","cat":"CONVERT","catName":"格式转换","catIcon":"🔄","date":"2026-06-30","featured":false,"top":false,"url":"./format-convert.html","tags":["JSON","XML","YAML","格式转换","配置文件"]},
-{"id":"case-converter","icon":"🔤","title":"字符串命名格式转换工具","desc":"驼峰/空格/连字符/下划线四格式互转，自动识别原始命名，接口字段调试专用","cat":"DEV","catName":"实用工具","catIcon":"🧰","date":"2026-06-30","featured":false,"top":false,"url":"./case.html","tags":["驼峰","下划线","kebab","命名转换","变量字段"]},
-{"id":"string-split-two","icon":"📑","title":"两组字符串分割对照工具","desc":"双文本同步分割，顺序左右对齐，处理SQL键值、字段配对、批量对照文本","cat":"DEV","catName":"实用工具","catIcon":"🧰","date":"2026-06-30","featured":false,"top":false,"url":"./string2.html","tags":["字符串","分割对照","键值对","双列文本","SQL字段"]},
-{"id":"string-splitter","icon":"✂️","title":"字符串分割/连接工具","desc":"自定义分隔符拆分、多行文本拼接，自动过滤空行，批量处理ID标签CSV","cat":"DEV","catName":"实用工具","catIcon":"🧰","date":"2026-06-30","featured":false,"top":false,"url":"./string.html","tags":["字符串","分割","连接","文本处理","CSV批量"]},
-{"id":"json-formatter","icon":"📋","title":"JSON格式化工具","desc":"JSON美化压缩语法校验，支持JSONPath提取字段，接口调试专用","cat":"DEV","catName":"实用工具","catIcon":"🧰","date":"2026-06-30","featured":false,"top":false,"url":"./json.html","tags":["JSON","格式化","压缩","JSONPath","接口调试"]},
-{"id":"base64-encode-decode","icon":"🔡","title":"Base64 编码解码工具","desc":"文本一键转Base64、Base64解密，完美支持中文UTF8","cat":"DEV","catName":"实用工具","catIcon":"🧰","date":"2026-06-30","featured":false,"top":false,"url":"./base64.html","tags":["Base64","编码","解码","二进制转换"]},
-{"id":"md5-encrypt","icon":"🔐","title":"MD5 在线加密工具","desc":"输入明文实时生成32位/16位大小写MD5哈希值，一键复制结果","cat":"DEV","catName":"实用工具","catIcon":"🧰","date":"2026-06-30","featured":false,"top":false,"url":"./md5.html","tags":["MD5","加密","哈希","校验"]},
-{"id":"emoji","icon":"📄","title":"emoji表情大全","desc":"Emoji 表情大全是按分类整理的符号集合页面，方便快速查找、复制和组合常用表情符号。","cat":"TEXT","catName":"文本工具","catIcon":"📄","date":"2026-06-30","featured":false,"top":false,"url":"./emoji.html","tags":["特殊","符号","Unicode","emoji"]},
-{"id":"symbols-copy-and-paster","icon":"📄","title":"特殊符号大全","desc":"特殊符号大全用于集中查找和复制常见 Unicode 符号，包含数学符号、箭头、货币、希腊字母、上标下标等","cat":"TEXT","catName":"文本工具","catIcon":"📄","date":"2026-06-29","featured":false,"top":false,"url":"./symbols-copy-and-paste.html","tags":["特殊","符号","Unicode"]},
-{"id":"password-generator","icon":"🔐","title":"安全密码生成器","desc":"创建强大且安全的密码，保护您的数字生活","cat":"DEV","catName":"实用工具","catIcon":"🧰","date":"2026-06-28","featured":false,"top":false,"url":"./password-generator.html","tags":["密码","随机","生成"]},
-{"id":"totp-generator","icon":"🔐","title":"TOTP / 2FA 验证码生成器","desc":"本地离线两步验证生成，兼容谷歌验证器、Authy、Bitwarden等所有TOTP密钥。","cat":"DEV","catName":"实用工具","catIcon":"🧰","date":"2026-06-28","featured":false,"top":false,"url":"./totp.html","tags":["totp","2fa","两步验证","密钥","验证码"]}
+  /**
+   * UUID 生成器
+   * 标识：uuid-generator
+   * 分类：DEV 开发工具
+   * 标记：精选featured=true，置顶top=false
+   * 功能：批量生成标准UUID，单行卡片展示，每条独立复制，支持多种大小写/横线格式，本地离线生成
+   */
+  {
+    id: "uuid-generator",
+    icon: "🆔",
+    title: "UUID 生成器",
+    desc: "批量生成标准UUID，单行卡片展示，每条独立复制，支持多种大小写/横线格式，本地离线生成",
+    cat: "DEV",
+    catName: "开发工具",
+    catIcon: "🧰",
+    date: "2026-06-30",
+    featured: true,
+    top: false,
+    url: "./uuid-generator.html",
+    tags: ["uuid", "唯一ID", "主键生成", "批量生成", "本地离线"]
+  },
+  {
+    id: "curl-convert",
+    icon: "🔗",
+    title: "CURL 转代码工具",
+    desc: "粘贴浏览器复制的 CURL 命令，一键生成 JavaScript / Python / Java / Go 网络请求代码，本地解析不上传数据",
+    cat: "DEV",
+    catName: "开发工具",
+    catIcon: "🧰",
+    date: "2026-06-30",
+    featured: false,
+    top: true,
+    url: "./curl-convert.html",
+    tags: ["curl", "接口调试", "http请求", "代码生成", "后端开发"]
+  },
+  {
+    id: "json-xml-yaml-converter",
+    icon: "🔄",
+    title: "JSON XML YAML 互转工具",
+    desc: "三种数据格式双向一键转换，自动格式化，接口/配置文件调试专用",
+    cat: "CONVERT",
+    catName: "格式转换",
+    catIcon: "🔄",
+    date: "2026-06-30",
+    featured: false,
+    top: false,
+    url: "./format-convert.html",
+    tags: ["JSON", "XML", "YAML", "格式转换", "配置文件"]
+  },
+  {
+    id: "case-converter",
+    icon: "🔤",
+    title: "字符串命名格式转换工具",
+    desc: "驼峰/空格/连字符/下划线四格式互转，自动识别原始命名，接口字段调试专用",
+    cat: "DEV",
+    catName: "实用工具",
+    catIcon: "🧰",
+    date: "2026-06-30",
+    featured: false,
+    top: false,
+    url: "./case.html",
+    tags: ["驼峰", "下划线", "kebab", "命名转换", "变量字段"]
+  },
+  {
+    id: "string-split-two",
+    icon: "📑",
+    title: "两组字符串分割对照工具",
+    desc: "双文本同步分割，顺序左右对齐，处理SQL键值、字段配对、批量对照文本",
+    cat: "DEV",
+    catName: "实用工具",
+    catIcon: "🧰",
+    date: "2026-06-30",
+    featured: false,
+    top: false,
+    url: "./string2.html",
+    tags: ["字符串", "分割对照", "键值对", "双列文本", "SQL字段"]
+  },
+  {
+    id: "string-splitter",
+    icon: "✂️",
+    title: "字符串分割/连接工具",
+    desc: "自定义分隔符拆分、多行文本拼接，自动过滤空行，批量处理ID标签CSV",
+    cat: "DEV",
+    catName: "实用工具",
+    catIcon: "🧰",
+    date: "2026-06-30",
+    featured: false,
+    top: false,
+    url: "./string.html",
+    tags: ["字符串", "分割", "连接", "文本处理", "CSV批量"]
+  },
+  {
+    id: "json-formatter",
+    icon: "📋",
+    title: "JSON格式化工具",
+    desc: "JSON美化压缩语法校验，支持JSONPath提取字段，接口调试专用",
+    cat: "DEV",
+    catName: "实用工具",
+    catIcon: "🧰",
+    date: "2026-06-30",
+    featured: false,
+    top: false,
+    url: "./json.html",
+    tags: ["JSON", "格式化", "压缩", "JSONPath", "接口调试"]
+  },
+  {
+    id: "base64-encode-decode",
+    icon: "🔡",
+    title: "Base64 编码解码工具",
+    desc: "文本一键转Base64、Base64解密，完美支持中文UTF8",
+    cat: "DEV",
+    catName: "实用工具",
+    catIcon: "🧰",
+    date: "2026-06-30",
+    featured: false,
+    top: false,
+    url: "./base64.html",
+    tags: ["Base64", "编码", "解码", "二进制转换"]
+  },
+  {
+    id: "md5-encrypt",
+    icon: "🔐",
+    title: "MD5 在线加密工具",
+    desc: "输入明文实时生成32位/16位大小写MD5哈希值，一键复制结果",
+    cat: "DEV",
+    catName: "实用工具",
+    catIcon: "🧰",
+    date: "2026-06-30",
+    featured: false,
+    top: false,
+    url: "./md5.html",
+    tags: ["MD5", "加密", "哈希", "校验"]
+  },
+  {
+    id: "emoji",
+    icon: "📄",
+    title: "emoji表情大全",
+    desc: "Emoji 表情大全是按分类整理的符号集合页面，方便快速查找、复制和组合常用表情符号。",
+    cat: "TEXT",
+    catName: "文本工具",
+    catIcon: "📄",
+    date: "2026-06-30",
+    featured: false,
+    top: false,
+    url: "./emoji.html",
+    tags: ["特殊", "符号", "Unicode", "emoji"]
+  },
+  {
+    id: "symbols-copy-and-paster",
+    icon: "📄",
+    title: "特殊符号大全",
+    desc: "特殊符号大全用于集中查找和复制常见 Unicode 符号，包含数学符号、箭头、货币、希腊字母、上标下标等",
+    cat: "TEXT",
+    catName: "文本工具",
+    catIcon: "📄",
+    date: "2026-06-29",
+    featured: false,
+    top: false,
+    url: "./symbols-copy-and-paste.html",
+    tags: ["特殊", "符号", "Unicode"]
+  },
+  {
+    id: "password-generator",
+    icon: "🔐",
+    title: "安全密码生成器",
+    desc: "创建强大且安全的密码，保护您的数字生活",
+    cat: "DEV",
+    catName: "实用工具",
+    catIcon: "🧰",
+    date: "2026-06-28",
+    featured: false,
+    top: false,
+    url: "./password-generator.html",
+    tags: ["密码", "随机", "生成"]
+  },
+  {
+    id: "totp-generator",
+    icon: "🔐",
+    title: "TOTP / 2FA 验证码生成器",
+    desc: "本地离线两步验证生成，兼容谷歌验证器、Authy、Bitwarden等所有TOTP密钥。",
+    cat: "DEV",
+    catName: "实用工具",
+    catIcon: "🧰",
+    date: "2026-06-28",
+    featured: false,
+    top: false,
+    url: "./totp.html",
+    tags: ["totp", "2fa", "两步验证", "密钥", "验证码"]
+  }
 ];
 
 const visibleTagBox = document.getElementById("visibleTagBox");
@@ -933,6 +1099,7 @@ let favList = JSON.parse(localStorage.getItem("toolFav")) || [];
 function saveFavAndRefreshCount() {
   localStorage.setItem("toolFav", JSON.stringify(favList));
   refreshAllCategoryUI();
+  filterTools(); // 修复需求1：收藏后实时刷新卡片列表
 }
 
 function toggleFav(toolId) {
