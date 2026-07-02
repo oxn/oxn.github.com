@@ -7,489 +7,323 @@
 本源码只需要修改站点信息和下面说的 `顶部导航按钮` `数据源存放位置` 其余自动生成。<br>
 地域原因来此不易，如有问题联系怸歪小站：<a href="https://cycy.fun" target="_blank" rel="noopener noreferrer" style="font-weight:bold;color:#0066cc;word-break:break-all;">👆CYCY.FUN</a><br>[English Doc](./Readme-en.md)
 
-# cytools-html 静态工具站 使用 & 二次开发说明文档
-## 一、站点整体概述
-**cytools-html** 是一套纯静态无后端 HTML 工具集合页面，无需服务器，直接双击 HTML 文件即可本地打开运行；所有数据、用户偏好（明暗主题、收藏工具）均存储在浏览器 `localStorage`，清除浏览器缓存会重置自定义设置。
-站点内置自动化渲染、自适应布局、主题记忆、收藏计数、分类自动折叠、实时搜索过滤、时间排序等逻辑，仅需修改固定区块即可新增导航按钮、新增工具卡片，无需改动自动化底层逻辑。
-## 二、顶部导航按钮 新增 / 修改操作指南
-### 1. 存放位置
-HTML 中 `<header>` 内部` class="nav-link-group"` 容器，所有导航功能按钮全部写在此容器内：
+# cytools\-html 开源工具站｜完整源码架构说明文档
 
-```html
-<div class="nav-link-group">
-   <!-- 原有导航按钮示例 -->
-   <a href="#" target="_blank" class="header-btn">
-   <span>💬</span> 问题反馈
-   </a>
-</div>
+**更新时间**：2026\-07\-02 23:32
+
+**项目定位**：轻量、高颜值、自适应、双主题、纯前端离线工具合集
+
+**技术栈**：原生 HTML \+ CSS3 \+ JavaScript（无框架、无依赖、可直接部署）
+
+**核心特性**：深浅色双主题、毛玻璃UI、自适应网格、智能分类溢出、实时搜索、时间排序、本地收藏持久化、hover动画交互
+
+---
+
+## 一、项目整体架构概述
+
+本项目为 **单页首页 \+ 多工具子页面** 结构：
+
+- **index\.html**：首页汇总、工具展示、分类筛选、搜索、主题切换、收藏系统
+
+- **子页面**：每个工具独立 HTML，按需跳转，完全离线运行
+
+- **无后端**：所有数据、筛选、收藏、主题配置全部本地前端完成
+
+- **UI风格**：现代毛玻璃拟态、轻渐变背景、悬浮上浮动画、圆角统一、低饱和高级配色
+
+---
+
+## 二、CSS 主题系统完整说明（核心重点）
+
+项目采用 **CSS变量双主题覆盖方案**：`:root` 浅色模式、`.dark` 暗黑模式，全局统一配色、圆角、阴影、间距、动画。
+
+### 2\.1 全局通用变量（浅色模式）
+
+```Plain Text
+:root 变量作用：全站统一样式规范，一改全改
 ```
 
+- **主色系列**：主蓝色、辅助黄色、文本三级色值
 
-### 2. 新增导航按钮标准模板（直接复制粘贴）
-```html
-<a href="跳转链接地址" target="_blank" class="header-btn">
-  <span>图标符号</span> 按钮文字
-</a>
-```
-- `href`：填写跳转地址，站内跳转填 #，外部网站填写完整 URL；
-- `target="_blank"`：保留代表新标签页打开，删除则当前页面跳转；
-`class="header-btn"` 不可删除：控制按钮样式、hover 变色、圆角，删除会样式错乱；
-`<span>图标</span>`：放置 `emoji 图标`，可自行更换。
-### 3. 修改现有导航按钮操作
-- 修改跳转地址：修改 `a` 标签内 `href` 属性；
-- 修改按钮文字：修改标签内文本；
-- 修改图标：修改 `<span>` 内 emoji 符号；
-- 删除按钮：直接删除整段 `<a>...</a>` 代码即可。
-### 4. 注意事项
-导航栏支持自动换行，按钮过多会自动向下换行，无需手动调整布局；
-最右侧固定存在「明暗主题切换按钮」，不要放入 `nav-link-group` 容器，页面预留了独立定位空间；
-不要修改 `.header-inner、.theme-switch-wrap` 结构，会导致主题按钮遮挡导航文字。
-## 三、工具大卡片 新增 / 修改操作指南
-### 1. 数据源存放位置
-所有卡片不手写 HTML，由 JS 自动化循环渲染；数据源固定在脚本 `toolList` 数组，仅修改此处即可新增 / 删除 / 编辑卡片，无需改动页面卡片渲染代码。
-```javascript
-const toolList = [
-  // 单条工具标准对象模板
-  {
-    id: "唯一英文id，不可重复",
-    icon: "卡片左上角图标emoji",
-    title: "工具大标题",
-    desc: "工具简介描述（两行自动截断）",
-    cat: "分类英文标识（如DEV、TIME、TEXT）",
-    catName: "分类中文名称",
-    catIcon: "分类标签图标emoji",
-    date: "创建日期 格式YYYY-MM-DD，用于时间排序",
-    featured: true/false, // true=卡片显示「精选」角标
-    top: true/false,      // true=卡片显示「置顶」角标，`top`优先于`featured`
-    url: "工具跳转地址",
-    tags: ["标签1","标签2","标签3"] // 底部多标签数组
-  }
-]
-```
+- **按钮系列**：按钮底色、边框、阴影、hover/active 状态全套
 
-### 2. 新增工具卡片完整步骤
-在 `toolList` 数组末尾，复制一份完整对象模板；
-修改全部字段，保证 `id` 全站唯一，日期格式统一；
-分类 `cat` 自定义规则：
-全新分类：自定义英文标识，填写对应 `catName` 、`catIcon` ，页面自动化识别生成新分类标签；
-已有分类：复用现有 `cat` 值，工具会自动归入已有分类；
-角标控制：`featured:true` 显示精选橙标，`top:true` 显示蓝标，二者只开一个；
-保存文件刷新页面，自动化脚本自动生成卡片、自动新增对应分类标签。
-### 3. 修改 / 删除现有卡片
-修改卡片内容：直接编辑对应工具对象内字段；
-永久删除卡片：删除整条工具对象；
-临时隐藏卡片：无需删除，可新增开关字段过滤（底层过滤逻辑无需改动）。
-### 4. 卡片样式固定规则（无需调整 CSS）
-角标：自动定位图标右上角，向外偏移 8px，透明度 70%，无需手动调整；
-描述文字固定 13px，两行自动省略；
-鼠标悬浮卡片自动上浮、显示右下角箭头、显示收藏星星按钮；
-自适应网格：大屏 3 列、平板 2 列、手机 1 列，自动化适配屏幕宽度。
-## 四、全站自动化功能完整说明
-### （一）主题明暗模式自动化
-首次打开网站（无本地记录）：自动读取电脑 / 手机系统明暗时间，同步页面亮色 / 暗色；
-手动点击右上角主题按钮切换：自动将用户选择存入浏览器 localStorage；
-刷新页面、关闭重开页面：优先读取本地存储的手动主题，不再跟随系统；
-系统明暗自动监听：仅用户从未手动切换过时，系统切换深色 / 浅色，页面同步变化；手动切换后，系统不再干预页面主题。
-### （二）分类标签自动化系统
-自动提取分类：遍历 `toolList` 工具数组，自动收集所有不重复分类，无需手动写分类标签；
-单行宽度自适应计算：页面加载、窗口缩放时，自动计算一行能放下多少分类；
-溢出自动折叠：单行放不下的分类自动收纳至「更多」折叠面板；
-更多 / 收起切换：点击按钮展开 / 折叠隐藏分类，按钮文字自动切换「更多 / 收起」；
-分类数量实时计数：每个分类标签右侧自动显示该分类下工具总数；
-收藏计数联动：收藏 / 取消收藏时，「收藏」分类右侧数字实时刷新，无需刷新页面。
-### （三）收藏功能自动化
-收藏持久化：点击卡片星星，工具 `ID` 存入 `localStorage`，刷新、关闭页面收藏不丢失；
-实时联动更新：收藏状态变更后，自动刷新分类计数、自动重渲染卡片星星图标；
-分类过滤：点击`「收藏」`分类，页面自动只展示已收藏工具。
-### （四）搜索过滤自动化
-实时输入过滤：搜索框输入文字，页面实时匹配、过滤工具卡片；
-多字段模糊匹配：同时匹配工具标题、描述、分类名称、底部标签；
-无匹配自动提示：无符合条件工具时，自动展示空白提示文案；
-快捷键支持：`Ctrl+K` / `Cmd+K` 一键聚焦搜索框，回车刷新过滤结果。
-### （五）排序自动化
-时间升降序切换：点击顶部`「时间排序」`按钮，切换新旧排序；
-自动重渲染：切换排序后，卡片按日期重新排列，无需刷新页面；
-日期标准：以工具对象 `date` 字段为准，支持年月日标准格式解析。
-### （六）页面布局自适应自动化
-头部高度自动适配：导航按钮换行、窗口缩放时，自动计算顶部固定导航高度，同步占位块高度，避免内容被导航遮挡；
-网格卡片自适应：根据屏幕宽度自动切换 `3/2/1` 列布局；
-移动端适配：手机屏幕下搜索栏、排序按钮自动换行，卡片单列展示；
-窗口 resize 全局重算：缩放浏览器窗口时，自动重新计算分类溢出、头部高度、布局，实时适配。
-### （七）卡片自动化渲染
-循环批量生成：读取 `toolList` 数组，自动循环生成全部卡片 HTML；
-角标自动判断：根据 `featured / top` 字段自动生成`「精选 / 置顶」`半透明角标；
-标签自动生成：读取工具 `tags` 数组，自动生成底部多标签；
-收藏状态自动渲染：根据本地存储收藏列表，自动填充实心 / 空心星星。
+- **布局系列**：最大宽度、卡片间距、圆角分级、统一过渡动画
 
-## 五、通用修改注意事项
-所有自动化逻辑全部封装在 `JS` 脚本中，仅允许修改指定数据源（导航` HTML`、`toolList` 数组），禁止删除 / 注释自动化函数，会导致分类、收藏、渲染功能失效；
-样式统一使用 `CSS` 变量，不要单独给单个按钮、卡片新增固定宽高，破坏自适应自动化；
-本地存储依赖浏览器，无痕模式下存储临时生效，关闭无痕窗口会清空；
-纯静态页面，无数据库、无后端，所有新增 / 修改仅需修改单 `HTML` 文件，保存后直接打开生效。
-## 六、颜色主题（别试了都太难看！）
-### 1、原版-头顶绿
-```html
-/* 统一管理颜色、间距、圆角、过渡、字体尺寸，全局一处修改全页面生效 */
-    :root {
-      --primary: #10b981;                 /* 主色-青绿色 */
-      --primary-light: #dcfce7;           /* 主色浅背景 */
-      --header-bg: #f0fdf4;               /* 头部亮色背景 */
-      --warn: #f97316;                    /* 警告橙色 */
-      --nav-btn-bg: #ffffff;              /* 导航按钮亮色底色 */
-      --nav-btn-border: #e5e7eb;          /* 导航按钮边框 */
-      --nav-btn-text: #222222;            /* 导航文字亮色 */
-      --text-main: #222222;               /* 正文主要文字 */
-      --text-secondary: #555555;          /* 次要说明文字 */
-      --text-weak: #888888;               /* 弱化提示文字 */
-      --border-base: #e5e7eb;             /* 通用边框亮色 */
-      --border-light: #f3f4f6;            /* 浅分割底色 */
-      --bg-page: #ffffff;                 /* 页面亮色背景 */
-      --bg-card: #ffffff;                 /* 卡片亮色背景 */
-      --bg-btn: #ffffff;                  /* 按钮亮色背景 */
-      --bg-footer: #f0fdf4;               /* 页脚亮色背景 */
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);    /* 轻微阴影 */
-      --shadow-lg: 0 6px 16px rgba(0,0,0.1);      /* 卡片悬浮大阴影 */
-      --radius-xs: 4px;    /* 极小圆角 */
-      --radius-sm: 6px;    /* 小圆角 */
-      --radius-md: 8px;    /* 中等圆角 */
-      --radius-lg: 12px;   /* 大圆角 */
-      --radius-full: 999px;/* 全圆角胶囊按钮 */
-      --space-xs: 6px;
-      --space-sm: 10px;
-      --space-md: 14px;
-      --space-lg: 16px;
-      --space-xl: 28px;
-      --transition: all 0.22s ease; /* 全局统一过渡动画时长 */
-      --key-bg: #e5e7eb;    /* 快捷键提示底色 */
-      --key-text: #222;
-      --key-radius: 6px;
-      --key-shadow: 0 1px 2px rgba(0,0,0.15);
-      --body-font-size: 16px;
-      --body-line-height: 1.6;
-      --title-line-height: 1.2;
-      --sub-title-line-height: 1.25;
-      --content-max-width: 1200px; /* 页面最大宽度限制 */
-      --card-gap: 16px;            /* 卡片网格间距 */
-      --card-min-width: 300px;     /* 卡片最小宽度，自适应网格 */
-      --header-safe-gap: 16px;
-      --card-label-offset: 36px;
-      --nav-line-height: 38px;     /* 导航按钮高度 */
-      --theme-btn-width: 36px;     /* 主题切换按钮宽度 */
-    }
+- **背景系列**：页面渐变、卡片半透底色、毛玻璃强度
 
-    /* ===================== 暗黑模式变量覆盖 ===================== */
-    html[data-theme="dark"] {
-      --primary: #10b981;
-      --primary-light: rgba(16, 185, 129, 0.15);
-      --header-bg: #111827;
-      --nav-btn-bg: #1f2937;
-      --nav-btn-border: #374151;
-      --nav-btn-text: #f3f4f6;
-      --warn: #f97316;
-      --text-main: #f1f5f9;
-      --text-secondary: #cbd5e1;
-      --text-weak: #94a3b8;
-      --border-base: #334155;
-      --border-light: #334155;
-      --bg-page: #0f172a;
-      --bg-card: #1e293b;
-      --bg-btn: #1e293b;
-      --bg-footer: #111827;
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.2);
-      --shadow-lg: 0 6px 16px rgba(0,0,0,0.35);
-      --key-bg: #334155;
-      --key-text: #f1f5f9;
-    }
-```
-### 2、 闷骚粉
-```html
-:root {
-  --primary: #ec4899;
-  --primary-light: #fdf2f8;
-  --header-bg: #fdf2f8;
-  --warn: #f97316;
-  --nav-btn-bg: #ffffff;
-  --nav-btn-border: #fce7f3;
-  --nav-btn-text: #222222;
-  --text-main: #222222;
-  --text-secondary: #555555;
-  --text-weak: #888888;
-  --border-base: #fce7f3;
-  --border-light: #fdf2f8;
-  --bg-page: #fff9fb;
-  --bg-card: #ffffff;
-  --bg-btn: #ffffff;
-  --bg-footer: #fdf2f8;
-  --shadow-sm: 0 1px 3px rgba(236,72,153,0.08);
-  --shadow-lg: 0 6px 16px rgba(236,72,153,0.12);
-  --radius-xs: 4px;
-  --radius-sm: 6px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-full: 999px;
-  --space-xs: 6px;
-  --space-sm: 10px;
-  --space-md: 14px;
-  --space-lg: 16px;
-  --space-xl: 28px;
-  --transition: all 0.22s ease;
-  --key-bg: #fce7f3;
-  --key-text: #222;
-  --key-radius: 6px;
-  --key-shadow: 0 1px 2px rgba(0,0,0,0.15);
-  --body-font-size: 16px;
-  --body-line-height: 1.6;
-  --title-line-height: 1.2;
-  --sub-title-line-height: 1.25;
-  --content-max-width: 1200px;
-  --card-gap: 16px;
-  --card-min-width: 300px;
-  --header-safe-gap: 16px;
-  --card-label-offset: 36px;
-  --nav-line-height: 38px;
-  --theme-btn-width: 36px;
-}
+### 2\.2 暗黑模式变量覆盖机制
 
-html[data-theme="dark"] {
-  --primary: #f472b6;
-  --primary-light: rgba(244, 114, 182, 0.18);
-  --header-bg: #111827;
-  --nav-btn-bg: #1f2937;
-  --nav-btn-border: #374151;
-  --nav-btn-text: #f3f4f6;
-  --warn: #fdba74;
-  --text-main: #f9fafb;
-  --text-secondary: #d1d5db;
-  --text-weak: #9ca3af;
-  --border-base: #374151;
-  --border-light: #1f2937;
-  --bg-page: #0f172a;
-  --bg-card: #1e293b;
-  --bg-btn: #1f2937;
-  --bg-footer: #111827;
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.25);
-  --shadow-lg: 0 6px 16px rgba(0,0,0,0.45);
-  --key-bg: #374151;
-  --key-text: #f9fafb;
-  --key-shadow: 0 1px 2px rgba(0,0,0,0.35);
+当 body 挂载 `.dark` 类名时，**全部主题色、阴影、背景自动替换**，无需单独改样式：
+
+- 背景由浅蓝渐变 → 深色深空渐变
+
+- 卡片由透明白 → 透明黑
+
+- 边框由浅灰 → 深灰蓝
+
+- 阴影由浅色弱阴影 → 深色通透阴影
+
+- 文字由深灰 → 浅白灰层级
+
+### 2\.3 你本次定制的关键样式
+
+已完成 **卡片图标边框统一浅灰** 双主题适配：
+
+- 浅色：`rgba(180, 190, 200, 0.65)` 柔和浅灰边框
+
+- 深色：`rgba(110, 120, 135, 0.65)` 暗调浅灰不刺眼
+
+- 卡片图标尺寸固定 42px，仅边框配色变更，结构不变
+
+### 2\.4 分类标签激活样式说明
+
+当前激活标签逻辑：
+
+- 激活态：无边框高亮、文字加粗、透明底色
+
+- hover 态：上浮3px、白色高亮边框、轻微阴影
+
+- 点击态：回弹原位、按压阴影
+
+---
+
+## 三、页面结构模块详解（HTML结构）
+
+页面分为四大固定模块：**导航栏、搜索排序区、分类标签区、工具卡片区、页脚**
+
+### 3\.1 Header 顶部导航栏
+
+- 固定悬浮顶部、居中、毛玻璃背景
+
+- 左侧：Logo \+ 站点名称 \+ 副标题
+
+- 右侧：功能按钮组（反馈、排行、需求、Github、贡献工具）
+
+- 右上角：圆形主题切换按钮（日/月图标切换）
+
+- 自适应：手机端自动缩小适配
+
+### 3\.2 Search 搜索与排序模块
+
+- 搜索框支持 **Ctrl\+K** 快捷键提示
+
+- 实时 Input 监听，输入即时筛选
+
+- 排序按钮：时间正序 / 时间倒序 切换
+
+- 手机端自动独占一行、全屏宽度
+
+### 3\.3 Category 智能分类标签模块
+
+本项目核心亮点：**自适应溢出分类**
+
+- 自动计算标签宽度，屏幕放得下就展示，放不下自动收纳到「更多」
+
+- 支持展开/收起折叠面板
+
+- 每个标签自动统计 **当前分类工具数量**
+
+- 内置固定分类：全部、收藏
+
+- 自动遍历工具数据生成自定义分类（无需手动写标签）
+
+### 3\.4 ToolCard 工具卡片网格模块
+
+自适应网格布局：
+
+- 大屏 ≥1200px：3列
+
+- 中屏 ≤860px：2列
+
+- 手机 ≤640px：1列
+
+卡片完整结构：
+
+- 右上角：收藏星星按钮（hover显示、已收藏常驻高亮）
+
+- 顶部角标：置顶蓝标 / 精选橙标
+
+- 头部：图标 \+ 标题 \+ 分类小字
+
+- 中部：两行功能描述，超出省略
+
+- 底部：功能标签组
+
+- hover 整体上浮、右下角出现跳转箭头
+
+### 3\.5 Footer 页脚
+
+- 毛玻璃卡片样式，与全站UI统一
+
+- 展示版权、最后更新时间
+
+---
+
+## 四、JS 数据结构完整说明（核心数据源）
+
+### 4\.1 toolList 全局工具数据源
+
+所有工具全部配置在该数组，**增删改工具只需要改这里**
+
+**单条工具字段详解**
+
+```Plain Text
+{
+  id: "唯一标识（文件名）",
+  icon: "卡片emoji图标",
+  title: "工具名称",
+  desc: "工具简介描述",
+  cat: "分类标识（DEV/TEXT/CONVERT）",
+  catName: "分类中文名称",
+  catIcon: "分类图标",
+  date: "更新日期（用于排序）",
+  featured: "是否精选（橙标）",
+  top: "是否置顶（蓝标、优先排序）",
+  url: "跳转地址",
+  tags: ["搜索标签数组"]
 }
 ```
-### 3、朴实灰
-```html
-:root {
-  --primary: #52525b;
-  --primary-light: #f4f4f5;
-  --header-bg: #f4f4f5;
-  --warn: #f97316;
-  --nav-btn-bg: #ffffff;
-  --nav-btn-border: #e4e4e7;
-  --nav-btn-text: #222222;
-  --text-main: #222222;
-  --text-secondary: #555555;
-  --text-weak: #71717a;
-  --border-base: #e4e4e7;
-  --border-light: #f4f4f5;
-  --bg-page: #fafafa;
-  --bg-card: #ffffff;
-  --bg-btn: #ffffff;
-  --bg-footer: #f4f4f5;
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
-  --shadow-lg: 0 6px 16px rgba(0,0,0,0.09);
-  --radius-xs: 4px;
-  --radius-sm: 6px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-full: 999px;
-  --space-xs: 6px;
-  --space-sm: 10px;
-  --space-md: 14px;
-  --space-lg: 16px;
-  --space-xl: 28px;
-  --transition: all 0.22s ease;
-  --key-bg: #e4e4e7;
-  --key-text: #222;
-  --key-radius: 6px;
-  --key-shadow: 0 1px 2px rgba(0,0,0,0.15);
-  --body-font-size: 16px;
-  --body-line-height: 1.6;
-  --title-line-height: 1.2;
-  --sub-title-line-height: 1.25;
-  --content-max-width: 1200px;
-  --card-gap: 16px;
-  --card-min-width: 300px;
-  --header-safe-gap: 16px;
-  --card-label-offset: 36px;
-  --nav-line-height: 38px;
-  --theme-btn-width: 36px;
-}
 
-html[data-theme="dark"] {
-  --primary: #a1a1aa;
-  --primary-light: rgba(161, 161, 170, 0.18);
-  --header-bg: #111827;
-  --nav-btn-bg: #1f2937;
-  --nav-btn-border: #374151;
-  --nav-btn-text: #f3f4f6;
-  --warn: #fdba74;
-  --text-main: #f9fafb;
-  --text-secondary: #d1d5db;
-  --text-weak: #9ca3af;
-  --border-base: #374151;
-  --border-light: #1f2937;
-  --bg-page: #0f172a;
-  --bg-card: #1e293b;
-  --bg-btn: #1f2937;
-  --bg-footer: #111827;
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.25);
-  --shadow-lg: 0 6px 16px rgba(0,0,0,0.45);
-  --key-bg: #374151;
-  --key-text: #f9fafb;
-  --key-shadow: 0 1px 2px rgba(0,0,0,0.35);
-}
-```
-### 4、眼瓦蓝
-```html
-:root {
-  --primary: #52525b;
-  --primary-light: #f4f4f5;
-  --header-bg: #f4f4f5;
-  --warn: #f97316;
-  --nav-btn-bg: #ffffff;
-  --nav-btn-border: #e4e4e7;
-  --nav-btn-text: #222222;
-  --text-main: #222222;
-  --text-secondary: #555555;
-  --text-weak: #71717a;
-  --border-base: #e4e4e7;
-  --border-light: #f4f4f5;
-  --bg-page: #fafafa;
-  --bg-card: #ffffff;
-  --bg-btn: #ffffff;
-  --bg-footer: #f4f4f5;
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
-  --shadow-lg: 0 6px 16px rgba(0,0,0,0.09);
-  --radius-xs: 4px;
-  --radius-sm: 6px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-full: 999px;
-  --space-xs: 6px;
-  --space-sm: 10px;
-  --space-md: 14px;
-  --space-lg: 16px;
-  --space-xl: 28px;
-  --transition: all 0.22s ease;
-  --key-bg: #e4e4e7;
-  --key-text: #222;
-  --key-radius: 6px;
-  --key-shadow: 0 1px 2px rgba(0,0,0,0.15);
-  --body-font-size: 16px;
-  --body-line-height: 1.6;
-  --title-line-height: 1.2;
-  --sub-title-line-height: 1.25;
-  --content-max-width: 1200px;
-  --card-gap: 16px;
-  --card-min-width: 300px;
-  --header-safe-gap: 16px;
-  --card-label-offset: 36px;
-  --nav-line-height: 38px;
-  --theme-btn-width: 36px;
-}
+### 4\.2 全局状态变量
 
-html[data-theme="dark"] {
-  --primary: #a1a1aa;
-  --primary-light: rgba(161, 161, 170, 0.18);
-  --header-bg: #111827;
-  --nav-btn-bg: #1f2937;
-  --nav-btn-border: #374151;
-  --nav-btn-text: #f3f4f6;
-  --warn: #fdba74;
-  --text-main: #f9fafb;
-  --text-secondary: #d1d5db;
-  --text-weak: #9ca3af;
-  --border-base: #374151;
-  --border-light: #1f2937;
-  --bg-page: #0f172a;
-  --bg-card: #1e293b;
-  --bg-btn: #1f2937;
-  --bg-footer: #111827;
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.25);
-  --shadow-lg: 0 6px 16px rgba(0,0,0,0.45);
-  --key-bg: #374151;
-  --key-text: #f9fafb;
-  --key-shadow: 0 1px 2px rgba(0,0,0,0.35);
-}
-```
-### 5、淡橙色暖杏主题
-```html
-:root {
-  --primary: #3b82f6;
-  --primary-light: #eff6ff;
-  --header-bg: #eff6ff;
-  --warn: #f97316;
-  --nav-btn-bg: #ffffff;
-  --nav-btn-border: #dbeafe;
-  --nav-btn-text: #222222;
-  --text-main: #222222;
-  --text-secondary: #555555;
-  --text-weak: #888888;
-  --border-base: #dbeafe;
-  --border-light: #eff6ff;
-  --bg-page: #f8faff;
-  --bg-card: #ffffff;
-  --bg-btn: #ffffff;
-  --bg-footer: #eff6ff;
-  --shadow-sm: 0 1px 3px rgba(59,130,246,0.08);
-  --shadow-lg: 0 6px 16px rgba(59,130,246,0.12);
-  --radius-xs: 4px;
-  --radius-sm: 6px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-full: 999px;
-  --space-xs: 6px;
-  --space-sm: 10px;
-  --space-md: 14px;
-  --space-lg: 16px;
-  --space-xl: 28px;
-  --transition: all 0.22s ease;
-  --key-bg: #dbeafe;
-  --key-text: #222;
-  --key-radius: 6px;
-  --key-shadow: 0 1px 2px rgba(0,0,0,0.15);
-  --body-font-size: 16px;
-  --body-line-height: 1.6;
-  --title-line-height: 1.2;
-  --sub-title-line-height: 1.25;
-  --content-max-width: 1200px;
-  --card-gap: 16px;
-  --card-min-width: 300px;
-  --header-safe-gap: 16px;
-  --card-label-offset: 36px;
-  --nav-line-height: 38px;
-  --theme-btn-width: 36px;
-}
+- `currentCat`：当前选中分类，默认 all
 
-html[data-theme="dark"] {
-  --primary: #60a5fa;
-  --primary-light: rgba(96, 165, 250, 0.18);
-  --header-bg: #111827;
-  --nav-btn-bg: #1f2937;
-  --nav-btn-border: #374151;
-  --nav-btn-text: #f3f4f6;
-  --warn: #fdba74;
-  --text-main: #f9fafb;
-  --text-secondary: #d1d5db;
-  --text-weak: #9ca3af;
-  --border-base: #374151;
-  --border-light: #1f2937;
-  --bg-page: #0f172a;
-  --bg-card: #1e293b;
-  --bg-btn: #1f2937;
-  --bg-footer: #111827;
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.25);
-  --shadow-lg: 0 6px 16px rgba(0,0,0,0.45);
-  --key-bg: #374151;
-  --key-text: #f9fafb;
-  --key-shadow: 0 1px 2px rgba(0,0,0,0.35);
-}
-```
+- `panelOpen`：更多分类面板展开状态
+
+- `sortMode`：排序规则（日期正/倒序）
+
+- `favList`：本地收藏ID数组，localStorage持久化
+
+---
+
+## 五、JS 功能模块详细解析
+
+### 5\.1 主题切换模块
+
+- 优先读取本地存储用户手动主题
+
+- 无存储则跟随系统深浅色模式
+
+- 支持系统自动切换监听
+
+- 切换后实时保存、全站样式秒刷新
+
+### 5\.2 顶部高度自适应模块
+
+- 自动获取导航栏真实高度
+
+- 动态给主内容设置 margin\-top
+
+- 解决 fixed 导航遮挡内容问题
+
+- 窗口大小改变自动重计算
+
+### 5\.3 智能分类生成模块
+
+- 自动去重提取所有分类
+
+- 自动统计每个分类工具数量
+
+- 自动计算标签是否溢出、自动收纳
+
+- 切换分类即时刷新卡片
+
+### 5\.4 搜索筛选模块
+
+搜索匹配范围：
+
+- 工具标题
+
+- 工具描述
+
+- 分类名称
+
+- 所有标签
+
+输入实时防抖筛选，无卡顿
+
+### 5\.5 排序模块
+
+- 优先级：置顶工具优先展示
+
+- 其次按日期新旧排序
+
+- 支持正序/倒序切换
+
+### 5\.6 收藏系统（本地持久化）
+
+- 点击星星切换收藏/取消收藏
+
+- 收藏数据存入 localStorage，刷新不丢失
+
+- 收藏分类单独筛选已收藏工具
+
+- 收藏后实时更新分类数量、卡片状态
+
+### 5\.7 窗口自适应监听
+
+- 窗口缩放自动重算分类溢出
+
+- 自动收起更多面板防止布局错乱
+
+- 重新适配布局
+
+---
+
+## 六、交互动画细节说明
+
+- **全局过渡**：所有颜色、位移、阴影统一 0\.22s 柔和动画
+
+- **按钮悬浮**：上浮3px、白边高亮、阴影加深
+
+- **卡片悬浮**：上浮4px、右下角箭头渐显
+
+- **按压效果**：点击回弹、阴影缩小
+
+- **收藏按钮**：hover显现、收藏后常驻高亮
+
+---
+
+## 七、定制修改记录（本次修改存档）
+
+**2026\-07\-02 定制修改**
+
+1. 卡片图标边框改为 **浅灰色双主题适配**
+
+2. 浅色模式：淡灰透明边框，柔和不刺眼
+
+3. 暗黑模式：深一点浅灰边框，保持统一质感
+
+4. 保留原有图标大小、圆角、结构不变
+
+5. 全站代码添加**超详细中文分层注释**
+
+---
+
+## 八、后续维护拓展指南
+
+### 8\.1 新增工具步骤
+
+1. 在 `toolList` 数组新增一条工具对象
+
+2. 新建对应 html 子页面放入根目录
+
+3. 自动识别分类、自动计入数量、自动参与搜索排序
+
+### 8\.2 新增分类步骤
+
+1. 新增工具使用新的 cat 字段
+
+2. 系统自动生成分类标签，无需手动改HTML
+
+### 8\.3 修改主题配色
+
+只需修改 `:root` 和 `.dark` 对应变量，全站统一生效
+
+---
+
+# 九、总结
+
+本项目为 **高可维护、高拓展、高颜值、纯前端离线工具站模板**，结构清晰、变量统一、注释完整、交互成熟，可长期复用、无限迭代新增工具，无需重构架构。
+
+> （注：部分内容可能由 AI 生成） 你看豆包还是太保守了，都是他写的！
