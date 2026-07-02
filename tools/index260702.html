@@ -54,6 +54,11 @@
   --header-safe-gap: 28px;
   --nav-line-height: 34px;
   --theme-btn-width: 32px;
+  --hover-white-border: #ffffff;
+
+  /* 新增：激活标签白色外框 */
+  --tag-active-border: #ffffff;
+  --tag-active-text: #1f2937;
 }
 
 html[data-theme="dark"] {
@@ -81,6 +86,10 @@ html[data-theme="dark"] {
   --shadow-float: 0 10px 30px rgba(0, 0, 0, 0.3);
   --key-bg: rgba(58, 65, 90, 0.88);
   --key-text: #e5e7eb;
+
+  /* 深色模式下激活标签仍用白框，文字保持浅色体系 */
+  --tag-active-border: #ffffff;
+  --tag-active-text: #e5e7eb;
 }
 
 * {
@@ -106,7 +115,6 @@ body {
   font-family: "Inter", system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", Roboto, sans-serif;
   font-size: var(--body-font-size);
   line-height: var(--body-line-height);
-  /* 复刻截图柔和渐变背景，底部黄色光晕范围缩小至30% */
   background-image:
     radial-gradient(circle at 12% 8%, rgba(167, 218, 240, 0.50) 0%, transparent 30%),
     radial-gradient(circle at 88% 10%, rgba(150, 200, 230, 0.50) 0%, transparent 32%),
@@ -146,7 +154,6 @@ button {
   margin: 0 auto;
 }
 
-/* 顶部悬浮毛玻璃卡片 */
 header {
   position: fixed;
   top: 16px;
@@ -213,12 +220,13 @@ header {
   align-items: center;
   justify-content: flex-end;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 4px;
   min-width: 220px;
 }
 
+/* 顶部导航按钮更紧凑 */
 .header-btn {
-  padding: 6px 10px;
+  padding: 4px 8px;
   border: 1px solid var(--nav-btn-border);
   border-radius: 6px;
   font-size: 12px;
@@ -226,22 +234,21 @@ header {
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 3px;
   white-space: nowrap;
   background: var(--nav-btn-bg);
   color: var(--nav-btn-text);
   flex-shrink: 0;
   min-width: fit-content;
-  height: var(--nav-line-height);
+  height: 28px;
+  transform-origin: center;
 }
 
 .header-btn:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-  background: var(--primary-light);
+  border-color: var(--hover-white-border);
+  transform: scale(1.03);
 }
 
-/* 明暗切换按钮 卡片最右侧垂直居中 */
 .theme-switch-wrap {
   position: absolute;
   top: 50%;
@@ -263,13 +270,12 @@ header {
   background: var(--nav-btn-bg);
   color: var(--nav-btn-text);
   flex-shrink: 0;
-  transition: var(--transition);
+  transform-origin: center;
 }
 
 .header-btn-circle:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-  background: var(--primary-light);
+  border-color: var(--hover-white-border);
+  transform: scale(1.03);
 }
 
 @media screen and (max-width: 767px) and (orientation: portrait) {
@@ -380,12 +386,12 @@ main.container {
   white-space: nowrap;
   color: var(--text-main);
   flex-shrink: 0;
+  transform-origin: center;
 }
 
 .sort-btn:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-  background: var(--primary-light);
+  border-color: var(--hover-white-border);
+  transform: scale(1.03);
 }
 
 .category-wrap {
@@ -406,9 +412,9 @@ main.container {
 .tag-flow-box {
   display: flex;
   gap: 8px;
-  overflow: hidden;
   flex: 1;
   min-width: 0;
+  overflow: visible;
 }
 
 .category-tag,
@@ -427,19 +433,21 @@ main.container {
   background: transparent;
   color: var(--text-main);
   transition: var(--transition);
+  transform-origin: center;
 }
 
+/* 中建标签激活态：白框、文字黑色不变、加粗 */
 .category-tag.active {
-  border-color: var(--primary);
-  background: var(--primary-light);
-  color: var(--primary);
+  border-color: var(--tag-active-border);
+  color: var(--tag-active-text);
+  background: transparent;
+  font-weight: 700;
 }
 
 .category-tag:hover,
 .more-toggle-btn:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-  background: var(--primary-light);
+  border-color: var(--hover-white-border);
+  transform: scale(1.03);
 }
 
 .more-toggle-btn {
@@ -469,6 +477,7 @@ main.container {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
+  overflow: visible;
 }
 
 .empty-tip {
@@ -521,19 +530,18 @@ main.container {
   box-shadow: var(--shadow-sm);
   position: relative;
   min-width: 0;
-  overflow: hidden;
   cursor: pointer;
+  transform-origin: center;
 }
 
 .tool-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.02);
+  border-color: var(--hover-white-border);
   box-shadow: var(--shadow-md);
-  border-color: var(--primary);
-  background: var(--bg-card-strong);
 }
 
 .tool-card:active {
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
   box-shadow: var(--shadow-sm);
 }
 
@@ -725,7 +733,6 @@ main.container {
   height: 16px;
 }
 
-/* 底部悬浮毛玻璃版权卡片 */
 footer {
   width: min(100% - 32px, var(--content-max-width));
   margin: var(--space-xl) auto 24px;
